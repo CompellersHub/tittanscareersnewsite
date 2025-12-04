@@ -21,12 +21,12 @@ export const CTA = () => {
           </p>
 
           {/* Benefits line with amber dots */}
-          <div className="flex flex-wrap justify-center items-center gap-3 text-white text-sm leading-snug font-sans">
-            <span>8–16 week live cohorts</span>
+          <div className="flex flex-wrap justify-center items-center gap-3 !text-white text-sm leading-snug font-sans">
+            <span className='!text-white'>8–16 week live cohorts</span>
             <div className="w-1.5 h-1.5 bg-tc-amber rounded-full" />
-            <span>12 months career support</span>
+            <span className='!text-white'>12 months career support</span>
             <div className="w-1.5 h-1.5 bg-tc-amber rounded-full" />
-            <span>Flexible Payl8r instalments (3–12 months)</span>
+            <span className='!text-white'>Flexible Payl8r instalments (3–12 months)</span>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

@@ -32,13 +32,17 @@ import { ToolsCarousel } from "@/components/homepage/ToolsCarousel";
 import { StatsInfographic } from "@/components/infographics/StatsInfographic";
 import { ProcessInfographic } from "@/components/infographics/ProcessInfographic";
 import { LazyInfographic } from "@/components/infographics/LazyInfographic";
-import { TrendingUp, Target, Award, Users } from "lucide-react";
+import { useFetchCourse } from "@/hooks/useCourse";
 
 const Index = () => {
-  const coursesArray = Object.values(courses);
-  const featuredCourses = coursesArray.slice(0, 3);
+ 
   const [showCourseFinder, setShowCourseFinder] = useState(false);
   const [showLeadMagnet, setShowLeadMagnet] = useState(false);
+  
+  const { data: fetchCourses, isLoading } = useFetchCourse();
+  
+  const featuredCourses = fetchCourses?.courses.slice(0, 3);
+   console.log("Fetched Courses:", fetchCourses?.courses);
 
   useBehaviorTracking({ enableAutoTracking: true });
   
@@ -106,7 +110,7 @@ const Index = () => {
               </p>
             </div>
             
-            <CourseGrid courses={featuredCourses} />
+            <CourseGrid courses={featuredCourses} loading={isLoading} />
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12 animate-slide-up">
               <Button 

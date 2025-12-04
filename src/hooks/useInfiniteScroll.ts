@@ -27,8 +27,8 @@ export function useInfiniteScroll<T>({
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   const totalDisplayed = currentPage * itemsPerPage;
-  const displayedItems = items.slice(0, totalDisplayed);
-  const hasMore = totalDisplayed < items.length;
+  const displayedItems = items?.slice(0, totalDisplayed);
+  const hasMore = totalDisplayed < items?.length;
 
   const loadMore = useCallback(() => {
     if (!hasMore || isLoadingMore || !enabled) return;
@@ -88,7 +88,7 @@ export function useInfiniteScroll<T>({
   // Reset when items change (e.g., filtering)
   useEffect(() => {
     reset();
-  }, [items.length, reset]);
+  }, [items?.length, reset]);
 
   return {
     displayedItems,
@@ -97,7 +97,7 @@ export function useInfiniteScroll<T>({
     loadMore,
     reset,
     totalDisplayed,
-    totalItems: items.length,
+    totalItems: items?.length,
   };
 }
 

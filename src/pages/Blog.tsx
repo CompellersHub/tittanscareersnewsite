@@ -167,7 +167,7 @@ const Blog = () => {
               CAREER INSIGHTS
             </Badge>
             
-            <h1 className="font-kanit text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+            <h1 className="font-kanit text-white text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
               Learn. Grow. <span className="text-tc-amber">Succeed.</span>
             </h1>
             
@@ -317,7 +317,7 @@ const Blog = () => {
             </Button>
             
             <Link to="/courses">
-              <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-sans">
+              <Button size="lg" variant="outline" className="border-primary-foreground bg-stone-400 text-primary-foreground hover:bg-primary-foreground hover:text-primary font-sans">
                 View All Courses
               </Button>
             </Link>

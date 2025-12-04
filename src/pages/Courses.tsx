@@ -17,6 +17,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useFetchCourse } from "@/hooks/useCourse";
 
 export default function Courses() {
   const coursesArray = Object.values(courses);
@@ -24,6 +25,8 @@ export default function Courses() {
   const isMobile = useIsMobile();
   const sentinelRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+   const { data: fetchCourses, isLoading } = useFetchCourse();
+
   
   // Enable keyboard shortcuts
   useNavigationShortcuts();
@@ -39,7 +42,7 @@ export default function Courses() {
     startIndex,
     endIndex,
     totalItems,
-  } = usePagination({ items: coursesArray, itemsPerPage: 12 });
+  } = usePagination({ items: fetchCourses?.courses, itemsPerPage: 12 });
 
   // Infinite scroll for mobile
   const {
@@ -49,7 +52,7 @@ export default function Courses() {
     loadMore,
     totalDisplayed,
     reset: resetInfiniteScroll,
-  } = useInfiniteScroll({ items: coursesArray, itemsPerPage: 12, enabled: isMobile });
+  } = useInfiniteScroll({ items: fetchCourses?.courses, itemsPerPage: 12, enabled: isMobile });
 
   // Pull to refresh functionality
   const handleRefresh = async () => {
@@ -94,7 +97,13 @@ export default function Courses() {
 
   const displayItems = isMobile ? infiniteScrollItems : paginatedItems;
   console.log("📱 Display mode:", isMobile ? "mobile" : "desktop");
-  console.log("🎯 Display items count:", displayItems.length);
+  console.log("🎯 Display items count:", displayItems?.length);
+
+// if(isLoading){
+//     return (
+//       <Loading
+//     )
+//   }
   
   return (
     <PageTransition variant="slide">
