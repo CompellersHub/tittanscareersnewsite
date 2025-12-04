@@ -143,7 +143,7 @@ const Resources = () => {
               FREE RESOURCES
             </Badge>
             
-            <h1 className="font-kanit text-4xl md:text-6xl font-bold">
+            <h1 className="font-kanit text-white text-4xl md:text-6xl font-bold">
               Your <span className="text-accent">Free Career Toolkit</span>
             </h1>
             
@@ -302,7 +302,7 @@ const Resources = () => {
               View Our Courses
             </Button>
             
-            <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-sans text-lg px-8">
+            <Button size="lg" variant="outline" className="border-primary-foreground bg-stone-400 text-primary-foreground hover:bg-primary-foreground hover:text-primary font-sans text-lg px-8">
               <BookOpen className="w-5 h-5 mr-2" />
               Book Free Consultation
             </Button>

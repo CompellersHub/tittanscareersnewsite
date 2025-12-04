@@ -16,8 +16,8 @@ import digitalMarketingHero from "@/assets/courses/digital-marketing-hero.jpg";
 
 interface CourseProps {
   data: {
-    slug: string;  
-_id: string;
+    slug: string;
+    id: string;
     name: string;
     tagline: string;
     course_image: string;
@@ -31,13 +31,12 @@ _id: string;
     description: string;
     projectCount: number;
   };
-  id:string
 }
 interface CourseCardProps {
   course: CourseProps;
 }
 
-export function CourseCard({ course }: CourseCardProps) {
+export function CourseCardDetails({ course }: CourseCardProps) {
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
       compliance: "bg-accent/10 text-accent border-accent/20",
@@ -78,8 +77,7 @@ export function CourseCard({ course }: CourseCardProps) {
           {course?.data?.category?.name}
         </Badge>
       
-      <Link to={`/course/${course?.id
-}`} className="group/link">
+      <Link to={`/course/${course?.data?.id}`} className="group/link">
         <h3 className="font-kanit text-2xl font-bold mb-3 group-hover/link:text-accent transition-colors duration-300 leading-tight text-primary">
           {course?.data?.name}
         </h3>
@@ -119,7 +117,7 @@ export function CourseCard({ course }: CourseCardProps) {
             </span>
           </div>
           <CourseEnrollmentButton
-            courseSlug={course?.id}
+            courseSlug={course?.data?.id}
             courseTitle={course?.data?.name}
             price={course?.data?.price}
             variant="default"
