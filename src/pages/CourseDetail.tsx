@@ -25,23 +25,24 @@ import { DiscussionForum } from "@/components/course/DiscussionForum";
 import { createAcademySSOLink } from "@/lib/academy-integration";
 import { FloatingCourseCTA } from "@/components/course/FloatingCourseCTA";
 import { ShareButton } from "@/components/ShareButton";
+import { useFetchSingleCourse } from "@/hooks/useCourse";
 
 export default function CourseDetail() {
   const { slug } = useParams();
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [certificate, setCertificate] = useState<any>(null);
   const [generatingSSOLink, setGeneratingSSOLink] = useState(false);
   const coursesArray = Object.values(courses);
-  const course = coursesArray.find(c => c.slug === slug);
+  // const course = coursesArray.find(c => c.slug === slug);
   const { trackCourseView } = useBehaviorTracking();
   const { user } = useAuth();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, [slug]);
+  const { data: course, isLoading } = useFetchSingleCourse(slug || "");
+
+  console.log(course, "lopkm");
+
+ 
 
   useEffect(() => {
     checkEnrollmentAndCertificate();
@@ -86,7 +87,7 @@ export default function CourseDetail() {
 
   useEffect(() => {
     if (course) {
-      trackCourseView(course.slug, course.title);
+      trackCourseView(course?.id, course?.data?.name);
     }
   }, [course, trackCourseView]);
 
@@ -144,7 +145,9 @@ export default function CourseDetail() {
         <PageLayout intensity3D="subtle" show3D={true}>
           <div className="container mx-auto py-16 px-4 text-center">
             <h1 className="text-4xl font-bold mb-4">Course not found</h1>
-            <p className="text-muted-foreground">The course you're looking for doesn't exist.</p>
+            <p className="text-muted-foreground">
+              The course you're looking for doesn't exist.
+            </p>
           </div>
         </PageLayout>
       </PageTransition>
@@ -153,21 +156,26 @@ export default function CourseDetail() {
 
   return (
     <PageTransition variant="slideUp">
-      <SEO 
-        title={`${course.title} - Professional Training Course`}
+      <SEO
+        title={`${course?.data?.name} - Professional Training Course`}
         description={course.description}
         type="product"
-        keywords={`${course.title}, ${course.category}, professional training, certification, ${course.tools.join(', ')}`}
+        keywords={`${course.data?.name}, ${
+          course?.data?.category?.name
+        }, professional training, certification, ${course?.tools?.join(", ")}`}
         structuredData={generateCourseSchema({
-          name: course.title,
-          description: course.description,
-          price: course.price,
-          duration: course.duration
+          name: course?.data?.name,
+          description: course?.data?.description,
+          price: course?.data?.price,
+          duration: course?.data?.estimated_time,
         })}
       />
       <PageLayout intensity3D="subtle" show3D={true}>
-        <FloatingCourseCTA courseSlug={course.slug} courseTitle={course.title} />
-        
+        <FloatingCourseCTA
+          courseSlug={course.id}
+          courseTitle={course.data?.name}
+        />
+
         <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
           <VideoBackground
             videoUrl="https://player.vimeo.com/external/example.mp4"
@@ -177,47 +185,61 @@ export default function CourseDetail() {
           />
           <div className="relative z-10 text-center text-primary-foreground space-y-4 px-4">
             <Badge className="mb-4 bg-accent/90 text-accent-foreground border-accent/30 font-semibold">
-              {course.category}
+              {course?.data?.category?.name}
             </Badge>
             <h1 className="text-4xl md:text-6xl font-kanit font-bold">
-              {course.title}
+              {course?.data?.name}
             </h1>
-            <p className="text-xl md:text-2xl font-sans max-w-3xl mx-auto">
+            {/* <p className="text-xl md:text-2xl font-sans max-w-3xl mx-auto">
               {course.tagline}
-            </p>
+            </p> */}
           </div>
         </section>
-        
+
         <div className="container mx-auto py-16 px-4">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-12">
               <div>
-                <Badge className="mb-4 bg-tc-amber/10 text-tc-amber border-tc-amber/30 font-semibold">{course.category}</Badge>
-                <h1 className="text-4xl md:text-5xl font-kanit font-bold mb-4 text-tc-navy">{course.title}</h1>
-                <p className="text-xl font-sans text-muted-foreground mb-8 leading-relaxed">{course.tagline}</p>
-                
+                <Badge className="mb-4 bg-tc-amber/10 text-tc-amber border-tc-amber/30 font-semibold">
+                  {course?.data?.category?.name}
+                </Badge>
+                <h1 className="text-4xl md:text-5xl font-kanit font-bold mb-4 text-tc-navy">
+                  {course?.data?.name}
+                </h1>
+                {/* <p className="text-xl font-sans text-muted-foreground mb-8 leading-relaxed">
+                  {course.tagline}
+                </p> */}
+
                 <div className="flex flex-wrap gap-6 mb-8">
                   <div className="flex items-center gap-2">
                     <Clock className="h-5 w-5 text-tc-amber" />
-                    <span className="text-sm font-medium">{course.duration}</span>
+                    <span className="text-sm font-medium">
+                      {course?.data?.estimated_time}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <BookOpen className="h-5 w-5 text-tc-amber" />
-                    <span className="text-sm font-medium">{course.projectCount} Projects</span>
+                    <span className="text-sm font-medium">
+                      {course.projectCount} Projects
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Award className="h-5 w-5 text-tc-amber" />
-                    <span className="text-sm font-medium">Certificate Included</span>
+                    <span className="text-sm font-medium">
+                      Certificate Included
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Users className="h-5 w-5 text-tc-amber" />
-                    <span className="text-sm font-medium">Expert Instructors</span>
+                    <span className="text-sm font-medium">
+                      Expert Instructors
+                    </span>
                   </div>
-                  
-                  <ShareButton 
-                    title={course.title}
+
+                  <ShareButton
+                    title={course?.data?.name}
                     url={window.location.href}
-                    description={course.description}
+                    description={course?.data?.description}
                     variant="outline"
                     size="sm"
                   />
@@ -236,14 +258,22 @@ export default function CourseDetail() {
 
                 <TabsContent value="overview" className="space-y-8 mt-8">
                   <div>
-                    <h2 className="text-2xl font-kanit font-bold mb-4 text-foreground">Course Overview</h2>
-                    <p className="font-sans text-muted-foreground leading-relaxed">{course.description}</p>
+                    <h2 className="text-2xl font-kanit font-bold mb-4 text-foreground">
+                      Course Overview
+                    </h2>
+                    <p className="font-sans text-muted-foreground leading-relaxed">
+                      {course?.data?.description}
+                    </p>
                   </div>
-                  
+
+                  {course?.data?.learning_outcomes?.outcomes &&(
+
                   <div>
-                    <h2 className="text-2xl font-kanit font-bold mb-6 text-foreground">What You'll Learn</h2>
+                    <h2 className="text-2xl font-kanit font-bold mb-6 text-foreground">
+                      What You'll Learn
+                    </h2>
                     <ul className="space-y-3 font-sans text-muted-foreground">
-                      {course.overview.map((item, index) => (
+                      {course?.data?.learning_outcomes?.outcomes?.map((item, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                           <span>{item}</span>
@@ -251,20 +281,32 @@ export default function CourseDetail() {
                       ))}
                     </ul>
                   </div>
-                  
+                  )}
+
+                      {course?.data?.required_materials?.requirements &&(
+
                   <div>
-                    <h2 className="text-2xl font-kanit font-bold mb-6 text-foreground">Tools & Technologies</h2>
+                    <h2 className="text-2xl font-kanit font-bold mb-6 text-foreground">
+                      Tools & Technologies
+                    </h2>
                     <div className="flex flex-wrap gap-3">
-                      {course.tools.map((tool, index) => (
-                        <Badge key={index} variant="secondary">{tool}</Badge>
+                      {course?.data?.required_materials?.requirements?.map((tool, index) => (
+                        <Badge key={index} variant="secondary">
+                          {tool}
+                        </Badge>
                       ))}
                     </div>
                   </div>
-                  
+                      )}
+
+                      {course?.data?.target_audience?.audiences &&(
+
                   <div>
-                    <h2 className="text-2xl font-kanit font-bold mb-6 text-foreground">Who This Course is For</h2>
+                    <h2 className="text-2xl font-kanit font-bold mb-6 text-foreground">
+                      Who This Course is For
+                    </h2>
                     <ul className="space-y-3 font-sans text-muted-foreground">
-                      {course.whoItsFor.map((item, index) => (
+                      {course?.data?.target_audience?.audiences?.map((item, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                           <span>{item}</span>
@@ -272,6 +314,8 @@ export default function CourseDetail() {
                       ))}
                     </ul>
                   </div>
+                      )}
+
                 </TabsContent>
 
                 <TabsContent value="lessons" className="mt-8">
@@ -279,7 +323,10 @@ export default function CourseDetail() {
                 </TabsContent>
 
                 <TabsContent value="discussions" className="mt-8">
-                  <DiscussionForum courseSlug={slug || ""} isEnrolled={isEnrolled} />
+                  <DiscussionForum
+                    courseSlug={slug || ""}
+                    isEnrolled={isEnrolled}
+                  />
                 </TabsContent>
 
                 <TabsContent value="certificate" className="mt-8">
@@ -287,11 +334,13 @@ export default function CourseDetail() {
                 </TabsContent>
               </Tabs>
             </div>
-            
+
             <div className="lg:col-span-1">
               <div className="sticky top-4 p-6 border border-border rounded-lg bg-card shadow-lg space-y-6">
-                <div className="text-4xl font-kanit font-bold text-foreground">£{course.price}</div>
-                
+                <div className="text-4xl font-kanit font-bold text-foreground">
+                  £{course?.data?.price}
+                </div>
+
                 {isEnrolled ? (
                   <Button
                     onClick={handleAccessAcademy}
@@ -300,18 +349,20 @@ export default function CourseDetail() {
                     className="w-full mb-6"
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
-                    {generatingSSOLink ? "Generating Link..." : "Access on Titans Academy"}
+                    {generatingSSOLink
+                      ? "Generating Link..."
+                      : "Access on Titans Academy"}
                   </Button>
                 ) : (
                   <CourseEnrollmentButton
-                    courseSlug={course.slug}
-                    courseTitle={course.title}
-                    price={course.price}
+                    courseSlug={course.id}
+                    courseTitle= {course?.data?.name}
+                    price={course?.data?.price}
                     size="lg"
                     className="w-full mb-6"
                   />
                 )}
-                
+
                 <ul className="space-y-3 text-sm font-sans text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-primary" />

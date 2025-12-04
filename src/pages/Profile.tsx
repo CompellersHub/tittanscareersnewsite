@@ -191,7 +191,7 @@ export default function Profile() {
         <div className="flex-1 py-12 px-4">
           <div className="container max-w-6xl mx-auto">
             {/* Header */}
-            <div className="mb-8">
+            <div className=" mt-12 mb-8">
               <h1 className="text-4xl font-bold mb-2">Welcome back, {profile?.full_name || 'Student'}</h1>
               <p className="text-muted-foreground">Manage your account and access your learning platform</p>
             </div>
@@ -199,7 +199,7 @@ export default function Profile() {
             {/* Hero LMS Access Card */}
             <Card className="mb-8 bg-gradient-to-r from-primary to-accent text-primary-foreground border-0 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-2xl flex items-center gap-2">
+                <CardTitle className="text-2xl text-white flex items-center gap-2">
                   <GraduationCap className="w-6 h-6" />
                   Ready to Learn?
                 </CardTitle>

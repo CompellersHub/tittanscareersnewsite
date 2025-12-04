@@ -20,10 +20,6 @@ const BlogPost = () => {
   const post = blogPosts.find(p => p.slug === slug);
   
   // If post not found, redirect to blog
-  if (!post) {
-    return <Navigate to="/blog" replace />;
-  }
-
   // Update page title for SEO
   useEffect(() => {
     document.title = `${post.title} | Titans Careers Blog`;
@@ -38,6 +34,12 @@ const BlogPost = () => {
       document.title = 'Titans Careers';
     };
   }, [post]);
+
+
+  if (!post) {
+    return <Navigate to="/blog" replace />;
+  }
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -138,7 +140,7 @@ const BlogPost = () => {
                 {post.category.replace('-', ' ').toUpperCase()}
               </Badge>
               
-              <h1 className="font-kanit text-3xl md:text-5xl font-bold leading-tight">
+              <h1 className="font-kanit text-white text-3xl md:text-5xl font-bold leading-tight">
                 {post.title}
               </h1>
               
@@ -229,7 +231,7 @@ const BlogPost = () => {
                   </Button>
                   
                   <Link to="/courses">
-                    <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                    <Button size="lg" variant="outline" className="border-primary-foreground bg-stone-400 text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                       View Courses
                     </Button>
                   </Link>

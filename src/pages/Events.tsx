@@ -85,7 +85,7 @@ const Events = () => {
               <Button size="lg" className="bg-accent hover:bg-accent/90" asChild>
                 <a href="#cohorts">View Cohort Schedule</a>
               </Button>
-              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
+              <Button size="lg" variant="outline" className="border-white/20 !bg-stone-400 text-white hover:bg-white/10" asChild>
                 <Link to="/courses">Browse Courses</Link>
               </Button>
             </div>

@@ -113,7 +113,7 @@ const About = () => {
               OUR STORY
             </Badge>
             
-            <h1 className="font-kanit text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="font-kanit text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               We're Building <span className="text-tc-amber">Real Careers</span>,
               Not Just Courses
             </h1>
