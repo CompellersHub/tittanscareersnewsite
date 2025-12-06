@@ -244,7 +244,7 @@ const Contact = () => {
                     <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
                       <MessageCircle className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="font-kanit text-2xl font-bold">
+                    <h3 className="font-kanit text-white text-2xl font-bold">
                       Prefer Instant Chat?
                     </h3>
                   </div>
@@ -257,11 +257,11 @@ const Contact = () => {
                   <div className="space-y-3 pt-2">
                     <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
                       <CheckCircle2 className="w-4 h-4 text-accent" />
-                      <span>Average response time: <span className="font-bold text-primary-foreground">5 minutes</span></span>
+                      <span className='text-white'>Average response time: <span className="font-bold text-primary-foreground">5 minutes</span></span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
                       <CheckCircle2 className="w-4 h-4 text-accent" />
-                      <span>Available Monday-Saturday</span>
+                      <span className='text-white'>Available Monday-Saturday</span>
                     </div>
                   </div>
                   
