@@ -39,7 +39,11 @@ function AnimatedNumber({ value, duration = 2000 }: { value: number; duration?: 
     return () => cancelAnimationFrame(animationFrame);
   }, [value, duration]);
 
-  return <span>{count}</span>;
+  return (
+    <span className="font-kanit text-5xl font-bold mb-2 bg-gradient-to-r from-primary via-accent to-gold bg-clip-text text-transparent">
+      {count}
+    </span>
+  );
 }
 
 export function StatsInfographic({ stats, columns = 3 }: StatsInfographicProps) {

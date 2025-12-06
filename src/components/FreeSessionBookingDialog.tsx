@@ -54,6 +54,8 @@ const formSchema = z.object({
   }),
 });
 
+
+
 type FormData = z.infer<typeof formSchema>;
 
 export const FreeSessionBookingDialog = () => {
@@ -108,6 +110,14 @@ export const FreeSessionBookingDialog = () => {
           ? "You'll receive the WhatsApp group link in your confirmation email."
           : "Our team will reach out to schedule your free session.",
       });
+
+      if (data.joinWhatsappGroup && selectedCourseData?.whatsappGroupLink) {
+        window.open(
+          selectedCourseData.whatsappGroupLink,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
 
       form.reset();
       setOpen(false);

@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useFetchCourse } from "@/hooks/useCourse";
+import OptimizedVideo from "@/components/OptimizedVideo";
 
 export default function Courses() {
   const coursesArray = Object.values(courses);
@@ -125,7 +126,7 @@ export default function Courses() {
       
       <PageLayout intensity3D="subtle" show3D={true}>
         <div className="container max-w-7xl mx-auto py-24 md:py-32 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16 md:mb-20 animate-fade-in">
+          <div className="max-w-4xl mx-auto text-center mb-2 animate-fade-in">
             <h1 className="font-kanit text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-tc-navy leading-tight">
               Professional Courses
             </h1>
@@ -133,6 +134,19 @@ export default function Courses() {
               Transform your career with industry-leading training programs designed by experts
             </p>
           </div>
+
+           <section className="py-20">
+  <div className="container max-w-5xl mx-auto px-6">
+    <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
+      <OptimizedVideo
+        src="/videos/video2"
+        poster="/images/video-poster.jpg"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  {/* content below */}
+  </div>
+</section>
           
           <CourseGrid courses={displayItems} loading={false} />
           
