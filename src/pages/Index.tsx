@@ -33,6 +33,7 @@ import { StatsInfographic } from "@/components/infographics/StatsInfographic";
 import { ProcessInfographic } from "@/components/infographics/ProcessInfographic";
 import { LazyInfographic } from "@/components/infographics/LazyInfographic";
 import { useFetchCourse } from "@/hooks/useCourse";
+import OptimizedVideo from "@/components/OptimizedVideo";
 
 const Index = () => {
  
@@ -65,33 +66,53 @@ const Index = () => {
 
   return (
     <PageTransition variant="default">
-      <SEO 
+      <SEO
         title="Titans Training Group - Professional Training Courses"
         description="Transform your career with practical training courses from Titans Training Group. Learn AML/KYC, Data Analysis, Cybersecurity, and more with hands-on projects. 85% job placement rate."
         keywords="training courses, professional development, career change, AML training, KYC certification, data analysis courses, cybersecurity training, compliance training, tech training"
         structuredData={organizationSchema}
       />
       <PageLayout intensity3D="subtle" show3D={true}>
-        
         <ExitIntentPopup />
         <SocialProofNotifications />
-        <CourseFinder isOpen={showCourseFinder} onClose={() => setShowCourseFinder(false)} />
-        <LeadMagnetModal isOpen={showLeadMagnet} onClose={() => setShowLeadMagnet(false)} />
+        <CourseFinder
+          isOpen={showCourseFinder}
+          onClose={() => setShowCourseFinder(false)}
+        />
+        <LeadMagnetModal
+          isOpen={showLeadMagnet}
+          onClose={() => setShowLeadMagnet(false)}
+        />
         <ErrorBoundary fallback={null}>
           <AICourseAdvisor />
         </ErrorBoundary>
-        
+
         <HeroSection />
 
         <section className="py-16 px-4 bg-background/80 backdrop-blur-sm relative">
           <div className="container mx-auto">
-            <LazyInfographic 
+            <LazyInfographic
               component={StatsInfographic}
               componentProps={{ stats: statsData, columns: 4 }}
             />
           </div>
         </section>
-        
+
+        <section className="py-20">
+  <div className="container max-w-5xl mx-auto px-6">
+    <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
+      <OptimizedVideo
+        src="/videos/video1"
+        poster="/images/video-poster.jpg"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  {/* content below */}
+  </div>
+</section>
+ 
+       
+
         <section className="py-20 md:py-28 px-4 bg-secondary/50 backdrop-blur-sm relative overflow-hidden">
           <div className="container mx-auto relative z-10">
             <div className="text-center mb-16 animate-fade-in">
@@ -100,22 +121,26 @@ const Index = () => {
                   Professional Training
                 </span>
               </div>
-              
-              <h2 className="font-kanit font-semibold text-primary mb-6" style={{ fontSize: 'clamp(24px, 4vw, 36px)' }}>
+
+              <h2
+                className="font-kanit font-semibold text-primary mb-6"
+                style={{ fontSize: "clamp(24px, 4vw, 36px)" }}
+              >
                 Our Flagship Courses
               </h2>
-              
+
               <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Start your career transformation today with our industry-leading programs
+                Start your career transformation today with our industry-leading
+                programs
               </p>
             </div>
-            
+
             <CourseGrid courses={featuredCourses} loading={isLoading} />
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12 animate-slide-up">
-              <Button 
-                size="lg" 
-                variant="default" 
+              <Button
+                size="lg"
+                variant="default"
                 className="font-bold"
                 onClick={() => setShowCourseFinder(true)}
               >
@@ -130,7 +155,7 @@ const Index = () => {
             </div>
           </div>
         </section>
-        
+
         <section className="py-16 px-4 bg-gradient-to-br from-accent/10 to-accent/5">
           <div className="container mx-auto max-w-4xl">
             <div className="bg-background rounded-2xl shadow-xl p-8 md:p-12 text-center space-y-6">
@@ -141,10 +166,11 @@ const Index = () => {
                 Free Career Resources
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Download our proven career guides, roadmaps, and toolkits to kickstart your journey
+                Download our proven career guides, roadmaps, and toolkits to
+                kickstart your journey
               </p>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 onClick={() => setShowLeadMagnet(true)}
                 className="font-bold"
               >
@@ -154,36 +180,42 @@ const Index = () => {
             </div>
           </div>
         </section>
-        
+
         <CompanyLogosCarousel />
-        
+
         <UpcomingEvents />
-        
-        <div id="how-it-works" className="bg-background/80 backdrop-blur-sm py-16">
+
+        <div
+          id="how-it-works"
+          className="bg-background/80 backdrop-blur-sm py-16"
+        >
           <LazyInfographic
             component={ProcessInfographic}
-            componentProps={{ title: "Your Journey to a New Career", steps: processSteps }}
+            componentProps={{
+              title: "Your Journey to a New Career",
+              steps: processSteps,
+            }}
           />
         </div>
-        
+
         <div id="success-stories">
           <SuccessStoriesSection />
         </div>
-        
+
         <ToolsCarousel />
-        
+
         <div id="faqs">
           <FAQSection />
         </div>
-        
+
         <section className="py-16 px-4 bg-secondary">
           <div className="container mx-auto max-w-2xl">
             <ReferralProgram />
           </div>
         </section>
-        
+
         <NewsletterSection />
-        
+
         <CTA />
         <ScrollToTop />
         <KeyboardShortcutsHelper />

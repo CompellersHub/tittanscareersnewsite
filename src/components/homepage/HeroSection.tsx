@@ -26,7 +26,6 @@ export const HeroSection = () => {
           <div className="space-y-8 animate-fade-in">
             {/* Enhanced Tagline Badge with icon */}
             <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-tc-amber/15 to-tc-gold/10 rounded-full border-2 border-tc-amber/30 shadow-lg backdrop-blur-sm animate-fade-in hover:scale-105 transition-transform">
-              <Sparkles className="w-4 h-4 text-tc-amber" />
               <span className="text-tc-navy font-sans font-bold text-sm tracking-wide">
                 Practical training. Real careers.
               </span>
