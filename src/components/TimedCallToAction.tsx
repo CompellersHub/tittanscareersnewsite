@@ -43,13 +43,13 @@ export const TimedCallToAction = () => {
       {/* Book Free Session Dialog */}
       <Dialog open={showBookingDialog} onOpenChange={setShowBookingDialog}>
         <DialogContent className="sm:max-w-[480px] p-0 overflow-hidden border-2 border-accent/20">
-          <button
+          {/* <button
             onClick={handleBookingClose}
             className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all z-10"
             aria-label="Close"
           >
             <X className="h-4 w-4" />
-          </button>
+          </button> */}
           
           <div className="bg-gradient-to-br from-accent/10 via-accent/5 to-background p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-2xl flex items-center justify-center">
@@ -112,13 +112,13 @@ export const TimedCallToAction = () => {
       {/* Join Free Session Dialog */}
       <Dialog open={showJoinDialog} onOpenChange={setShowJoinDialog}>
         <DialogContent className="sm:max-w-[480px] p-0 overflow-hidden border-2 border-accent/20">
-          <button
+          {/* <button
             onClick={() => setShowJoinDialog(false)}
             className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:text-accent hover:bg-accent/10 transition-all z-10"
             aria-label="Close"
           >
             <X className="h-4 w-4" />
-          </button>
+          </button> */}
           
           <div className="bg-gradient-to-br from-accent/10 via-accent/5 to-background p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-2xl flex items-center justify-center">

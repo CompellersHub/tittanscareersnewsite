@@ -1,9 +1,13 @@
 import { Star, Sparkles, Award, Target, Users, TrendingUp, CheckCircle2 } from "lucide-react";
 import { FreeSessionBookingDialog } from "@/components/FreeSessionBookingDialog";
+import OptimizedVideo from "../OptimizedVideo";
 
 export const HeroSection = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-white to-tc-navy/[0.02] min-h-[90vh] flex items-center">
+     
+     
+     
       {/* Enhanced animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Large gradient orbs */}
@@ -16,6 +20,8 @@ export const HeroSection = () => {
         <div className="absolute bottom-32 left-[20%] w-2 h-2 bg-tc-amber/25 rounded-full animate-float" style={{ animationDelay: '1s' }} />
         <div className="absolute top-[60%] right-[25%] w-2 h-2 bg-tc-gold/30 rounded-full animate-float" style={{ animationDelay: '1.5s' }} />
       </div>
+
+      
       
       {/* Enhanced grid pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] z-10" />
