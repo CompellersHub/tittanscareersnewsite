@@ -87,6 +87,17 @@ const Index = () => {
           <AICourseAdvisor />
         </ErrorBoundary>
 
+        <section className="pt-20">
+          <div className="w-full max-h-[70vh] aspect-video overflow-hidden rounded-none  shadow-2xl">
+            <OptimizedVideo
+              src="/videos/video3"
+              poster="/images/video-poster.jpg"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
+        </section>
+
         <HeroSection />
 
         <section className="py-16 px-4 bg-background/80 backdrop-blur-sm relative">
@@ -99,19 +110,17 @@ const Index = () => {
         </section>
 
         <section className="py-20">
-  <div className="container max-w-5xl mx-auto px-6">
-    <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-      <OptimizedVideo
-        src="/videos/video1"
-        poster="/images/video-poster.jpg"
-        className="w-full h-full object-cover"
-      />
-    </div>
-  {/* content below */}
-  </div>
-</section>
- 
-       
+          <div className="container max-w-5xl mx-auto px-6">
+            <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <OptimizedVideo
+                src="/videos/video1"
+                poster="/images/video-poster.jpg"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* content below */}
+          </div>
+        </section>
 
         <section className="py-20 md:py-28 px-4 bg-secondary/50 backdrop-blur-sm relative overflow-hidden">
           <div className="container mx-auto relative z-10">
