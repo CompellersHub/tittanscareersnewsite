@@ -96,11 +96,10 @@ const Index = () => {
             />
           </div>
 
-        </section>
-          <HeroSection /> */}
+        </section> */}
+          <HeroSection />
 
-        <section className="relative w-full min-h-screen min-h[90vh] flex items-center justify-center overflow-hidden">
-          {/* Background Video */}
+       {/* <section className="relative w-full min-h-screen min-h[90vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 w-full h-full">
             <OptimizedVideo
               src="/videos/video3"
@@ -109,14 +108,14 @@ const Index = () => {
             />
           </div>
 
-          {/* Dark overlay for readability */}
+          Dark overlay for readability
           <div className="absolute inset-0 bgblack/40"></div>
 
-          {/* Content on top */}
+          Content on top
           <div className="relative z-20 w-full">
             <HeroSection />
           </div>
-        </section>
+        </section>  */}
 
         <section className="py-16 px-4 bg-background/80 backdrop-blur-sm relative">
           <div className="container mx-auto">
@@ -127,7 +126,18 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="py-20">
+        <section className="pt-20">
+          <div className="w-full max-h-[90vh] aspect-video overflow-hidden rounded-none">
+            <OptimizedVideo
+              src="/videos/video1"
+              poster="/images/video-poster.jpg"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+        </section>
+
+        {/* <section className="py-20">
           <div className="container max-w-5xl mx-auto px-6">
             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
               <OptimizedVideo
@@ -136,9 +146,8 @@ const Index = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* content below */}
           </div>
-        </section>
+        </section> */}
 
         <section className="py-20 md:py-28 px-4 bg-secondary/50 backdrop-blur-sm relative overflow-hidden">
           <div className="container mx-auto relative z-10">
