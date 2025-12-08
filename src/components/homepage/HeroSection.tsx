@@ -73,7 +73,7 @@ export const HeroSection = () => {
             >
               Learn in-demand skills in{" "}
               <span className="font-semibold text-tc-navy">
-                AML/KYC, Data Analysis, Business Analysis, Cybersecurity,
+                AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity,
                 Digital Marketing, Data Privacy
               </span>{" "}
               and <span className="font-semibold text-tc-navy">Crypto</span>. No
