@@ -112,9 +112,9 @@ export const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <Link to="/#how-it-works" className="nav-link-underline text-primary-foreground hover:text-accent transition-colors duration-300 font-sans font-semibold text-sm">
+            {/* <Link to="/#how-it-works" className="nav-link-underline text-primary-foreground hover:text-accent transition-colors duration-300 font-sans font-semibold text-sm">
               How It Works
-            </Link>
+            </Link> */}
             <Link to="/#faqs" className="nav-link-underline text-primary-foreground hover:text-accent transition-colors duration-300 font-sans font-semibold text-sm">
               FAQs
             </Link>
