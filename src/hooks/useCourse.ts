@@ -34,3 +34,19 @@ import { useQuery } from "@tanstack/react-query";
     enabled: !!id,
   });
 };
+
+
+ export const useFetchEvents = () => {
+  return useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const response = await api.get(
+        `/get-events`
+      );
+
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+};

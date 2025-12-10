@@ -12,9 +12,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { getCourseConfig } from "@/lib/course-config";
 import { generateGoogleCalendarLink, downloadICalendar, getCourseColor, getCohortUrgency } from "@/lib/calendar-utils";
+import { useFetchEvents } from "@/hooks/useCourse";
 
 const Events = () => {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+
+const {data:fetchEvents} = useFetchEvents()
+
+console.log(fetchEvents, 'fetchth')
 
   const { data: events, isLoading } = useQuery({
     // Bump query key version to force fresh fetch of updated cohort dates
@@ -161,9 +166,9 @@ const Events = () => {
               </div>
             ) : (
               <div className="space-y-12">
-                {courses.map((courseSlug) => {
+                {fetchEvents?.events?.map((courseSlug) => {
                   const cohorts = getNextCohort(courseSlug);
-                  if (cohorts.length === 0) return null;
+                  if (cohorts?.length === 0) return null;
 
                   const config = getCourseConfig(courseSlug);
 
