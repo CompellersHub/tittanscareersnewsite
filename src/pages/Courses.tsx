@@ -19,6 +19,7 @@ import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useFetchCourse } from "@/hooks/useCourse";
 import OptimizedVideo from "@/components/OptimizedVideo";
+import { VideoBackground } from "@/components/video/VideoBackground";
 
 export default function Courses() {
   const coursesArray = Object.values(courses);
@@ -108,12 +109,12 @@ export default function Courses() {
   
   return (
     <PageTransition variant="slide">
-      <SEO 
+      <SEO
         title="Professional Training Courses - Transform Your Career"
         description="Browse our complete catalog of professional training courses including AML/KYC, Data Analysis, Cybersecurity, Business Analysis, and more. Industry-leading programs with 85% job placement rate."
         keywords="training courses catalog, professional courses, AML certification, data analysis training, cybersecurity courses, business analyst training, compliance courses"
       />
-      
+
       {/* Pull to Refresh Indicator */}
       {isMobile && (
         <PullToRefreshIndicator
@@ -123,33 +124,29 @@ export default function Courses() {
           threshold={80}
         />
       )}
-      
+
       <PageLayout intensity3D="subtle" show3D={true}>
-        <div className="container max-w-7xl mx-auto py-24 md:py-32 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-2 animate-fade-in">
-            <h1 className="font-kanit text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-tc-navy leading-tight">
-              Professional Courses
-            </h1>
-            <p className="font-sans text-lg md:text-xl text-tc-grey leading-relaxed">
-              Transform your career with industry-leading training programs designed by experts
-            </p>
+          <div className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+            <VideoBackground
+              videoUrl="/videos/video2.mp4"
+              overlay={true}
+              overlayOpacity={0.6}
+            />
+            <div className="relative z-10 container max-w-4xl mx-auto text-center py-24 md:py-32 px-4 sm:px-6 lg:px-8 animate-fade-in">
+              <h1 className="font-kanit text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight drop-shadow-lg">
+                Professional Courses
+              </h1>
+              <p className="font-sans text-lg md:text-xl text-white/90 leading-relaxed drop-shadow-md">
+                Transform your career with industry-leading training programs
+                designed by experts
+              </p>
+            </div>
           </div>
 
-           <section className="py-20">
-  <div className="container max-w-5xl mx-auto px-6">
-    <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-      <OptimizedVideo
-        src="/videos/video2"
-        poster="/images/video-poster.jpg"
-        className="w-full h-full object-cover"
-      />
-    </div>
-  {/* content below */}
-  </div>
-</section>
-          
+        <div className="container max-w-7xl mx-auto py-24 md:py-32 px-4 sm:px-6 lg:px-8">
+         
           <CourseGrid courses={displayItems} loading={false} />
-          
+
           {/* Infinite scroll loading indicator for mobile */}
           {isMobile && (
             <>
@@ -160,7 +157,7 @@ export default function Courses() {
                   ))}
                 </div>
               )}
-              
+
               {hasMore && (
                 <div ref={sentinelRef} className="flex justify-center mt-12">
                   <Button
@@ -180,7 +177,7 @@ export default function Courses() {
                   </Button>
                 </div>
               )}
-              
+
               {!hasMore && coursesArray.length > 12 && (
                 <p className="text-center text-muted-foreground font-sans mt-12">
                   You've reached the end of our courses
@@ -188,7 +185,7 @@ export default function Courses() {
               )}
             </>
           )}
-          
+
           {/* Pagination for desktop */}
           {!isMobile && (
             <PaginationControls

@@ -126,7 +126,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="pt-20">
+        {/* <section className="pt-20">
           <div className="w-full max-h-[90vh] aspect-video overflow-hidden rounded-none">
             <OptimizedVideo
               src="/videos/video1"
@@ -135,9 +135,9 @@ const Index = () => {
             />
           </div>
 
-        </section>
+        </section> */}
 
-        {/* <section className="py-20">
+        <section className="py-20">
           <div className="container max-w-5xl mx-auto px-6">
             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
               <OptimizedVideo
@@ -147,7 +147,7 @@ const Index = () => {
               />
             </div>
           </div>
-        </section> */}
+        </section>
 
         <section className="py-20 md:py-28 px-4 bg-secondary/50 backdrop-blur-sm relative overflow-hidden">
           <div className="container mx-auto relative z-10">
