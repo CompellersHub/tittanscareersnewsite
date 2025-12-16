@@ -19,6 +19,7 @@ const Events = () => {
 
 const {data:fetchEvents} = useFetchEvents()
 
+// console.log(fetchEvents, 'fetchth')
 
   const { data: events, isLoading } = useQuery({
     // Bump query key version to force fresh fetch of updated cohort dates
