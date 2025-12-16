@@ -34,6 +34,7 @@ import { ProcessInfographic } from "@/components/infographics/ProcessInfographic
 import { LazyInfographic } from "@/components/infographics/LazyInfographic";
 import { useFetchCourse } from "@/hooks/useCourse";
 import OptimizedVideo from "@/components/OptimizedVideo";
+import { CoursesCarousel } from "@/components/courses/CoursesCarousel";
 
 const Index = () => {
  
@@ -42,7 +43,7 @@ const Index = () => {
   
   const { data: fetchCourses, isLoading } = useFetchCourse();
   
-  const featuredCourses = fetchCourses?.courses.slice(0, 3);
+  // const featuredCourses = fetchCourses?.courses.slice(0, 3);
 
   useBehaviorTracking({ enableAutoTracking: true });
   
@@ -169,7 +170,9 @@ const Index = () => {
               </p>
             </div>
 
-            <CourseGrid courses={featuredCourses} loading={isLoading} />
+            {/* <CourseGrid courses={featuredCourses} loading={isLoading} /> */}
+
+             <CoursesCarousel courses={fetchCourses?.courses} />
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12 animate-slide-up">
               <Button
