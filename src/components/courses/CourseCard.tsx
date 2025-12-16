@@ -15,8 +15,9 @@ import businessAnalysisHero from "@/assets/courses/business-analysis-hero.jpg";
 import digitalMarketingHero from "@/assets/courses/digital-marketing-hero.jpg";
 
 interface CourseProps {
+  slug?: string;  
   data: {
-    slug: string;  
+    slug?: string;  
 _id: string;
     name: string;
     tagline: string;
@@ -78,7 +79,7 @@ export function CourseCard({ course }: CourseCardProps) {
           {course?.data?.category?.name}
         </Badge>
       
-      <Link to={`/course/${course?.id
+      <Link to={`/course/${course?.slug
 }`} className="group/link">
         <h3 className="font-kanit text-2xl font-bold mb-3 group-hover/link:text-accent transition-colors duration-300 leading-tight text-primary">
           {course?.data?.name}
@@ -119,7 +120,7 @@ export function CourseCard({ course }: CourseCardProps) {
             </span>
           </div>
           <CourseEnrollmentButton
-            courseSlug={course?.id}
+            courseSlug={course?.slug}
             courseTitle={course?.data?.name}
             price={course?.data?.price}
             variant="default"

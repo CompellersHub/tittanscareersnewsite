@@ -12,9 +12,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { getCourseConfig } from "@/lib/course-config";
 import { generateGoogleCalendarLink, downloadICalendar, getCourseColor, getCohortUrgency } from "@/lib/calendar-utils";
+import { useFetchEvents } from "@/hooks/useCourse";
 
 const Events = () => {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+
+const {data:fetchEvents} = useFetchEvents()
+
+// console.log(fetchEvents, 'fetchth')
 
   const { data: events, isLoading } = useQuery({
     // Bump query key version to force fresh fetch of updated cohort dates
@@ -40,8 +45,8 @@ const Events = () => {
 
   const courses = ["aml-kyc", "crypto-compliance", "data-privacy", "data-analysis", "cybersecurity", "business-analysis", "digital-marketing"];
 
-  const getNextCohort = (courseSlug: string) => {
-    const cohorts = events?.filter(e => e.course_slug === courseSlug && e.event_type === "cohort").slice(0, 2) || [];
+  const getNextCohort = (course_slug: string) => {
+    const cohorts = fetchEvents?.events?.filter(e => e.course_slug === course_slug && e.event_type === "cohort").slice(0, 2) || [];
     // Sort by urgency: urgent first, then soon, then future
     return cohorts.sort((a, b) => {
       const urgencyA = getCohortUrgency(a.start_date);
@@ -137,6 +142,8 @@ const Events = () => {
           </div>
         </section>
 
+       
+
         {/* Cohort Schedule Section */}
         <section id="cohorts" className="py-20 px-4">
           <div className="container mx-auto">
@@ -160,187 +167,318 @@ const Events = () => {
                 ))}
               </div>
             ) : (
-              <div className="space-y-12">
-                {courses.map((courseSlug) => {
-                  const cohorts = getNextCohort(courseSlug);
-                  if (cohorts.length === 0) return null;
 
-                  const config = getCourseConfig(courseSlug);
+               <div className="space-y-12">
+  {courses.map((course_slug) => {
+    const config = getCourseConfig(course_slug);
+    const cohorts = (fetchEvents?.events || [])
+      .filter(e => e.course_slug === course_slug && e.event_type === "cohort")
+      .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
+      .slice(0, 2);
 
-                  return (
-                    <div key={courseSlug}>
-                      <h3 className="font-kanit font-bold text-2xl text-primary mb-6">
-                        {config?.displayName || courseSlug}
-                      </h3>
-                      <div className="grid gap-6 md:grid-cols-2 max-w-5xl">
-                        {cohorts.map((event) => {
-                          const metadata = event.metadata as Record<string, any> | null;
-                          const sessionDay = metadata?.session_day || config?.dayOfWeek || 'Weekends';
-                          const sessionTime = metadata?.session_time || '7-9pm UK';
-                          const durationWeeks = metadata?.duration_weeks || config?.duration || 8;
-                          const CourseIcon = config?.icon;
-                          const urgency = getCohortUrgency(event.start_date);
-                          
-                          return (
-                            <Card
-                              key={event.id}
-                              className={`group p-0 hover:shadow-2xl transition-all duration-300 relative overflow-hidden ${
-                                urgency.glowEffect ? 'animate-pulse-subtle shadow-amber-200' : ''
-                              }`}
-                              style={{ 
-                                borderColor: urgency.borderColor,
-                                borderWidth: urgency.glowEffect ? '2px' : '1px'
-                              }}
-                            >
-                              {/* Header section with dynamic gradient */}
-                              <div 
-                                className="h-32 flex items-center justify-center relative"
-                                style={{ background: urgency.headerBg }}
-                              >
-                                {urgency.level === 'urgent' && (
-                                  <div className="absolute top-2 right-2">
-                                    <Badge className="bg-white text-amber-600 font-bold animate-bounce">
-                                      {urgency.daysUntil} days left
-                                    </Badge>
-                                  </div>
-                                )}
-                                {CourseIcon && (
-                                  <CourseIcon 
-                                    className={`w-16 h-16 stroke-[1.5] ${
-                                      urgency.level === 'urgent' ? 'text-white' : 'text-[#FFB000]'
-                                    }`} 
-                                  />
-                                )}
-                              </div>
-                              
-                              {/* White content section */}
-                              <div className="p-6 bg-white">
-                                <div className="flex items-start justify-between mb-3">
-                                  <Badge 
-                                    style={{ 
-                                      background: urgency.badgeBg,
-                                      color: urgency.badgeColor,
-                                      borderColor: urgency.borderColor,
-                                      borderWidth: '1px'
-                                    }}
-                                    className="font-semibold"
-                                  >
-                                    {urgency.message} • {format(new Date(event.start_date), "MMM d")}
-                                  </Badge>
-                                  <Badge 
-                                    variant="outline" 
-                                    className="capitalize border-muted-foreground/20"
-                                  >
-                                    {event.status}
-                                  </Badge>
-                                </div>
+    if (cohorts.length === 0) return null;
 
-                                {urgency.level === 'urgent' && (
-                                  <div className="flex items-center gap-2 p-2 bg-amber-50 rounded-md border border-amber-200 mb-3">
-                                    <Clock className="h-4 w-4 text-amber-600 animate-pulse" />
-                                    <span className="text-sm font-semibold text-amber-700">
-                                      Registration closes in {urgency.daysUntil} days
-                                    </span>
-                                  </div>
-                                )}
+    return (
+      <div key={course_slug}>
+        <h3 className="font-kanit font-bold text-2xl text-primary mb-6">
+          {config?.title || course_slug.replace(/-/g, ' ').toUpperCase()}
+        </h3>
+        <div className="grid gap-6 md:grid-cols-2 max-w-5xl">
+          {cohorts.map((event) => {
+            const metadata = event.metadata as any;
+            const sessionDay = metadata?.session_day || config?.dayOfWeek || 'Weekends';
+            const sessionTime = metadata?.session_time || '7-9pm UK';
+            const durationWeeks = metadata?.duration_weeks || config?.duration || 8;
+            const CourseIcon = config?.icon;
+            const urgency = getCohortUrgency(event.start_date);
 
-                                <h4 className="font-kanit font-bold text-2xl text-foreground mb-2">
-                                  {config?.displayName || event.course_slug}
-                                </h4>
-                                
-                                <p className="text-sm text-muted-foreground mb-4">
-                                  {event.description}
-                                </p>
-
-                                <div className="space-y-2 mb-5">
-                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Calendar className="h-4 w-4 text-[#FFB000]" />
-                                    <span>Starts: {format(new Date(event.start_date), "MMM d, yyyy")}</span>
-                                  </div>
-                                  
-                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Clock className="h-4 w-4 text-[#FFB000]" />
-                                    <span>{durationWeeks} weeks • {sessionTime} • {sessionDay}s</span>
-                                  </div>
-
-                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <MapPin className="h-4 w-4 text-[#FFB000]" />
-                                    <span className="capitalize">{event.location}</span>
-                                  </div>
-                                </div>
-
-                                <div className="space-y-2">
-                                  <Button 
-                                    className={`w-full font-semibold ${
-                                      urgency.level === 'urgent' ? 'animate-pulse-subtle' : ''
-                                    }`}
-                                    style={{ 
-                                      background: urgency.ctaBg,
-                                      color: '#0B1F3B'
-                                    }}
-                                    asChild
-                                  >
-                                    <Link to={`/course/${event.course_slug}`}>
-                                      {urgency.ctaText} <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Link>
-                                  </Button>
-                                  
-                                  <div className="grid grid-cols-2 gap-2">
-                                    <Button 
-                                      size="sm"
-                                      className="text-xs"
-                                      style={{ 
-                                        background: '#0B1F3B',
-                                        color: '#FFFFFF',
-                                      }}
-                                      onClick={() => {
-                                        const calendarEvent = {
-                                          title: event.title,
-                                          description: event.description || '',
-                                          startDate: new Date(event.start_date),
-                                          endDate: new Date(event.end_date || event.start_date),
-                                          location: 'Online - Google Meet',
-                                          timezone: 'Europe/London',
-                                        };
-                                        window.open(generateGoogleCalendarLink(calendarEvent), '_blank');
-                                      }}
-                                    >
-                                      <Calendar className="h-3 w-3 mr-1" />
-                                      Google
-                                    </Button>
-                                    <Button 
-                                      size="sm"
-                                      className="text-xs"
-                                      style={{ 
-                                        background: '#0B1F3B',
-                                        color: '#FFFFFF',
-                                      }}
-                                      onClick={() => {
-                                        const calendarEvent = {
-                                          title: event.title,
-                                          description: event.description || '',
-                                          startDate: new Date(event.start_date),
-                                          endDate: new Date(event.end_date || event.start_date),
-                                          location: 'Online - Google Meet',
-                                          timezone: 'Europe/London',
-                                        };
-                                        downloadICalendar(calendarEvent, `${event.course_slug}-cohort-${event.cohort_number}.ics`);
-                                      }}
-                                    >
-                                      <Download className="h-3 w-3 mr-1" />
-                                      .ics
-                                    </Button>
-                                  </div>
-                                </div>
-                              </div>
-                            </Card>
-                          );
-                        })}
-                      </div>
+            return (
+              <Card
+                key={event.id}
+                className={`group p-0 hover:shadow-2xl transition-all duration-300 relative overflow-hidden ${
+                  urgency.glowEffect ? 'animate-pulse-subtle shadow-amber-200' : ''
+                }`}
+                style={{ 
+                  borderColor: urgency.borderColor,
+                  borderWidth: urgency.glowEffect ? '2px' : '1px'
+                }}
+              >
+                {/* ... rest of your card JSX (unchanged) */}
+                <div className="h-32 flex items-center justify-center relative" style={{ background: urgency.headerBg }}>
+                  {urgency.level === 'urgent' && (
+                    <div className="absolute top-2 right-2">
+                      <Badge className="bg-white text-amber-600 font-bold animate-bounce">
+                        {urgency.daysUntil} days left
+                      </Badge>
                     </div>
-                  );
-                })}
-              </div>
+                  )}
+                  {CourseIcon && <CourseIcon className={`w-16 h-16 stroke-[1.5] ${urgency.level === 'urgent' ? 'text-white' : 'text-[#FFB000]'}`} />}
+                </div>
+
+                <div className="p-6 bg-white">
+                  <div className="flex items-start justify-between mb-3">
+                    <Badge style={{ background: urgency.badgeBg, color: urgency.badgeColor, borderColor: urgency.borderColor, borderWidth: '1px' }} className="font-semibold">
+                      {urgency.message} • {format(new Date(event.start_date), "MMM d")}
+                    </Badge>
+                    <Badge variant="outline" className="capitalize border-muted-foreground/20">
+                      {event.status}
+                    </Badge>
+                  </div>
+
+                  {urgency.level === 'urgent' && (
+                    <div className="flex items-center gap-2 p-2 bg-amber-50 rounded-md border border-amber-200 mb-3">
+                      <Clock className="h-4 w-4 text-amber-600 animate-pulse" />
+                      <span className="text-sm font-semibold text-amber-700">
+                        Registration closes in {urgency.daysUntil} days
+                      </span>
+                    </div>
+                  )}
+
+                  <h4 className="font-kanit font-bold text-2xl text-foreground mb-2">
+                    {event.title}
+                  </h4>
+                  
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {event.description}
+                  </p>
+
+                  <div className="space-y-2 mb-5">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Calendar className="h-4 w-4 text-[#FFB000]" />
+                      <span>Starts: {format(new Date(event.start_date), "MMMM d, yyyy")}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4 text-[#FFB000]" />
+                      <span>{durationWeeks} weeks • {sessionTime} • {sessionDay}s</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <MapPin className="h-4 w-4 text-[#FFB000]" />
+                      <span className="capitalize">{event.location}</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Button className={`w-full font-semibold ${urgency.level === 'urgent' ? 'animate-pulse-subtle' : ''}`}
+                      style={{ background: urgency.ctaBg, color: '#0B1F3B' }} asChild>
+                      <Link to={`/course/${event.course_slug}`}>
+                        {urgency.ctaText} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button size="sm" className="text-xs" style={{ background: '#0B1F3B', color: '#FFFFFF' }}
+                        onClick={() => window.open(generateGoogleCalendarLink({
+                          title: event.title,
+                          description: event.description || '',
+                          startDate: new Date(event.start_date),
+                          endDate: new Date(event.end_date),
+                          location: 'Online',
+                          timezone: 'Europe/London',
+                        }), '_blank')}>
+                        <Calendar className="h-3 w-3 mr-1" /> Google
+                      </Button>
+                      <Button size="sm" className="text-xs" style={{ background: '#0B1F3B', color: '#FFFFFF' }}
+                        onClick={() => downloadICalendar({
+                          title: event.title,
+                          description: event.description || '',
+                          startDate: new Date(event.start_date),
+                          endDate: new Date(event.end_date),
+                          location: 'Online',
+                          timezone: 'Europe/London',
+                        }, `${event.course_slug}-cohort.ics`)}>
+                        <Download className="h-3 w-3 mr-1" /> .ics
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+              // <div className="space-y-12">
+              //   {fetchEvents?.events?.map((course_slug) => {
+              //     const cohorts = getNextCohort(course_slug);
+              //     if (cohorts?.length === 0) return null;
+
+              //     const config = getCourseConfig(course_slug);
+
+              //     return (
+              //       <div key={course_slug}>
+              //         <h3 className="font-kanit font-bold text-2xl text-primary mb-6">
+              //           {config?.title || course_slug}
+              //         </h3>
+              //         <div className="grid gap-6 md:grid-cols-2 max-w-5xl">
+              //           {cohorts.map((event) => {
+              //             const metadata = event.metadata as Record<string, any> | null;
+              //             const sessionDay = metadata?.session_day || config?.dayOfWeek || 'Weekends';
+              //             const sessionTime = metadata?.session_time || '7-9pm UK';
+              //             const durationWeeks = metadata?.duration_weeks || config?.duration || 8;
+              //             const CourseIcon = config?.icon;
+              //             const urgency = getCohortUrgency(event.start_date);
+                          
+              //             return (
+              //               <Card
+              //                 key={event.id}
+              //                 className={`group p-0 hover:shadow-2xl transition-all duration-300 relative overflow-hidden ${
+              //                   urgency.glowEffect ? 'animate-pulse-subtle shadow-amber-200' : ''
+              //                 }`}
+              //                 style={{ 
+              //                   borderColor: urgency.borderColor,
+              //                   borderWidth: urgency.glowEffect ? '2px' : '1px'
+              //                 }}
+              //               >
+              //                 <div 
+              //                   className="h-32 flex items-center justify-center relative"
+              //                   style={{ background: urgency.headerBg }}
+              //                 >
+              //                   {urgency.level === 'urgent' && (
+              //                     <div className="absolute top-2 right-2">
+              //                       <Badge className="bg-white text-amber-600 font-bold animate-bounce">
+              //                         {urgency.daysUntil} days left
+              //                       </Badge>
+              //                     </div>
+              //                   )}
+              //                   {CourseIcon && (
+              //                     <CourseIcon 
+              //                       className={`w-16 h-16 stroke-[1.5] ${
+              //                         urgency.level === 'urgent' ? 'text-white' : 'text-[#FFB000]'
+              //                       }`} 
+              //                     />
+              //                   )}
+              //                 </div>
+                              
+              //                 <div className="p-6 bg-white">
+              //                   <div className="flex items-start justify-between mb-3">
+              //                     <Badge 
+              //                       style={{ 
+              //                         background: urgency.badgeBg,
+              //                         color: urgency.badgeColor,
+              //                         borderColor: urgency.borderColor,
+              //                         borderWidth: '1px'
+              //                       }}
+              //                       className="font-semibold"
+              //                     >
+              //                       {urgency.message} • {format(new Date(event.start_date), "MMM d")}
+              //                     </Badge>
+              //                     <Badge 
+              //                       variant="outline" 
+              //                       className="capitalize border-muted-foreground/20"
+              //                     >
+              //                       {event.status}
+              //                     </Badge>
+              //                   </div>
+
+              //                   {urgency.level === 'urgent' && (
+              //                     <div className="flex items-center gap-2 p-2 bg-amber-50 rounded-md border border-amber-200 mb-3">
+              //                       <Clock className="h-4 w-4 text-amber-600 animate-pulse" />
+              //                       <span className="text-sm font-semibold text-amber-700">
+              //                         Registration closes in {urgency.daysUntil} days
+              //                       </span>
+              //                     </div>
+              //                   )}
+
+              //                   <h4 className="font-kanit font-bold text-2xl text-foreground mb-2">
+              //                     {config?.displayName || event.course_slug}
+              //                   </h4>
+                                
+              //                   <p className="text-sm text-muted-foreground mb-4">
+              //                     {event.description}
+              //                   </p>
+
+              //                   <div className="space-y-2 mb-5">
+              //                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              //                       <Calendar className="h-4 w-4 text-[#FFB000]" />
+              //                       <span>Starts: {format(new Date(event.start_date), "MMM d, yyyy")}</span>
+              //                     </div>
+                                  
+              //                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              //                       <Clock className="h-4 w-4 text-[#FFB000]" />
+              //                       <span>{durationWeeks} weeks • {sessionTime} • {sessionDay}s</span>
+              //                     </div>
+
+              //                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              //                       <MapPin className="h-4 w-4 text-[#FFB000]" />
+              //                       <span className="capitalize">{event.location}</span>
+              //                     </div>
+              //                   </div>
+
+              //                   <div className="space-y-2">
+              //                     <Button 
+              //                       className={`w-full font-semibold ${
+              //                         urgency.level === 'urgent' ? 'animate-pulse-subtle' : ''
+              //                       }`}
+              //                       style={{ 
+              //                         background: urgency.ctaBg,
+              //                         color: '#0B1F3B'
+              //                       }}
+              //                       asChild
+              //                     >
+              //                       <Link to={`/course/${event.course_slug}`}>
+              //                         {urgency.ctaText} <ArrowRight className="ml-2 h-4 w-4" />
+              //                       </Link>
+              //                     </Button>
+                                  
+              //                     <div className="grid grid-cols-2 gap-2">
+              //                       <Button 
+              //                         size="sm"
+              //                         className="text-xs"
+              //                         style={{ 
+              //                           background: '#0B1F3B',
+              //                           color: '#FFFFFF',
+              //                         }}
+              //                         onClick={() => {
+              //                           const calendarEvent = {
+              //                             title: event.title,
+              //                             description: event.description || '',
+              //                             startDate: new Date(event.start_date),
+              //                             endDate: new Date(event.end_date || event.start_date),
+              //                             location: 'Online - Google Meet',
+              //                             timezone: 'Europe/London',
+              //                           };
+              //                           window.open(generateGoogleCalendarLink(calendarEvent), '_blank');
+              //                         }}
+              //                       >
+              //                         <Calendar className="h-3 w-3 mr-1" />
+              //                         Google
+              //                       </Button>
+              //                       <Button 
+              //                         size="sm"
+              //                         className="text-xs"
+              //                         style={{ 
+              //                           background: '#0B1F3B',
+              //                           color: '#FFFFFF',
+              //                         }}
+              //                         onClick={() => {
+              //                           const calendarEvent = {
+              //                             title: event.title,
+              //                             description: event.description || '',
+              //                             startDate: new Date(event.start_date),
+              //                             endDate: new Date(event.end_date || event.start_date),
+              //                             location: 'Online - Google Meet',
+              //                             timezone: 'Europe/London',
+              //                           };
+              //                           downloadICalendar(calendarEvent, `${event.course_slug}-cohort-${event.cohort_number}.ics`);
+              //                         }}
+              //                       >
+              //                         <Download className="h-3 w-3 mr-1" />
+              //                         .ics
+              //                       </Button>
+              //                     </div>
+              //                   </div>
+              //                 </div>
+              //               </Card>
+              //             );
+              //           })}
+              //         </div>
+              //       </div>
+              //     );
+              //   })}
+              // </div>
             )}
           </div>
         </section>

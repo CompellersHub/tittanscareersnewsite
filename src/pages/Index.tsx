@@ -43,7 +43,6 @@ const Index = () => {
   const { data: fetchCourses, isLoading } = useFetchCourse();
   
   const featuredCourses = fetchCourses?.courses.slice(0, 3);
-   console.log("Fetched Courses:", fetchCourses?.courses);
 
   useBehaviorTracking({ enableAutoTracking: true });
   
@@ -138,15 +137,14 @@ const Index = () => {
         </section> */}
 
         <section className="py-20">
-          <div className="container max-w-5xl mx-auto px-6">
-            <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <div className="aspect-video rounded-none overflow-hidden shadow-2xl">
               <OptimizedVideo
                 src="/videos/video1"
                 poster="/images/video-poster.jpg"
                 className="w-full h-full object-cover"
               />
             </div>
-          </div>
+         
         </section>
 
         <section className="py-20 md:py-28 px-4 bg-secondary/50 backdrop-blur-sm relative overflow-hidden">

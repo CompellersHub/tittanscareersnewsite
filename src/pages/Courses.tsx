@@ -29,6 +29,8 @@ export default function Courses() {
   const { toast } = useToast();
    const { data: fetchCourses, isLoading } = useFetchCourse();
 
+   console.log()
+
   
   // Enable keyboard shortcuts
   useNavigationShortcuts();
