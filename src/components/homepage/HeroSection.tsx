@@ -50,7 +50,7 @@ export const HeroSection = () => {
             
             {/* Enhanced body text with better line height */}
             <p className="font-sans text-lg leading-relaxed text-white/90 max-w-xl animate-fade-in drop-shadow-md" style={{ animationDelay: '0.1s' }}>
-              Learn in-demand skills in <span className="font-semibold text-tc-amber">AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity, Digital Marketing, Data Privacy</span> and <span className="font-semibold text-tc-amber">Crypto</span>. No UK experience needed. Get CPD-accredited training and 12 months of career support.
+              Learn in-demand skills in <span className="font-semibold text-tc-amber">AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity, Digital Marketing, Data Privacy</span> and <span className="font-semibold text-tc-amber">Crypto</span>. No UK experience needed.
             </p>
             
             {/* Enhanced CTA Button with glow effect */}
@@ -73,7 +73,7 @@ export const HeroSection = () => {
                   <div className="w-10 h-10 bg-gradient-to-br from-tc-amber to-tc-gold rounded-xl shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300 flex items-center justify-center">
                     <Award className="w-5 h-5 text-white" />
                   </div>
-                  <span className="font-sans font-semibold text-sm text-tc-navy">CPD Accredited</span>
+                  <span className="font-sans font-semibold text-sm text-tc-navy">CV Drafting</span>
                 </div>
               </div>
               <div className="relative group overflow-hidden p-4 bg-white/60 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.15)] border border-white/40 hover:shadow-[0_16px_48px_-12px_rgba(30,58,95,0.4)] hover:scale-105 hover:border-tc-navy/50 transition-all duration-500">

@@ -24,7 +24,7 @@ import { useQuery } from "@tanstack/react-query";
     queryKey: ["courses", id],
     queryFn: async () => {
       const response = await api.get(
-        `/get-course?id=${id}`
+        `/get-course-by-slug?slug=${id}`
       );
 
       return response.data?.course;
@@ -34,6 +34,22 @@ import { useQuery } from "@tanstack/react-query";
     enabled: !!id,
   });
 };
+
+//   export const useFetchSingleCourse = (id:string) => {
+//   return useQuery({
+//     queryKey: ["courses", id],
+//     queryFn: async () => {
+//       const response = await api.get(
+//         `/get-course?id=${id}`
+//       );
+
+//       return response.data?.course;
+//     },
+//     staleTime: 5 * 60 * 1000, // 5 minutes
+//     refetchOnWindowFocus: false,
+//     enabled: !!id,
+//   });
+// };
 
 
  export const useFetchEvents = () => {

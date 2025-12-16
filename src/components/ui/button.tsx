@@ -10,10 +10,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // Primary: Amber bg, White text, premium shadow
-        default: "bg-tc-amber text-white shadow-[0_4px_12px_-2px_hsl(43_100%_50%/0.3)] hover:shadow-[0_8px_20px_-4px_hsl(43_100%_50%/0.4)] hover:bg-[#FFA000] hover:scale-[1.02]",
+        default: "bg-tcamber bg-primary/95 text-white shadow-[0_4px_12px_-2px_hsl(43_100%_50%/0.3)] hover:shadow-[0_8px_20px_-4px_hsl(43_100%_50%/0.4)] hover:bg-[#FFA000] hover:scale-[1.02]",
         
         // Navy button variant
-        primary: "bg-tc-navy text-white shadow-[0_4px_12px_-2px_hsl(213_69%_13%/0.3)] hover:shadow-[0_8px_20px_-4px_hsl(213_69%_13%/0.4)] hover:bg-[#0D2647] hover:scale-[1.02]",
+        primary: "bg-tc-navy  text-white shadow-[0_4px_12px_-2px_hsl(213_69%_13%/0.3)] hover:shadow-[0_8px_20px_-4px_hsl(213_69%_13%/0.4)] hover:bg-[#0D2647] hover:scale-[1.02]",
         
         // Secondary/Outline: Border Amber, white bg
         outline: "border-2 border-tc-amber bg-white text-tc-amber rounded-xl shadow-sm hover:shadow-md hover:bg-tc-amber hover:text-white transition-all duration-300",

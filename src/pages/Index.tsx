@@ -43,7 +43,6 @@ const Index = () => {
   const { data: fetchCourses, isLoading } = useFetchCourse();
   
   const featuredCourses = fetchCourses?.courses.slice(0, 3);
-   console.log("Fetched Courses:", fetchCourses?.courses);
 
   useBehaviorTracking({ enableAutoTracking: true });
   
