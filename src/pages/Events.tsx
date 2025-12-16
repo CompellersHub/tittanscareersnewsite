@@ -19,7 +19,6 @@ const Events = () => {
 
 const {data:fetchEvents} = useFetchEvents()
 
-// console.log(fetchEvents, 'fetchth')
 
   const { data: events, isLoading } = useQuery({
     // Bump query key version to force fresh fetch of updated cohort dates
@@ -43,10 +42,11 @@ const {data:fetchEvents} = useFetchEvents()
     },
   });
 
+
   const courses = ["aml-kyc", "crypto-compliance", "data-privacy", "data-analysis", "cybersecurity", "business-analysis", "digital-marketing"];
 
   const getNextCohort = (course_slug: string) => {
-    const cohorts = fetchEvents?.events?.filter(e => e.course_slug === course_slug && e.event_type === "cohort").slice(0, 2) || [];
+    const cohorts = events?.filter(e => e.course_slug === course_slug && e.event_type === "cohort").slice(0, 2) || [];
     // Sort by urgency: urgent first, then soon, then future
     return cohorts.sort((a, b) => {
       const urgencyA = getCohortUrgency(a.start_date);
@@ -171,7 +171,7 @@ const {data:fetchEvents} = useFetchEvents()
                <div className="space-y-12">
   {courses.map((course_slug) => {
     const config = getCourseConfig(course_slug);
-    const cohorts = (fetchEvents?.events || [])
+    const cohorts = (events || [])
       .filter(e => e.course_slug === course_slug && e.event_type === "cohort")
       .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
       .slice(0, 2);
@@ -187,7 +187,7 @@ const {data:fetchEvents} = useFetchEvents()
           {cohorts.map((event) => {
             const metadata = event.metadata as any;
             const sessionDay = metadata?.session_day || config?.dayOfWeek || 'Weekends';
-            const sessionTime = metadata?.session_time || '7-9pm UK';
+            const sessionTime = metadata?.session_time || '5-7pm UK';
             const durationWeeks = metadata?.duration_weeks || config?.duration || 8;
             const CourseIcon = config?.icon;
             const urgency = getCohortUrgency(event.start_date);
