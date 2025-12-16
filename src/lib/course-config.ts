@@ -8,6 +8,7 @@ import type { LucideIcon } from 'lucide-react';
  */
 
 export interface CourseConfig {
+
   slug: string;
   displayName: string;
   shortName: string;
@@ -17,6 +18,7 @@ export interface CourseConfig {
   dayOfWeek: 'Saturday' | 'Sunday';
   baseStartDate: string; // ISO date string for first cohort
   icon: LucideIcon; // Course icon
+  title?: string
 }
 
 export const COURSE_CONFIG: Record<string, CourseConfig> = {
