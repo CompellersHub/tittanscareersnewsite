@@ -36,14 +36,14 @@ import {
 } from "lucide-react";
 
 const AdminDashboard = () => {
-  const { isAdmin, isLoading: authLoading, user } = useAuth();
+  const { isAdmin, isLoading: authLoading, currentUser } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
-    if (!authLoading && !user) {
+    if (!authLoading && !currentUser) {
       navigate("/auth");
-    } else if (!authLoading && user && !isAdmin) {
+    } else if (!authLoading && currentUser && !isAdmin) {
       toast({
         title: "Access Denied",
         description: "You don't have permission to access the admin dashboard.",
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
       });
       navigate("/");
     }
-  }, [isAdmin, authLoading, user, navigate, toast]);
+  }, [isAdmin, authLoading, currentUser, navigate, toast]);
 
   // Quick action cards for most used features
   const quickActions = [

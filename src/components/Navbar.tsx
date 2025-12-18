@@ -16,7 +16,9 @@ import {
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
-  const { user, isAdmin, signOut } = useAuth();
+  const {currentUser, isAdmin, signOut } = useAuth();
+  // const {data:fetchUser} = useFetchAuthUser()
+
 
   return (
     <nav className="fixed top-0 w-full backdrop-blur-lg bg-primary/95 border-b border-white/10 z-50 shadow-[0_4px_12px_-4px_hsl(213_69%_13%/0.15)]">
@@ -125,7 +127,7 @@ export const Navbar = () => {
           
           {/* Desktop Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            {user ? (
+            {currentUser ? (
               <>
                 <NotificationBell />
                 <DropdownMenu>
@@ -275,7 +277,7 @@ export const Navbar = () => {
               Contact
             </Link>
             <div className="space-y-3 pt-4 border-t border-primary-foreground/10">
-              {user ? (
+              {currentUser ? (
                 <>
                   {isAdmin && (
                     <>

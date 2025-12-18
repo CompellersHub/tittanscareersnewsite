@@ -16,6 +16,12 @@ import { MFAVerification } from "@/components/auth/MFAVerification";
 
 const authSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
+  username: z.string(),
+  password: passwordSchema,
+});
+
+const loginAuthSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
   password: passwordSchema,
 });
 
@@ -23,119 +29,66 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn, signUp, user, isAdmin, mfaRequired, mfaFactorId, completeMFAVerification } = useAuth();
+  const [username, setUsername] = useState("");
+  const [userType, setUserType] = useState("customusers");
+  const { signIn, signUp, isAuthenticated, isAdmin , isLoading: authLoading} = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
 
-  useEffect(() => {
-    if (user) {
-      // Redirect admins to dashboard, regular users to home
-      navigate(isAdmin ? "/admin" : "/");
-    }
-  }, [user, isAdmin, navigate]);
+
+useEffect(() => {
+  if (authLoading) return;                    // still wait for initial load
+
+  // Only redirect if we are currently on the auth page
+  if (isAuthenticated && window.location.pathname === "/auth") {
+    navigate(isAdmin ? "/admin" : "/profile", { replace: true });
+  }
+
+
+  // if (isAuthenticated ) {
+  //   navigate( "/admin",  { replace: true });
+  // }
+}, [isAuthenticated, isAdmin, authLoading, navigate]);
+
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      authSchema.parse({ email, password });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return;
-      }
-    }
-
     setIsLoading(true);
-    const { error, mfaRequired: needsMFA } = await signIn(email, password);
-    
-    if (needsMFA) {
-      // MFA verification will be shown automatically
-      setIsLoading(false);
-      return;
-    }
-    
-    if (!error) {
-      // Check if user is admin after successful login
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: roles } = await supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', user.id)
-          .eq('role', 'admin')
-          .single();
-        
-        setIsLoading(false);
-        navigate(roles ? "/admin" : "/");
-      } else {
-        setIsLoading(false);
-        navigate("/");
-      }
-    } else {
-      setIsLoading(false);
-    }
-  };
 
-  const handleMFAComplete = async () => {
-    completeMFAVerification();
-    
-    // Check if user is admin after successful MFA
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .single();
+    try {
       
-      navigate(roles ? "/admin" : "/");
-    } else {
-      navigate("/");
+      const result = await signIn(email, password);
+      
+      if (result.success) {
+        setIsLoading(false);
+}
+  
+      // if (result.success) {
+      //   // Redirect is handled by the useEffect above
+      //   setIsLoading(false)
+      // }
+    } catch (error) {
+      console.log(error)
     }
-  };
+  }
+
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      authSchema.parse({ email, password });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return;
-      }
-    }
-
     setIsLoading(true);
-    const { error } = await signUp(email, password);
+
+    const result = await signUp(email, password, username, userType);
     setIsLoading(false);
 
-    if (!error) {
-      navigate("/");
+
+    if (result.success) {
+      // Optionally auto-login after signup, or just redirect to login tab
+      navigate("/auth"); // or stay on auth page and show success
     }
   };
 
-  // Show MFA verification if required
-  if (mfaRequired && mfaFactorId) {
-    return (
-      <PageLayout intensity3D="subtle" show3D={true}>
-        <div className="flex flex-col">
-          <div className="flex-1 flex items-center justify-center py-12 px-4">
-            <MFAVerification 
-              factorId={mfaFactorId}
-              onVerificationComplete={handleMFAComplete}
-              onCancel={() => {
-                completeMFAVerification();
-                setEmail("");
-                setPassword("");
-              }}
-            />
-          </div>
-        </div>
-      </PageLayout>
-    );
-  }
+
 
   return (
     <PageLayout intensity3D="subtle" show3D={true}>
@@ -231,6 +184,19 @@ const Auth = () => {
                         placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
+                        disabled={isLoading}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-username">Username</Label>
+                      <Input
+                        id="signup-username"
+                        type="text"
+                        placeholder="your"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                         disabled={isLoading}
                       />
