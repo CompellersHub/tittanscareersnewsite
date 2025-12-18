@@ -162,7 +162,22 @@ export const paymentMethods: PaymentMethodOption[] = [
       'UK bank accounts'
     ],
     processingTime: '1-2 business days'
-  }
+  },
   // Payl8r temporarily disabled - requires API credentials setup
   // Uncomment and configure edge function when ready
+  {
+    id: 'payl8r',
+    name: 'Pay Later',
+    tagline: 'Spread the cost over 3-12 months',
+    badge: 'flexible',
+    icon: <DollarSign className="w-6 h-6" />,
+    benefits: [
+      'Split into monthly payments',
+      'Flexible 3-12 month terms',
+      'Quick online application'
+    ],
+    processingTime: 'Contact for details',
+    disclaimer: 'Finance is subject to status. Contact info@titanscareers.com for financing inquiries. Representative APR varies.',
+    monthlyFrom: 'From £42/month'
+  }
 ];
