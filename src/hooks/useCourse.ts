@@ -1,4 +1,4 @@
-import { api } from "@/lib/axiosConfig";
+import { api, authApi } from "@/lib/axiosConfig";
 import { useQuery } from "@tanstack/react-query";
 
 
@@ -16,6 +16,23 @@ import { useQuery } from "@tanstack/react-query";
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
+  });
+};
+
+  export const useFetchAuthUser = () => {
+    const token = sessionStorage.getItem('userToken')
+  return useQuery({
+    queryKey: ["auth-user"],
+    queryFn: async () => {
+      const response = await authApi.get(
+        `/me`
+      );
+
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+    enabled: !!token,
   });
 };
 

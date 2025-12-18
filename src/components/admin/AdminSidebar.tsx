@@ -147,11 +147,11 @@ export function AdminSidebar() {
                       <SidebarMenuButton asChild>
                         <NavLink 
                           to={item.url} 
-                          className="hover:bg-sidebar-accent text-white w-full flex items-center" 
+                          className="hover:bg-sidebar-accent  text-white w-full flex items-center" 
                           activeClassName="bg-sidebar-accent text-white font-semibold"
                         >
                           <item.icon className={isCollapsed ? "h-5 w-5" : "mr-3 h-5 w-5"} />
-                          {!isCollapsed && <span className="text-sm font-medium">{item.title}</span>}
+                          {!isCollapsed && <span className="text-sm font-medium text-white">{item.title}</span>}
                         </NavLink>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

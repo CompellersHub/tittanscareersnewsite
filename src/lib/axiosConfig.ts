@@ -3,15 +3,12 @@ import axios from "axios";
 // Base URL policy:
 // - Local dev: use hardcoded dev API endpoint (no proxy)
 // - Non-dev: use VITE_API_BASE_URL if provided
-const DEV_BASE = "https://bzxzsidcifkhedydujqb.supabase.co/functions/v1";
-const envBase = import.meta.env.VITE_BASE_URL;
-const BASE_URL = import.meta.env.DEV
-  ? DEV_BASE
-  : (envBase && envBase.trim() ? envBase : "");
+// const DEV_BASE = "https://bzxzsidcifkhedydujqb.supabase.co/functions/v1";
+// const envBase = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL
+ 
 
-if (!import.meta.env.DEV && !envBase) {
-  console.warn("VITE_API_BASE_URL is not set. Configure it in Netlify env.");
-}
+
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -30,7 +27,7 @@ export const authApi = axios.create({
 });
 
 authApi.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("userToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -42,11 +39,21 @@ authApi.interceptors.request.use((config) => {
 authApi.interceptors.response.use(
   (response) => response,
   (error) => {
+    const redirectUrl = `${window.location.origin}/`
+
     if (error.response?.status === 401) {
-      console.warn("Unauthorized, token may have expired");
-      sessionStorage.removeItem("token");
-      window.location.href = "/login";
-    }
+  sessionStorage.removeItem("userToken");
+  window.location.replace("/auth");
+}
+  //   if (error.response?.status === 401) {
+  //     console.warn("Unauthorized, token may have expired");
+  //     sessionStorage.removeItem("userToken");
+  //     // window.location.href = "/login";
+  //      emailRedirectTo: redirectUrl
+  // //      if (window.location.pathname !== "/auth") {
+  // //   window.location.href = "/auth";
+  // // }
+  //   }
     return Promise.reject(error);
   }
 );

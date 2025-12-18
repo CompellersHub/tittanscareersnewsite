@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Bell, Mail, CreditCard, GraduationCap, Megaphone } from "lucide-react";
+import { useFetchAuthUser } from "@/hooks/useCourse";
 
 interface Preferences {
   email_receipts: boolean;
@@ -27,32 +28,35 @@ export function AccountPreferences() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+    const {data:fetchUser} = useFetchAuthUser()
+
+
   useEffect(() => {
     loadPreferences();
   }, []);
 
   const loadPreferences = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      // const { data: { user } } = await supabase.auth.getUser();
+      // if (!user) return;
 
-      const { data, error } = await supabase
-        .from("user_account_preferences")
-        .select("*")
-        .eq("user_id", user.id)
-        .single();
+      // const { data, error } = await supabase
+      //   .from("user_account_preferences")
+      //   .select("*")
+      //   .eq("user_id", user.id)
+      //   .single();
 
-      if (error && error.code !== "PGRST116") throw error;
+      // if (error && error.code !== "PGRST116") throw error;
 
-      if (data) {
-        setPreferences({
-          email_receipts: data.email_receipts ?? true,
-          payment_reminders: data.payment_reminders ?? true,
-          payment_confirmations: data.payment_confirmations ?? true,
-          course_access_notifications: data.course_access_notifications ?? true,
-          marketing_emails: data.marketing_emails ?? true,
-        });
-      }
+      // if (data) {
+      // }
+      setPreferences({
+        email_receipts: fetchUser?.data?.email_receipts ?? true,
+        payment_reminders: fetchUser?.data?.payment_reminders ?? true,
+        payment_confirmations: fetchUser?.data?.payment_confirmations ?? true,
+        course_access_notifications: fetchUser?.data?.course_access_notifications ?? true,
+        marketing_emails: fetchUser?.data?.marketing_emails ?? true,
+      });
     } catch (error) {
       console.error("Error loading preferences:", error);
       toast.error("Failed to load preferences");

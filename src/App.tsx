@@ -69,6 +69,8 @@ import ContentManager from "./pages/admin/ContentManager";
 import Events from "./pages/Events";
 import EventManagement from "./pages/admin/EventManagement";
 import AutomationSettings from "./pages/admin/AutomationSettings";
+import RequireAdmin from "./components/guard/RequireAdmin";
+import AdminLayout from "./components/guard/AdminLayout";
 
 const queryClient = new QueryClient();
 
@@ -113,14 +115,42 @@ const AnimatedRoutes = () => {
         <Route path="/resources" element={<Resources />} />
         <Route path="/events" element={<Events />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/campaigns" element={<CampaignManager />} />
-        <Route path="/admin/ab-tests" element={<ABTestManager />} />
-        <Route path="/admin/send-time-optimization" element={<SendTimeOptimization />} />
-        <Route path="/admin/email-analytics" element={<EmailAnalyticsDashboard />} />
-        <Route path="/admin/templates" element={<TemplateLibrary />} />
-        <Route path="/admin/segments" element={<SegmentManager />} />
-        <Route path="/admin/email-ab-tests" element={<EmailABTestDashboard />} />
+        {/* <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/campaigns"  element={
+          <RequireAdmin>
+            <CampaignManager />
+          </RequireAdmin>
+        }  />
+        <Route path="/admin/ab-tests"  element={
+          <RequireAdmin>
+            <ABTestManager />
+          </RequireAdmin>
+        } />
+        <Route path="/admin/send-time-optimization"  element={
+          <RequireAdmin>
+            <SendTimeOptimization />
+          </RequireAdmin>
+        }  />
+        <Route path="/admin/email-analytics"  element={
+          <RequireAdmin>
+            <EmailAnalyticsDashboard />
+          </RequireAdmin>
+        }  />
+        <Route path="/admin/templates"  element={
+          <RequireAdmin>
+            <TemplateLibrary />
+          </RequireAdmin>
+        } />
+        <Route path="/admin/segments"  element={
+          <RequireAdmin>
+            <SegmentManager />
+          </RequireAdmin>
+        }  />
+        <Route path="/admin/email-ab-tests"  element={
+          <RequireAdmin>
+            <EmailABTestDashboard />
+          </RequireAdmin>
+        }  /> */}
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
@@ -128,7 +158,7 @@ const AnimatedRoutes = () => {
         <Route path="/form-demo" element={<FormDemo />} />
         <Route path="/form-analytics" element={<FormAnalytics />} />
         <Route path="/form-alert-settings" element={<FormAlertSettings />} />
-        <Route path="/admin/engagement-analytics" element={<EngagementAnalytics />} />
+        {/* <Route path="/admin/engagement-analytics" element={<EngagementAnalytics />} />
         <Route path="/admin/ab-test-results" element={<ABTestDashboard />} />
         <Route path="/admin/ab-test-history" element={<ABTestWinnerHistory />} />
         <Route path="/admin/lead-nurture" element={<LeadNurtureManager />} />
@@ -159,7 +189,79 @@ const AnimatedRoutes = () => {
           <Route path="/admin/payment-management" element={<PaymentManagement />} />
           <Route path="/admin/event-management" element={<EventManagement />} />
           <Route path="/admin/automation-settings" element={<AutomationSettings />} />
-          <Route path="/admin/course-inquiries" element={<CourseInquiries />} />
+          <Route path="/admin/course-inquiries" element={<CourseInquiries />} /> */}
+          <Route
+    path="/admin"
+    element={
+      <RequireAdmin>
+        <AdminLayout />
+      </RequireAdmin>
+    }
+  >
+    <Route index element={<AdminDashboard />} />
+        <Route path="campaigns"  element={
+          
+            <CampaignManager />
+        }  />
+        <Route path="ab-tests"  element={
+         
+            <ABTestManager />
+        } />
+        <Route path="send-time-optimization"  element={
+        
+            <SendTimeOptimization />
+        }  />
+        <Route path="email-analytics"  element={
+          
+            <EmailAnalyticsDashboard />
+        }  />
+        <Route path="templates"  element={
+            <TemplateLibrary />
+          
+        } />
+        <Route path="segments"  element={
+          
+            <SegmentManager />
+        }  />
+        <Route path="email-ab-tests"  element={
+          
+            <EmailABTestDashboard />
+        }  />
+    <Route path="engagement-analytics" element={<EngagementAnalytics />} />
+    <Route path="ab-test-results" element={<ABTestDashboard />} />
+    <Route path="ab-test-history" element={<ABTestWinnerHistory />} />
+    <Route path="lead-nurture" element={<LeadNurtureManager />} />
+    <Route path="template-editor" element={<TemplateEditor />} />
+    <Route path="form-submissions" element={<FormSubmissionsAdmin />} />
+    <Route path="form-analytics" element={<FormSubmissionAnalytics />} />
+    <Route path="sla-alert-history" element={<SLAAlertHistory />} />
+    <Route path="notification-settings" element={<AdminNotificationSettings />} />
+    <Route path="response-templates" element={<AdminTemplates />} />
+
+    <Route path="vouchers" element={<VoucherManager />} />
+    <Route path="vouchers/analytics" element={<VoucherAnalytics />} />
+    <Route path="vouchers/export" element={<VoucherExport />} />
+    <Route path="vouchers/scheduled" element={<ScheduledCampaigns />} />
+    <Route path="vouchers/campaign-analytics" element={<CampaignAnalytics />} />
+
+    <Route path="scheduled-campaigns" element={<ScheduledCampaigns />} />
+    <Route path="campaign-analytics" element={<CampaignAnalytics />} />
+    <Route path="campaign-approval" element={<CampaignApprovalQueue />} />
+    <Route path="role-management" element={<RoleManagement />} />
+    <Route path="content-manager" element={<ContentManager />} />
+    <Route path="recovery-analytics" element={<RecoveryAnalytics />} />
+    <Route path="recovery-alert-settings" element={<RecoveryAlertSettings />} />
+    <Route path="alert-analytics" element={<AlertAnalytics />} />
+    <Route path="predictive-analytics" element={<PredictiveAnalytics />} />
+    <Route path="prediction-accuracy" element={<PredictionAccuracy />} />
+    <Route path="email-engagement" element={<EmailEngagementDashboard />} />
+    <Route path="bank-transfers" element={<BankTransferVerification />} />
+    <Route path="payment-analytics" element={<PaymentAnalytics />} />
+    <Route path="payment-management" element={<PaymentManagement />} />
+    <Route path="event-management" element={<EventManagement />} />
+    <Route path="automation-settings" element={<AutomationSettings />} />
+    <Route path="course-inquiries" element={<CourseInquiries />} />
+  </Route>
           <Route path="/profile" element={<Profile />} />
           <Route path="/payment-status" element={<PaymentStatus />} />
           <Route path="*" element={<NotFound />} />
