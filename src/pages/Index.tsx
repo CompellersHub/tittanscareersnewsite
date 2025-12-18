@@ -43,8 +43,6 @@ const Index = () => {
   
   const { data: fetchCourses, isLoading } = useFetchCourse();
   
-  // const featuredCourses = fetchCourses?.courses.slice(0, 3);
-
   useBehaviorTracking({ enableAutoTracking: true });
   
   // Enable keyboard shortcuts
