@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Download, ExternalLink } from 'lucide-react';
 import { format } from 'date-fns';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 
 export default function PaymentManagement() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -84,6 +85,8 @@ export default function PaymentManagement() {
   };
 
   return (
+    <AdminLayout title=''>
+
     <PageLayout intensity3D="subtle" show3D={true}>
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
@@ -349,5 +352,6 @@ export default function PaymentManagement() {
         </div>
       </main>
     </PageLayout>
+    </AdminLayout>
   );
 }

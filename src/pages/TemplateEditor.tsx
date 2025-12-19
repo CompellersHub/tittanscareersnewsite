@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Plus, Save, Eye, Trash2, Copy } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface Template {
   id: string;
@@ -214,6 +215,9 @@ export default function TemplateEditor() {
   };
 
   return (
+
+    <AdminLayout title="">
+
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
@@ -454,5 +458,7 @@ export default function TemplateEditor() {
         </div>
       </div>
     </div>
+    </AdminLayout>
+
   );
 }

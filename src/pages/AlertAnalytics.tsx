@@ -43,6 +43,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { format } from "date-fns";
+import { useAuth } from "@/contexts/AuthContext";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface AlertRecord {
   id: string;
@@ -64,53 +66,55 @@ export default function AlertAnalytics() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
+  const {isAdmin} = useAuth()
   const [alerts, setAlerts] = useState<AlertRecord[]>([]);
   const [selectedAlert, setSelectedAlert] = useState<AlertRecord | null>(null);
   const [resolutionNotes, setResolutionNotes] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [actionType, setActionType] = useState<"acknowledge" | "resolve" | "ignore">("acknowledge");
 
-  useEffect(() => {
-    checkAdminAndLoadData();
-  }, []);
+  // useEffect(() => {
+  //   checkAdminAndLoadData();
+  // }, []);
 
-  const checkAdminAndLoadData = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
+  // const checkAdminAndLoadData = async () => {
+  //   try {
+  //     const { data: { user } } = await supabase.auth.getUser();
       
-      if (!user) {
-        navigate('/auth');
-        return;
-      }
+  //     if (!user) {
+  //       navigate('/auth');
+  //       return;
+  //     }
 
-      const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .single();
+  //     const { data: roleData } = await supabase
+  //       .from('user_roles')
+  //       .select('role')
+  //       .eq('user_id', user.id)
+  //       .eq('role', 'admin')
+  //       .single();
 
-      if (!roleData) {
-        setIsAdmin(false);
-        setLoading(false);
-        return;
-      }
+  //     if (!roleData) {
+  //       setIsAdmin(false);
+  //       setLoading(false);
+  //       return;
+  //     }
 
-      setIsAdmin(true);
-      await loadAlerts();
-      setLoading(false);
-    } catch (error) {
-      console.error('Error loading data:', error);
-      setLoading(false);
-    }
-  };
+  //     setIsAdmin(true);
+  //     await loadAlerts();
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('Error loading data:', error);
+  //     setLoading(false);
+  //   }
+  // };
 
   const loadAlerts = async () => {
     const { data, error } = await supabase
       .from('recovery_alert_history' as any)
       .select('*')
       .order('sent_at', { ascending: false });
+      setLoading(false)
 
     if (error) {
       console.error('Error loading alerts:', error);
@@ -119,10 +123,12 @@ export default function AlertAnalytics() {
         description: "Failed to load alert data",
         variant: "destructive",
       });
+      setLoading(false)
       return;
     }
 
     setAlerts(data as any || []);
+    setLoading(false)
   };
 
   const handleAlertAction = async (alert: AlertRecord, action: "acknowledge" | "resolve" | "ignore") => {
@@ -313,25 +319,28 @@ export default function AlertAnalytics() {
     );
   }
 
-  if (!isAdmin) {
-    return (
-      <PageTransition>
-        <PageLayout intensity3D="subtle" show3D={true}>
-          <div className="container mx-auto px-4 py-24">
-            <Alert variant="destructive">
-              <AlertDescription>
-                You do not have permission to access this page. Admin access required.
-              </AlertDescription>
-            </Alert>
-          </div>
-        </PageLayout>
-      </PageTransition>
-    );
-  }
-
+  
   const metrics = calculateMetrics();
-
+  
   return (
+    
+    <AdminLayout title="">
+      {!isAdmin&& (
+        
+          <PageTransition>
+            <PageLayout intensity3D="subtle" show3D={true}>
+              <div className="container mx-auto px-4 py-24">
+                <Alert variant="destructive">
+                  <AlertDescription>
+                    You do not have permission to access this page. Admin access required.
+                  </AlertDescription>
+                </Alert>
+              </div>
+            </PageLayout>
+          </PageTransition>
+        )
+      }
+
     <PageTransition>
       <PageLayout intensity3D="subtle" show3D={true}>
         <div className="container mx-auto px-4 py-24">
@@ -685,5 +694,7 @@ export default function AlertAnalytics() {
       </div>
       </PageLayout>
     </PageTransition>
+    </AdminLayout>
+
   );
 }

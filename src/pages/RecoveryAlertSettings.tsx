@@ -12,6 +12,8 @@ import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Bell, Mail, MessageSquare, Send, TrendingDown, DollarSign, MessageCircle, Brain, ArrowRight } from "lucide-react";
+import { AdminLayout } from "@/components/admin/AdminLayout";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function RecoveryAlertSettings() {
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ export default function RecoveryAlertSettings() {
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  
+ const { isAdmin: isAdminFromContext } = useAuth();
 
   const [settings, setSettings] = useState({
     id: '',
@@ -39,53 +43,105 @@ export default function RecoveryAlertSettings() {
     slack_enabled: false,
   });
 
+  // useEffect(() => {
+  //   checkAdminAndLoadSettings();
+  // }, []);
+
   useEffect(() => {
-    checkAdminAndLoadSettings();
-  }, []);
+    const initialize = async () => {
+      try {
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        
+        if (userError || !user) {
+          navigate('/auth');
+          return;
+        }
 
-  const checkAdminAndLoadSettings = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        navigate('/auth');
-        return;
-      }
+        // Prefer isAdmin from AuthContext if available
+        if (isAdminFromContext === false) {
+          setLoading(false);
+          return;
+        }
 
-      const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .single();
+        // If context says true, or is undefined (not loaded yet), proceed to load settings
+        // Optionally fall back to DB check if context is not reliable
+        // But assuming your AuthContext correctly sets isAdmin, we trust it
 
-      if (!roleData) {
-        setIsAdmin(false);
+        // Load settings only if admin
+        const { data: existingSettings, error: settingsError } = await supabase
+          .from('recovery_alert_settings')
+          .select('*')
+          .maybeSingle(); // Use maybeSingle() to handle no rows gracefully
+
+        if (settingsError && settingsError.code !== 'PGRST116') { // PGRST116 = no rows
+          throw settingsError;
+        }
+
+        if (existingSettings) {
+          setSettings(existingSettings);
+        } else {
+          // Default settings with admin email
+          setSettings(prev => ({ ...prev, admin_email: user.email || '' }));
+        }
+
         setLoading(false);
-        return;
+      } catch (error) {
+        console.error('Error initializing settings:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load settings",
+          variant: "destructive",
+        });
+        setLoading(false);
       }
+    };
 
-      setIsAdmin(true);
+    initialize();
+  }, [navigate, toast, isAdminFromContext]);
 
-      // Load existing settings
-      const { data: existingSettings } = await supabase
-        .from('recovery_alert_settings' as any)
-        .select('*')
-        .single();
+  // const checkAdminAndLoadSettings = async () => {
+  //   try {
+  //     const { data: { user } } = await supabase.auth.getUser();
+      
+  //     if (!user) {
+  //       navigate('/auth');
+  //       return;
+  //     }
 
-      if (existingSettings) {
-        setSettings(existingSettings as any);
-      } else {
-        // Set default admin email
-        setSettings(prev => ({ ...prev, admin_email: user.email || '' }));
-      }
+  //     const { data: roleData } = await supabase
+  //       .from('user_roles')
+  //       .select('role')
+  //       .eq('user_id', user.id)
+  //       .eq('role', 'admin')
+  //       .single();
 
-      setLoading(false);
-    } catch (error) {
-      console.error('Error loading settings:', error);
-      setLoading(false);
-    }
-  };
+  //     if (!roleData) {
+  //       setIsAdmin(false);
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     setIsAdmin(true);
+
+  //     // Load existing settings
+  //     const { data: existingSettings } = await supabase
+  //       .from('recovery_alert_settings' as any)
+  //       .select('*')
+  //       .single();
+
+  //     if (existingSettings) {
+  //       setSettings(existingSettings as any);
+  //     } else {
+  //       // Set default admin email
+  //       setSettings(prev => ({ ...prev, admin_email: user.email || '' }));
+  //     }
+
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('Error loading settings:', error);
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleSaveSettings = async () => {
     setSaving(true);
@@ -166,31 +222,34 @@ export default function RecoveryAlertSettings() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <PageTransition>
-        <Navbar />
-        <div className="container mx-auto px-4 py-24">
-          <Alert variant="destructive">
-            <AlertDescription>
-              You do not have permission to access this page. Admin access required.
-            </AlertDescription>
-          </Alert>
-        </div>
-        <Footer />
-      </PageTransition>
-    );
-  }
-
+  
+  
   return (
+    <AdminLayout title="">
+      {loading&&
+         (
+          <div className="min-h-screen flex items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
+        )
+      }
+
+      {!isAdminFromContext &&
+         (
+          <PageTransition>
+            <Navbar />
+            <div className="container mx-auto px-4 py-24">
+              <Alert variant="destructive">
+                <AlertDescription>
+                  You do not have permission to access this page. Admin access required.
+                </AlertDescription>
+              </Alert>
+            </div>
+            <Footer />
+          </PageTransition>
+        )
+      }
+
     <PageTransition>
       <Navbar />
       <div className="container mx-auto px-4 py-24 max-w-4xl">
@@ -521,5 +580,6 @@ export default function RecoveryAlertSettings() {
       </div>
       <Footer />
     </PageTransition>
+    </AdminLayout>
   );
 }

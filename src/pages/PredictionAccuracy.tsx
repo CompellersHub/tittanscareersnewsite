@@ -11,6 +11,7 @@ import { PageLayout } from "@/components/layouts/PageLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { LineChart, Line, BarChart, Bar, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 import { format } from "date-fns";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface ValidatedPrediction {
   id: string;
@@ -230,6 +231,8 @@ const PredictionAccuracy = () => {
   const confidenceData = getConfidenceVsAccuracy();
 
   return (
+    <AdminLayout title="">
+
     <PageTransition>
       <PageLayout intensity3D="subtle" show3D={true}>
         <div className="container mx-auto py-8 space-y-6">
@@ -489,6 +492,8 @@ const PredictionAccuracy = () => {
         </div>
       </PageLayout>
     </PageTransition>
+    </AdminLayout>
+
   );
 };
 

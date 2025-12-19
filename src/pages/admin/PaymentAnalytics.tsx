@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { LineChart, Line, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { CreditCard, TrendingUp, AlertCircle, DollarSign } from 'lucide-react';
 import { format, subDays } from 'date-fns';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'];
 
@@ -93,6 +94,8 @@ export default function PaymentAnalytics() {
   });
 
   return (
+    <AdminLayout title=''>
+
     <PageLayout intensity3D="subtle" show3D={true}>
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
@@ -282,5 +285,6 @@ export default function PaymentAnalytics() {
         </div>
       </main>
     </PageLayout>
+    </AdminLayout>
   );
 }

@@ -9,6 +9,7 @@ import { Loader2, TrendingUp, TrendingDown, AlertTriangle, Lightbulb, RefreshCw,
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface Prediction {
   id: string;
@@ -139,6 +140,8 @@ const PredictiveAnalytics = () => {
   const highRiskPredictions = latestPredictions.filter(p => p.predicted_alert_probability >= 70);
 
   return (
+    <AdminLayout title="">
+
     <div className="container mx-auto py-8 space-y-6">
       <div className="flex items-center justify-between">
         <div>
@@ -324,6 +327,7 @@ const PredictiveAnalytics = () => {
         </TabsContent>
       </Tabs>
     </div>
+    </AdminLayout>
   );
 };
 
