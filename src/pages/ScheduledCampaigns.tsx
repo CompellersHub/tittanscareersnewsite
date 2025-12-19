@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Calendar, Clock, Repeat, Trash2, Play, Pause, BarChart3 } from "lucide-react";
 import { format } from "date-fns";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 const ScheduledCampaigns = () => {
   const navigate = useNavigate();
@@ -151,9 +152,13 @@ const ScheduledCampaigns = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="container mx-auto p-6">
+
+
+
+  return (
+    <AdminLayout title="Scheduled Campaigns" description="">
+      {loading &&(
+        <div className="container mx-auto p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <Button variant="ghost" onClick={() => navigate("/admin/vouchers")}>
@@ -169,17 +174,15 @@ const ScheduledCampaigns = () => {
         </div>
         <div className="text-center py-12">Loading campaigns...</div>
       </div>
-    );
-  }
-
-  return (
+      )}
+      
     <div className="container mx-auto p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" onClick={() => navigate("/admin/voucher-manager")}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-3xl font-bold">Scheduled Campaigns</h1>
+         
         </div>
         <Button variant="outline" onClick={() => navigate("/admin/campaign-approval")}>
           <Clock className="h-4 w-4 mr-2" />
@@ -314,6 +317,7 @@ const ScheduledCampaigns = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

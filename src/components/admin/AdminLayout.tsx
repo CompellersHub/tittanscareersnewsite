@@ -153,7 +153,7 @@ export function AdminLayout({ title, description, children }: AdminLayoutProps) 
         </div>
       </SidebarProvider>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -15,6 +15,7 @@ import {
   Activity
 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
 
@@ -174,6 +175,9 @@ export default function RecoveryAnalytics() {
   const overallROI = totalCost > 0 ? ((totalRevenue - totalCost) / totalCost) * 100 : 0;
 
   return (
+
+    <AdminLayout title="">
+
     <div className="min-h-screen bg-background p-6 space-y-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -418,5 +422,7 @@ export default function RecoveryAnalytics() {
         </div>
       </div>
     </div>
+    </AdminLayout>
+
   );
 }

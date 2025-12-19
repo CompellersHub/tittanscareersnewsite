@@ -9,6 +9,7 @@ import { ErrorBoundary } from "@/components/error/ErrorBoundary";
 import { DataFetchError } from "@/components/error/DataFetchError";
 import { CampaignAnalyticsSkeleton } from "@/components/skeletons/CampaignAnalyticsSkeleton";
 import { EmptyState } from "@/components/error/EmptyState";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface CampaignStats {
   totalCampaigns: number;
@@ -187,6 +188,8 @@ export default function EmailAnalyticsDashboard() {
   }
 
   return (
+    <AdminLayout title="">
+
     <ErrorBoundary onReset={loadAnalytics}>
       <PageLayout intensity3D="subtle" show3D={true}>
         <main className="container mx-auto px-4 py-8 bg-gradient-to-br from-background via-background to-primary/5 animate-fade-in">
@@ -369,5 +372,7 @@ export default function EmailAnalyticsDashboard() {
       </main>
       </PageLayout>
     </ErrorBoundary>
+    </AdminLayout>
+
   );
 }

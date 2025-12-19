@@ -9,6 +9,7 @@ import { DataFetchError } from "@/components/error/DataFetchError";
 import { EngagementDashboardSkeleton } from "@/components/skeletons/EngagementDashboardSkeleton";
 import { EmptyState } from "@/components/error/EmptyState";
 import { Mail, BarChart3, MousePointer } from "lucide-react";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface EngagementMetrics {
   totalClicks: number;
@@ -278,6 +279,9 @@ export default function EmailEngagementDashboard() {
   }
 
   return (
+
+    <AdminLayout title="">
+
     <ErrorBoundary onReset={fetchEngagementMetrics}>
       <div className="container mx-auto p-6 space-y-6">
       <div>
@@ -701,5 +705,7 @@ export default function EmailEngagementDashboard() {
       </Tabs>
     </div>
     </ErrorBoundary>
+    </AdminLayout>
+
   );
 }

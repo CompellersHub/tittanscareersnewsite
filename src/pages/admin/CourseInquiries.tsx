@@ -19,6 +19,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 export default function CourseInquiries() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -124,6 +125,8 @@ export default function CourseInquiries() {
   };
 
   return (
+    <AdminLayout title="">
+
     <div className="container mx-auto p-6 space-y-6">
       <div>
         <h1 className="text-3xl font-bold mb-2">Course Inquiries</h1>
@@ -335,5 +338,6 @@ export default function CourseInquiries() {
         </DialogContent>
       </Dialog>
     </div>
+    </AdminLayout>
   );
 }

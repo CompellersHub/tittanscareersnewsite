@@ -11,6 +11,7 @@ import { AnalyticsPageSkeleton } from "@/components/admin/AnalyticsPageSkeleton"
 import { ArrowLeft, AlertCircle, Clock, CheckCircle, TrendingDown, TrendingUp } from "lucide-react";
 import { formatDistanceToNow, format, differenceInMinutes } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface AlertHistoryItem {
   id: string;
@@ -39,7 +40,7 @@ interface EffectivenessMetrics {
 const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
 
 export default function SLAAlertHistory() {
-  const { user, isAdmin } = useAuth();
+  const {  isAdmin } = useAuth();
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState<AlertHistoryItem[]>([]);
   const [metrics, setMetrics] = useState<EffectivenessMetrics | null>(null);
@@ -175,11 +176,14 @@ export default function SLAAlertHistory() {
       type: a.alert_type,
     }));
 
-  if (loading) {
-    return <AnalyticsPageSkeleton />;
-  }
+    
+    return (
+      <AdminLayout title="">
 
-  return (
+       {loading && (
+         <AnalyticsPageSkeleton />
+    )}
+
     <div className="container mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -408,5 +412,6 @@ export default function SLAAlertHistory() {
         </CardContent>
       </Card>
     </div>
+    </AdminLayout>
   );
 }

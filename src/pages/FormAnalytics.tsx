@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { AlertCircle, Clock, TrendingUp, TrendingDown, Users } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface AnalyticsSummary {
   form_name: string;
@@ -80,6 +81,9 @@ export default function FormAnalytics() {
   }
 
   return (
+
+    <AdminLayout title="">
+
     <PageTransition>
       <PageLayout intensity3D="subtle" show3D={true}>
         <div className="container mx-auto py-16 px-4">
@@ -316,5 +320,7 @@ export default function FormAnalytics() {
         </div>
       </PageLayout>
     </PageTransition>
+    </AdminLayout>
+
   );
 }
