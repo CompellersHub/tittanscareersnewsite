@@ -16,6 +16,7 @@ import {
   Zap,
   BarChart3
 } from "lucide-react";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface SubscriberOptimization {
   id: string;
@@ -126,18 +127,12 @@ export default function SendTimeOptimization() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
+    <AdminLayout title='AI Send Time Optimization' description='Personalized email delivery based on individual engagement patterns'>
+    
       <main className="flex-1 container mx-auto px-4 py-8 mt-20">
         <div className="max-w-7xl mx-auto space-y-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">AI Send Time Optimization</h1>
-              <p className="text-muted-foreground">
-                Personalized email delivery based on individual engagement patterns
-              </p>
-            </div>
+          <div className="flex items-center justify-end">
+            
             <Button onClick={handleRunOptimization} disabled={isAnalyzing}>
               {isAnalyzing ? (
                 <>
@@ -324,7 +319,6 @@ export default function SendTimeOptimization() {
         </div>
       </main>
 
-      <Footer />
-    </div>
+    </AdminLayout>
   );
 }
