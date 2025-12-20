@@ -18,6 +18,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 export default function EventManagement() {
   const queryClient = useQueryClient();
@@ -149,6 +150,8 @@ export default function EventManagement() {
   };
 
   return (
+    <AdminLayout title="">
+
     <div className="container mx-auto py-8 space-y-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">Event Lifecycle Management</h1>
@@ -293,5 +296,6 @@ export default function EventManagement() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
+    </AdminLayout>
   );
 }

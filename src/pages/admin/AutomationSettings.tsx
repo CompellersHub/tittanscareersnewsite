@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Play, Calendar, Settings, Database } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 interface AutomationConfig {
   id: string;
@@ -131,6 +132,7 @@ const AutomationSettings = () => {
   }
 
   return (
+    <AdminLayout title="">
     <div className="container mx-auto py-8 space-y-6">
       <div className="flex items-center justify-between">
         <div>
@@ -393,6 +395,7 @@ const AutomationSettings = () => {
         </TabsContent>
       </Tabs>
     </div>
+      </AdminLayout>
   );
 };
 
