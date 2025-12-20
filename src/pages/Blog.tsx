@@ -8,7 +8,7 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { KeyboardShortcutsHelper } from "@/components/ui/keyboard-shortcuts-helper";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { blogPosts } from "@/data/blogPosts";
+import { BlogPost, blogPosts } from "@/data/blogPosts";
 import { BookOpen, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
@@ -20,6 +20,7 @@ import { usePullToRefresh } from "@/hooks/usePullToRefresh";
 import { useNavigationShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
+import { useFetchBlogs } from "@/hooks/useCourse";
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -27,6 +28,8 @@ const Blog = () => {
   const isMobile = useIsMobile();
   const sentinelRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+     const { data: fetchBlogs } = useFetchBlogs();
+  
   
   // Enable keyboard shortcuts
   useNavigationShortcuts();
@@ -49,8 +52,9 @@ const Blog = () => {
   ];
 
   const filteredPosts = selectedCategory === "all" 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === selectedCategory);
+    ? fetchBlogs?.blogs 
+    : fetchBlogs?.blogs.filter(post => post.category === selectedCategory);
+
 
   // Pagination for desktop
   const {
@@ -117,6 +121,7 @@ const Blog = () => {
   }, [isMobile, hasMore, isLoadingMore, loadMore]);
 
   const displayItems = isMobile ? infiniteScrollItems : paginatedItems;
+
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
@@ -205,7 +210,7 @@ const Blog = () => {
       <section className="py-20 bg-muted/30">
         <div className="container max-w-7xl">
           <BlogGrid 
-            posts={displayItems} 
+            posts={displayItems as BlogPost[]} 
             loading={isLoading} 
             getCategoryColor={getCategoryColor}
             formatDate={formatDate}

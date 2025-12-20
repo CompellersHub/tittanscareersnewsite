@@ -24,7 +24,7 @@ export function BlogGrid({ posts, loading, getCategoryColor, formatDate }: BlogG
     );
   }
 
-  if (posts.length === 0) {
+  if (posts?.length === 0) {
     return (
       <div className="text-center py-16">
         <p className="font-sans text-xl text-muted-foreground">No articles found in this category</p>
@@ -32,14 +32,15 @@ export function BlogGrid({ posts, loading, getCategoryColor, formatDate }: BlogG
     );
   }
 
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <Card key={post.slug} className="group overflow-hidden hover:shadow-lg transition-shadow border-border">
-          {post.featuredImage && (
+          {post?.data?.image_url && (
             <div className="overflow-hidden">
               <img
-                src={post.featuredImage}
+                src={post?.data?.image_url}
                 alt={post.title}
                 className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -47,12 +48,12 @@ export function BlogGrid({ posts, loading, getCategoryColor, formatDate }: BlogG
           )}
           <CardContent className="p-6 space-y-4">
             <div className="flex items-center gap-3">
-              <Badge className={`${getCategoryColor(post.category)} font-sans text-xs`}>
-                {post.category.replace("-", " ")}
+              <Badge className={`${getCategoryColor(post?.data?.category)} font-sans text-xs`}>
+                {post?.data?.category?.replace("-", " ")}
               </Badge>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground font-sans">
                 <Calendar className="w-3.5 h-3.5" />
-                <span>{formatDate(post.publishedAt)}</span>
+                <span>{formatDate(post?.data?.publishedAt)}</span>
               </div>
             </div>
             
@@ -61,13 +62,13 @@ export function BlogGrid({ posts, loading, getCategoryColor, formatDate }: BlogG
             </h3>
             
             <p className="font-sans text-muted-foreground line-clamp-3 leading-relaxed">
-              {post.excerpt}
+              {post?.data?.excerpt}
             </p>
             
             <div className="flex items-center justify-between pt-4 border-t border-border">
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground font-sans">
                 <Clock className="w-3.5 h-3.5" />
-                <span>{post.readTime} min read</span>
+                <span>{post.readTime || 8} min read</span>
               </div>
               <Link to={`/blog/${post.slug}`}>
                 <Button variant="ghost" size="sm" className="group/btn font-sans">
@@ -79,10 +80,10 @@ export function BlogGrid({ posts, loading, getCategoryColor, formatDate }: BlogG
 
             <div className="pt-2">
               <p className="font-sans text-sm font-semibold text-primary">
-                {post.author.name}
+                {post?.data?.author}
               </p>
               <p className="font-sans text-xs text-muted-foreground">
-                {post.author.role}
+                {post?.data?.authorRole}
               </p>
             </div>
           </CardContent>

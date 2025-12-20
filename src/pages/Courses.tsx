@@ -29,7 +29,6 @@ export default function Courses() {
   const { toast } = useToast();
    const { data: fetchCourses, isLoading } = useFetchCourse();
 
-   console.log()
 
   
   // Enable keyboard shortcuts
@@ -100,14 +99,7 @@ export default function Courses() {
   }, [isMobile, hasMore, isLoadingMore, loadMore]);
 
   const displayItems = isMobile ? infiniteScrollItems : paginatedItems;
-  console.log("📱 Display mode:", isMobile ? "mobile" : "desktop");
-  console.log("🎯 Display items count:", displayItems?.length);
-
-// if(isLoading){
-//     return (
-//       <Loading
-//     )
-//   }
+  
   
   return (
     <PageTransition variant="slide">

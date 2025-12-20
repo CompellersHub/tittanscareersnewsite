@@ -19,6 +19,38 @@ import { useQuery } from "@tanstack/react-query";
   });
 };
 
+
+  export const useFetchBlogs = () => {
+  return useQuery({
+    queryKey: ["blogs"],
+    queryFn: async () => {
+      const response = await api.get(
+        `/get-blogs`
+      );
+
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+};
+
+  export const useFetchBlogBySlug = (slug: string) => {
+  return useQuery({
+    queryKey: ["blogs", slug],
+    queryFn: async () => {
+      const response = await api.get(
+        `/get-blog?slug=${slug}`
+      );
+
+      return response?.data?.blog;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+    enabled: !!slug,
+  });
+};
+
   export const useFetchAuthUser = () => {
     const token = sessionStorage.getItem('userToken')
   return useQuery({
