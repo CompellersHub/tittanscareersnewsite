@@ -43,18 +43,19 @@ const Blog = () => {
 
   const categories = [
     { id: "all", label: "All Articles" },
-    { id: "aml", label: "AML Compliance" },
-    { id: "data", label: "Data Analysis" },
-    { id: "career-tips", label: "Career Tips" },
-    { id: "business-analysis", label: "Business Analysis" },
-    { id: "cybersecurity", label: "Cybersecurity" },
-    { id: "industry-news", label: "Industry News" }
+    { id:"Compliance", label: "AML Compliance" },
+    { id: "Data", label: "Data Analysis" },
+    { id: "Career-tips", label: "Career Tips" },
+    { id: "Business-analysis", label: "Business Analysis" },
+    { id: "Cybersecurity", label: "Cybersecurity" },
+    { id: "Industry-news", label: "Industry News" }
   ];
 
   const filteredPosts = selectedCategory === "all" 
     ? fetchBlogs?.blogs 
-    : fetchBlogs?.blogs.filter(post => post.category === selectedCategory);
+    : fetchBlogs?.blogs.filter(post => post?.data?.category === selectedCategory);
 
+    
 
   // Pagination for desktop
   const {
@@ -196,7 +197,7 @@ const Blog = () => {
                 className={`font-sans font-semibold ${
                   selectedCategory === category.id
                     ? "bg-accent hover:bg-accent/90 text-accent-foreground"
-                    : "border-2 hover:border-accent hover:text-accent"
+                    : "border-2 hover:border-accent hover:text-white"
                 }`}
               >
                 {category.label}
