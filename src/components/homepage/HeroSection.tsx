@@ -34,23 +34,23 @@ export const HeroSection = () => {
           <div className="space-y-8 animate-fade-in">
             {/* Enhanced Tagline Badge with icon */}
             <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md rounded-full border-2 border-white/30 shadow-lg animate-fade-in hover:scale-105 transition-transform">
-              <span className="text-white font-sans font-bold text-sm tracking-wide">
+              <span className="text-primary font-sans font-bold text-sm tracking-wide">
                 Practical training. Real careers.
               </span>
             </div>
             
             {/* Enhanced H1 with gradient text */}
             <h1 className="font-kanit font-bold leading-[1.1] animate-fade-in" style={{ fontSize: 'clamp(32px, 6vw, 64px)' }}>
-              <span className="bg-gradient-to-r from-white via-white to-tc-amber bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white via-white to-tc-amber bg-clip-text text-primary">
                 Upgrade Your Career
               </span>
               <br />
-              <span className="text-white drop-shadow-lg">with Titans Careers</span>
+              <span className="text-primary drop-shadow-lg">with Titans Careers</span>
             </h1>
             
             {/* Enhanced body text with better line height */}
-            <p className="font-sans text-lg leading-relaxed text-white/90 max-w-xl animate-fade-in drop-shadow-md" style={{ animationDelay: '0.1s' }}>
-              Learn in-demand skills in <span className="font-semibold text-tc-amber">AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity, Digital Marketing, Data Privacy</span> and <span className="font-semibold text-tc-amber">Crypto</span>. No UK experience needed.
+            <p className="font-sans text-lg leading-relaxed text-primary/90 max-w-xl animate-fade-in drop-shadow-md" style={{ animationDelay: '0.1s' }}>
+              Learn in-demand skills in <span className="font-semibold text-primary">AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity, Digital Marketing, Data Privacy</span> and <span className="font-semibold text-primary">Crypto</span>. No UK experience needed.
             </p>
             
             {/* Enhanced CTA Button with glow effect */}

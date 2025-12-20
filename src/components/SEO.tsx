@@ -26,7 +26,7 @@ export function SEO({
   modifiedTime,
 }: SEOProps) {
   const siteName = 'Titans Training Group';
-  const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+  const fullTitle = title?.includes(siteName) ? title : `${title} | ${siteName}`;
   const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
   const imageUrl = image.startsWith('http') ? image : `${window.location.origin}${image}`;
 

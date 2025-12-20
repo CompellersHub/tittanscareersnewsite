@@ -12,31 +12,37 @@ import { generateBlogPostSchema } from "@/lib/structuredData";
 import { ReadingProgressBar } from "@/components/blog/ReadingProgressBar";
 import { SocialShareButtons } from "@/components/blog/SocialShareButtons";
 import { ShareButton } from "@/components/ShareButton";
+import { useFetchBlogBySlug, useFetchBlogs } from "@/hooks/useCourse";
+import TableOfContents from "@/components/blog/TableOfContents";
+import BlogContentRenderer from "@/components/blog/BlogContentRenderer";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
+
+  const {data: singleBlogPost, isLoading, isError} = useFetchBlogBySlug(slug); 
   
-  const post = blogPosts.find(p => p.slug === slug);
+     const { data: fetchBlogs } = useFetchBlogs();
+
   
   // If post not found, redirect to blog
   // Update page title for SEO
   useEffect(() => {
-    document.title = `${post.title} | Titans Careers Blog`;
+    document.title = `${singleBlogPost?.title} | Titans Careers Blog`;
     
     // Add meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', post.excerpt);
+      metaDescription.setAttribute('content', singleBlogPost?.excerpt);
     }
     
     return () => {
       document.title = 'Titans Careers';
     };
-  }, [post]);
+  }, [singleBlogPost]);
 
 
-  if (!post) {
+  if (!singleBlogPost && !isLoading) {
     return <Navigate to="/blog" replace />;
   }
 
@@ -52,8 +58,8 @@ const BlogPost = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: post.title,
-          text: post.excerpt,
+          title: singleBlogPost?.title,
+          text: singleBlogPost?.data?.excerpt,
           url: url
         });
       } catch (error) {
@@ -90,30 +96,35 @@ const BlogPost = () => {
   };
 
   // Get related posts (same category, excluding current)
-  const relatedPosts = blogPosts
-    .filter(p => p.category === post.category && p.id !== post.id)
+  const relatedPosts = fetchBlogs?.blogs
+    .filter(p => p?.data?.category === singleBlogPost?.data?.category && p.id !== singleBlogPost?.id)
     .slice(0, 3);
+
+
+    const isStructuredContent = Array.isArray((singleBlogPost as any)?.structuredContent);
+  const structuredContent = isStructuredContent ? (singleBlogPost as any)?.structuredContent : null;
+
 
   return (
     <PageLayout intensity3D="subtle" show3D={true}>
-      <ReadingProgressBar readTime={post.readTime} />
+      <ReadingProgressBar readTime={singleBlogPost?.data?.readTime || 8} />
       <SocialShareButtons 
-        title={post.title}
+        title={singleBlogPost?.title}
         url={typeof window !== 'undefined' ? window.location.href : ''}
       />
       <SEO
-        title={post.title}
-        description={post.excerpt}
+        title={singleBlogPost?.title}
+        description={singleBlogPost?.excerpt}
         type="article"
-        keywords={`${post.category}, ${post.title}, career advice, professional development`}
-        author={post.author.name}
-        publishedTime={post.publishedAt}
+        keywords={`${singleBlogPost?.category}, ${singleBlogPost?.title}, career advice, professional development`}
+        author={singleBlogPost?.author}
+        publishedTime={singleBlogPost?.publishedAt}
         structuredData={generateBlogPostSchema({
-          title: post.title,
-          description: post.excerpt,
-          image: post.featuredImage,
-          author: post.author.name,
-          publishedDate: post.publishedAt,
+          title: singleBlogPost?.title,
+          description: singleBlogPost?.excerpt,
+          image: singleBlogPost?.featuredImage,
+          author: singleBlogPost?.author,
+          publishedDate: singleBlogPost?.publishedAt,
           url: typeof window !== 'undefined' ? window.location.href : ''
         })}
       />
@@ -135,36 +146,36 @@ const BlogPost = () => {
             <div className="space-y-6">
               <Badge 
                 variant="outline" 
-                className={`font-sans ${getCategoryColor(post.category)}`}
+                className={`font-sans ${getCategoryColor(singleBlogPost?.data?.category)}`}
               >
-                {post.category.replace('-', ' ').toUpperCase()}
+                {singleBlogPost?.data?.category?.replace('-', ' ').toUpperCase()}
               </Badge>
               
               <h1 className="font-kanit text-white text-3xl md:text-5xl font-bold leading-tight">
-                {post.title}
+                {singleBlogPost?.title}
               </h1>
               
               <p className="font-sans text-xl text-primary-foreground/80 leading-relaxed">
-                {post.excerpt}
+                {singleBlogPost?.data?.excerpt}
               </p>
               
               <div className="flex flex-wrap items-center gap-6 text-sm font-sans pt-4">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-accent" />
-                  <time dateTime={post.publishedAt} className="text-primary-foreground/80">
-                    {formatDate(post.publishedAt)}
+                  <time dateTime={singleBlogPost?.data?.publishedAt} className="text-primary-foreground/80">
+                    {formatDate(singleBlogPost?.data?.publishedAt)}
                   </time>
                 </div>
                 
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-accent" />
-                  <span className="text-primary-foreground/80">{post.readTime} min read</span>
+                  <span className="text-primary-foreground/80">{singleBlogPost?.data?.readTime || 8} min read</span>
                 </div>
                 
                 <ShareButton 
-                  title={post.title}
+                  title={singleBlogPost?.title}
                   url={window.location.href}
-                  description={post.excerpt}
+                  description={singleBlogPost?.data?.excerpt}
                   variant="ghost"
                   size="sm"
                   className="text-primary-foreground hover:text-accent hover:bg-primary-foreground/10"
@@ -172,15 +183,29 @@ const BlogPost = () => {
               </div>
               
               <div className="pt-4 border-t border-primary-foreground/20">
-                <p className="font-sans font-semibold text-primary-foreground">{post.author.name}</p>
-                <p className="font-sans text-sm text-primary-foreground/70">{post.author.role}</p>
+                <p className="font-sans font-semibold text-primary-foreground">{singleBlogPost?.data?.author}</p>
+                <p className="font-sans text-sm text-primary-foreground/70">{singleBlogPost?.data?.authorRole}</p>
               </div>
             </div>
           </div>
         </header>
 
+         <section className="py-12 md:py-16 bg-background">
+          <div className="container max-w-4xl">
+            {/* Table of Contents for structured content */}
+            {structuredContent && (
+              <TableOfContents content={structuredContent} />
+            )}
+            
+            {/* Content */}
+            <div className="bg-card rounded-2xl shadow-lg border border-border/50 p-6 md:p-10 lg:p-12">
+              <BlogContentRenderer content={structuredContent || singleBlogPost?.data?.content} />
+            </div>
+          </div>
+        </section>
+
         {/* Article Content */}
-        <section className="py-16 bg-background">
+        {/* <section className="py-16 bg-background">
           <div className="container max-w-3xl">
             <div 
               className="prose prose-lg max-w-none font-sans
@@ -193,10 +218,10 @@ const BlogPost = () => {
                 prose-ul:my-6 prose-ul:space-y-2
                 prose-li:text-muted-foreground
                 prose-a:text-accent prose-a:font-semibold prose-a:no-underline hover:prose-a:underline"
-              dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
+              dangerouslySetInnerHTML={{ __html: singleBlogPost?.data?.content?.replace(/\n/g, '<br />') }}
             />
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
@@ -211,8 +236,8 @@ const BlogPost = () => {
                 
                 <p className="font-sans text-primary-foreground/80 text-lg">
                   Join our free Q&A session to learn how our courses can help you 
-                  break into {post.category === 'aml' ? 'AML compliance' : 
-                  post.category === 'data' ? 'data analysis' : 'your dream career'}.
+                  break into {singleBlogPost?.category === 'aml' ? 'AML compliance' : 
+                  singleBlogPost?.category === 'data' ? 'data analysis' : 'your dream career'}.
                 </p>
                 
                 <div className="flex flex-wrap gap-4 justify-center pt-4">
@@ -263,21 +288,21 @@ const BlogPost = () => {
                     <CardContent className="p-6 space-y-4">
                       <Badge 
                         variant="outline" 
-                        className={`font-sans ${getCategoryColor(relatedPost.category)}`}
+                        className={`font-sans ${getCategoryColor(relatedPost?.data?.category)}`}
                       >
-                        {relatedPost.category.replace('-', ' ').toUpperCase()}
+                        {relatedPost?.data?.category?.replace('-', ' ').toUpperCase()}
                       </Badge>
                       
                       <h3 className="font-kanit text-lg font-bold text-primary leading-tight">
-                        {relatedPost.title}
+                        {relatedPost?.title}
                       </h3>
                       
                       <p className="font-sans text-sm text-muted-foreground line-clamp-3">
-                        {relatedPost.excerpt}
+                        {relatedPost?.excerpt}
                       </p>
                       
                       <div className="flex items-center gap-3 text-xs font-sans text-muted-foreground">
-                        <span>{relatedPost.readTime} min</span>
+                        <span>{relatedPost?.readTime || 8} min</span>
                       </div>
                       
                       <Link to={`/blog/${relatedPost.slug}`}>
