@@ -8,7 +8,7 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { KeyboardShortcutsHelper } from "@/components/ui/keyboard-shortcuts-helper";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BlogPost, blogPosts } from "@/data/blogPosts";
+import { BlogPost } from "@/data/blogPosts";
 import { BookOpen, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";

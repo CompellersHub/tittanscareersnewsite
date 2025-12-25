@@ -1,5 +1,8 @@
 import { api, authApi } from "@/lib/axiosConfig";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { useToast } from "./use-toast";
+import { Preferences } from "@/lib/types";
 
 
 
@@ -34,6 +37,59 @@ import { useQuery } from "@tanstack/react-query";
     refetchOnWindowFocus: false,
   });
 };
+
+export const useUploadAsset = () => {
+  return useMutation({
+    mutationFn: async (formData: FormData) => {
+      const res = await authApi.post('/upload-asset', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      return res.data; 
+    },
+  });
+};
+
+export const useCreateBlogPost = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await authApi.post('/create-blog-post', data);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] });
+    },
+  });
+}
+
+export const useUpdateBlogPost = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await authApi.put('/update-blog', data);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] });
+    },
+  });
+}
+
+export const useDeleteBlogPost = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await authApi.delete(`/delete-blog?id=${data.id}?slug=${data.slug}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] });
+    },
+  });
+}
 
   export const useFetchBlogBySlug = (slug: string) => {
   return useQuery({
@@ -113,5 +169,24 @@ import { useQuery } from "@tanstack/react-query";
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
+  });
+};
+
+
+export const useUpdatePreferences = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (preferences: Partial<Preferences>) => {
+      const res = await authApi.patch("/user/preferences", preferences);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      toast.success("Preferences updated");
+    },
+    onError: () => {
+      toast.error("Failed to update preferences");
+    },
   });
 };

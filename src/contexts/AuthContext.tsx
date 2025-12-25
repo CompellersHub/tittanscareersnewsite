@@ -302,7 +302,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return { success: false, message: res.data?.message };
       }
     } catch (err: any) {
-      const message = err.response?.data?.message || "Network error";
+      const message = err.response?.data?.error || "Network error";
       toast({
         title: "Error",
         description: message,
@@ -341,7 +341,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return { success: false, message: res.data?.message };
       }
     } catch (err: any) {
-      const message = err.response?.data?.message || "Network error";
+      const message = err.response?.data?.error || "Network error";
       toast({
         title: "Error",
         description: message,
