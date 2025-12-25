@@ -8,14 +8,11 @@ import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Bell, Mail, CreditCard, GraduationCap, Megaphone } from "lucide-react";
 import { useFetchAuthUser } from "@/hooks/useCourse";
+import { authApi } from "@/lib/axiosConfig";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Preferences } from "@/lib/types";
 
-interface Preferences {
-  email_receipts: boolean;
-  payment_reminders: boolean;
-  payment_confirmations: boolean;
-  course_access_notifications: boolean;
-  marketing_emails: boolean;
-}
+
 
 export function AccountPreferences() {
   const [preferences, setPreferences] = useState<Preferences>({
@@ -27,8 +24,10 @@ export function AccountPreferences() {
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const queryClient = useQueryClient();
 
     const {data:fetchUser} = useFetchAuthUser()
+    // const updatePreferences = useUpdatePreferences()
 
 
   useEffect(() => {
@@ -65,39 +64,67 @@ export function AccountPreferences() {
     }
   };
 
-  const savePreferences = async () => {
-    setSaving(true);
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("No user found");
+  // const savePreferences = async () => {
+  //   setSaving(true);
+  //   try {
+  //     const { data: { user } } = await supabase.auth.getUser();
+  //     if (!user) throw new Error("No user found");
 
-      const { error } = await supabase
-        .from("user_account_preferences")
-        .upsert({
-          user_id: user.id,
-          ...preferences,
-          updated_at: new Date().toISOString(),
-        }, {
-          onConflict: "user_id"
-        });
+  //     const { error } = await supabase
+  //       .from("user_account_preferences")
+  //       .upsert({
+  //         user_id: user.id,
+  //         ...preferences,
+  //         updated_at: new Date().toISOString(),
+  //       }, {
+  //         onConflict: "user_id"
+  //       });
 
-      if (error) throw error;
+  //     if (error) throw error;
 
+  //     toast.success("Preferences saved successfully");
+  //   } catch (error) {
+  //     console.error("Error saving preferences:", error);
+  //     toast.error("Failed to save preferences");
+  //   } finally {
+  //     setSaving(false);
+  //   }
+  // };
+
+
+  const savePreferencesMutation = useMutation({
+    mutationFn: async (prefs: Preferences) => {
+      const response = await authApi.patch("/user/preferences", prefs);
+      return response.data;
+    },
+    onSuccess: () => {
       toast.success("Preferences saved successfully");
-    } catch (error) {
-      console.error("Error saving preferences:", error);
+      // Optional: invalidate/refetch user data
+      queryClient.invalidateQueries({ queryKey: ['authUser'] });
+    },
+    onError: () => {
       toast.error("Failed to save preferences");
-    } finally {
-      setSaving(false);
-    }
-  };
+    },
+  });
 
   const handleToggle = (key: keyof Preferences) => {
-    setPreferences(prev => ({
+    setPreferences((prev) => ({
       ...prev,
-      [key]: !prev[key]
+      [key]: !prev[key],
     }));
   };
+
+  const handleSave = () => {
+    savePreferencesMutation.mutate(preferences);
+  };
+
+
+  // const handleToggle = (key: keyof Preferences) => {
+  //   setPreferences(prev => ({
+  //     ...prev,
+  //     [key]: !prev[key]
+  //   }));
+  // };
 
   if (loading) {
     return (
@@ -225,9 +252,16 @@ export function AccountPreferences() {
         </div>
 
         <div className="pt-4 border-t">
-          <Button onClick={savePreferences} disabled={saving} className="w-full sm:w-auto">
-            {saving ? "Saving..." : "Save Preferences"}
+          <Button
+            onClick={handleSave}
+            disabled={savePreferencesMutation.isPending}
+            className="w-full sm:w-auto"
+          >
+            {savePreferencesMutation.isPending ? "Saving..." : "Save Preferences"}
           </Button>
+          {/* <Button onClick={savePreferences} disabled={saving} className="w-full sm:w-auto">
+            {saving ? "Saving..." : "Save Preferences"}
+          </Button> */}
         </div>
       </CardContent>
     </Card>

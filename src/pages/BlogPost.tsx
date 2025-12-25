@@ -2,7 +2,6 @@ import { PageLayout } from "@/components/layouts/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { blogPosts } from "@/data/blogPosts";
 import { Calendar, Clock, ArrowLeft, BookOpen } from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";

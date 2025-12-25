@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useFetchAuthUser } from "@/hooks/useCourse";
 
 interface Order {
   id: string;
@@ -31,34 +32,39 @@ interface Order {
 }
 
 export function OrderHistoryTable() {
-  const [orders, setOrders] = useState<Order[]>([]);
+  // const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  // const {data:fetchUser} = useFetchAuthUser()
+  const { data: userData, isLoading, error } = useFetchAuthUser();
+  
 
-  useEffect(() => {
-    loadOrders();
-  }, []);
+  // useEffect(() => {
+  //   loadOrders();
+  // }, []);
 
-  const loadOrders = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user?.email) return;
+  // const loadOrders = async () => {
+  //   try {
+  //     const { data: { user } } = await supabase.auth.getUser();
+  //     if (!user?.email) return;
 
-      const { data, error } = await supabase
-        .from("user_order_history")
-        .select("*")
-        .eq("customer_email", user.email)
-        .order("purchase_date", { ascending: false });
+  //     const { data, error } = await supabase
+  //       .from("user_order_history")
+  //       .select("*")
+  //       .eq("customer_email", user.email)
+  //       .order("purchase_date", { ascending: false });
 
-      if (error) throw error;
-      setOrders(data || []);
-    } catch (error) {
-      console.error("Error loading orders:", error);
-      toast.error("Failed to load order history");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (error) throw error;
+  //     setOrders(data || []);
+  //   } catch (error) {
+  //     console.error("Error loading orders:", error);
+  //     toast.error("Failed to load order history");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const orders: Order[] = userData?.data?.orders || [];
 
   const getStatusBadge = (status: string) => {
     const variants: Record<string, { variant: "default" | "secondary" | "destructive" | "outline", label: string }> = {
@@ -93,7 +99,13 @@ export function OrderHistoryTable() {
     setExpandedRow(expandedRow === orderId ? null : orderId);
   };
 
-  if (loading) {
+  const handleUploadComplete = () => {
+    // Optional: You could refetch user data here if needed
+    // But since it's cached, you might just show a toast
+    toast.success("Payment proof uploaded successfully");
+  };
+
+  if (isLoading) {
     return (
       <Card>
         <CardHeader>
@@ -111,7 +123,7 @@ export function OrderHistoryTable() {
     );
   }
 
-  if (orders.length === 0) {
+  if (orders?.length === 0) {
     return (
       <Card>
         <CardHeader>
@@ -203,10 +215,15 @@ export function OrderHistoryTable() {
                           {/* Payment Proof Upload for Bank Transfers */}
                           {order.display_status === 'pending_proof' && order.payment_reference && (
                             <div className="mt-4">
-                              <PaymentProofUploader
+                              {/* <PaymentProofUploader
                                 reference={order.payment_reference}
                                 existingProofs={order.payment_proof_urls || []}
                                 onUploadComplete={loadOrders}
+                              /> */}
+                              <PaymentProofUploader
+                                reference={order.payment_reference}
+                                existingProofs={order.payment_proof_urls || []}
+                                onUploadComplete={handleUploadComplete}
                               />
                             </div>
                           )}

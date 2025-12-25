@@ -70,6 +70,9 @@ useEffect(() => {
       // }
     } catch (error) {
       console.log(error)
+      setIsLoading(false);
+    }finally {
+      setIsLoading(false);
     }
   }
 
