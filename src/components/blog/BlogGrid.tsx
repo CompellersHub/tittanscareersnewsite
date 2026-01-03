@@ -51,9 +51,9 @@ export function BlogGrid({ posts, loading, getCategoryColor, formatDate }: BlogG
               <Badge className={`${getCategoryColor(post?.data?.category)} font-sans text-xs`}>
                 {post?.data?.category?.replace("-", " ")}
               </Badge>
-              <div className="flex items-center gap-1.5 text-sm text-muted-foreground font-sans">
-                <Calendar className="w-3.5 h-3.5" />
-                <span>{formatDate(post?.data?.publishedAt)}</span>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans">
+                <Calendar className="w-3.5 h-3.5 text-[#00B6F4]" />
+                <span className="text-xs font-bold">{formatDate(post?.data?.publishedAt)}</span>
               </div>
             </div>
             

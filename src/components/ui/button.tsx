@@ -16,7 +16,7 @@ const buttonVariants = cva(
         primary: "bg-tc-navy  text-white shadow-[0_4px_12px_-2px_hsl(213_69%_13%/0.3)] hover:shadow-[0_8px_20px_-4px_hsl(213_69%_13%/0.4)] hover:bg-[#0D2647] hover:scale-[1.02]",
         
         // Secondary/Outline: Border Amber, white bg
-        outline: "border-2 border-tc-amber bg-white text-tc-amber rounded-xl shadow-sm hover:shadow-md hover:bg-tc-amber hover:text-white transition-all duration-300",
+        outline: "border-2 border-tc-navy bg-white text-tc-navy rounded-xl shadow-sm hover:shadow-md hover:bg-tc-amber hover:text-white transition-all duration-300",
         
         // Outline white (for dark Navy backgrounds)
         outlineWhite: "border-2 border-white text-white bg-transparent rounded-xl shadow-sm hover:shadow-md hover:bg-white hover:text-tc-navy",

@@ -90,7 +90,7 @@ export function CourseCard({ course }: CourseCardProps) {
       
       <div className="flex gap-6 mb-5 text-sm font-sans text-muted-foreground">
         <span className="flex items-center gap-2">
-          <Clock className="h-4 w-4 text-accent" />
+          <Clock className="h-4 w-4 text-[#00B6F4]" />
           {course?.data?.estimated_time}
         </span>
       </div>

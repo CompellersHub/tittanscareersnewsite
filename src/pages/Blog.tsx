@@ -68,7 +68,7 @@ const Blog = () => {
     startIndex,
     endIndex,
     totalItems,
-  } = usePagination({ items: filteredPosts, itemsPerPage: 9 });
+  } = usePagination({ items: filteredPosts, itemsPerPage: 18 });
 
   // Infinite scroll for mobile
   const {
@@ -78,7 +78,7 @@ const Blog = () => {
     loadMore,
     totalDisplayed,
     reset: resetInfiniteScroll,
-  } = useInfiniteScroll({ items: filteredPosts, itemsPerPage: 9, enabled: isMobile });
+  } = useInfiniteScroll({ items: filteredPosts, itemsPerPage: 18, enabled: isMobile });
 
   // Pull to refresh functionality
   const handleRefresh = async () => {
@@ -196,8 +196,8 @@ const Blog = () => {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`font-sans font-semibold ${
                   selectedCategory === category.id
-                    ? "bg-accent hover:bg-accent/90 text-accent-foreground"
-                    : "border-2 hover:border-accent hover:text-white"
+                    ? "bg-[#00B6F4] hover:bg-tc-navy text-accent-foreground"
+                    : "border-2 hover:border-[#00B6F4] hover:bg-[#00B6F4] hover:text-white"
                 }`}
               >
                 {category.label}
