@@ -131,7 +131,7 @@ export function getCohortUrgency(startDate: Date | string) {
       headerBg: 'hsl(213 69% 13%)', // Standard navy
       borderColor: 'hsl(213 69% 13%)',
       glowEffect: false,
-      ctaBg: 'hsl(43 100% 50%)',
+      ctaBg: 'hsl(195 100% 48%)',
       ctaText: 'Start Course'
     };
   } else {
@@ -144,7 +144,7 @@ export function getCohortUrgency(startDate: Date | string) {
       headerBg: 'hsl(220 9% 46%)', // Dark gray
       borderColor: 'hsl(0 0% 82%)',
       glowEffect: false,
-      ctaBg: 'hsl(43 100% 50%)',
+      ctaBg: 'hsl(195 100% 48%)',
       ctaText: 'View Details'
     };
   }

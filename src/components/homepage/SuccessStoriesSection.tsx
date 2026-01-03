@@ -65,7 +65,7 @@ export function SuccessStoriesSection() {
             >
               <CardContent className="p-0">
                 {/* Image Section */}
-                <div className="relative h-64 overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary-glow">
+                {/* <div className="relative h-64 overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary-glow">
                   {story.image ? (
                     <img 
                       src={story.image} 
@@ -85,7 +85,6 @@ export function SuccessStoriesSection() {
                     </div>
                   )}
                   
-                  {/* Salary & Increase Badge */}
                   <div className="absolute top-4 right-4 space-y-2">
                     <div className="bg-accent text-accent-foreground px-4 py-2 rounded-full font-kanit font-bold text-lg shadow-lg">
                       {story.salary}
@@ -95,7 +94,7 @@ export function SuccessStoriesSection() {
                       {story.salaryIncrease}
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Content */}
                 <div className="p-6 space-y-4">

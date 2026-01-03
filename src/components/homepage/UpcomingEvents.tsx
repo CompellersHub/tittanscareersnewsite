@@ -96,8 +96,8 @@ export function UpcomingEvents() {
                   <Badge 
                     className={`mb-4 font-semibold ${
                       urgency.level === 'urgent' 
-                        ? 'bg-amber-500 text-white border-amber-600' 
-                        : 'bg-tc-amber/10 text-tc-amber border-tc-amber/30'
+                        ? 'bg-[#00B6F4] text-white border-[#00B6F4]' 
+                        : 'bg-[#00B6F4]/10 text-[#00B6F4] border-[#00B6F4]/30'
                     }`}
                   >
                     {urgency.message}
@@ -109,12 +109,12 @@ export function UpcomingEvents() {
 
                   <div className="space-y-2 mb-6">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4 text-tc-amber" />
+                      <Calendar className="h-4 w-4 text-[#00B6F4]" />
                       <span>{format(new Date(event.start_date), "MMM d, yyyy")}</span>
                     </div>
                     
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-4 w-4 text-tc-amber" />
+                      <Clock className="h-4 w-4 text-[#00B6F4]" />
                       <span>{(event.metadata as any)?.duration_weeks || 8} weeks • {(event.metadata as any)?.session_time || "Evening session"}</span>
                     </div>
                   </div>
