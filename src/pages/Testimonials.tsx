@@ -277,8 +277,8 @@ const Testimonials = () => {
               onClick={() => setSelectedTrack("all")}
               className={`font-sans font-semibold ${
                 selectedTrack === "all"
-                  ? "bg-accent hover:bg-accent/90 text-accent-foreground"
-                  : "border-2 hover:border-accent hover:text-accent"
+                  ? "bg-[#00B6F4] hover:bg-[#00B6F4]/90 text-accent-foreground"
+                  : "border-2 hover:border-[#00B6F4] hover:text-accent-foreground"
               }`}
             >
               All Stories ({testimonials.length})

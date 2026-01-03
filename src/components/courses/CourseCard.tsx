@@ -75,7 +75,7 @@ export function CourseCard({ course }: CourseCardProps) {
       />
       
       <div className="p-8 flex flex-col flex-grow">
-        <Badge className={`mb-4 w-fit font-sans font-semibold text-xs tracking-wider uppercase transition-all duration-300 group-hover:shadow-[0_0_16px_hsl(43_100%_50%/0.3)] ${getCategoryColor(course?.data?.category?.name?.toLowerCase())}`}>
+        <Badge className={`mb-4 w-fit font-sans bg-[#00B6F4] font-semibold text-xs tracking-wider uppercase transition-all duration-300 group-hover:shadow-[0_0_16px_hsl(43_100%_50%/0.3)] `}>
           {course?.data?.category?.name}
         </Badge>
       
