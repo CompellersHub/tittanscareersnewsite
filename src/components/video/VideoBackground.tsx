@@ -60,7 +60,7 @@ export function VideoBackground({
 
   if (hasError) {
     return (
-      <div className={`absolute inset-0 bg-gradient-to-br from-primary via-accent to-gold ${className}`}>
+      <div className={`absolute inset-0 bg-transparent ${className}`}>
         {overlay && (
           <div 
             className="absolute inset-0 bg-background"
@@ -89,7 +89,7 @@ export function VideoBackground({
           <source src={videoUrl} type="video/mp4" />
         </video>
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-gold animate-pulse" />
+        <div className="absolute inset-0 bg-transparent"  />
       )}
       
       {overlay && (
@@ -100,7 +100,7 @@ export function VideoBackground({
       )}
       
       {!isLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-gold animate-pulse" />
+        <div className="absolute inset-0 bg-transparent" />
       )}
     </div>
   );

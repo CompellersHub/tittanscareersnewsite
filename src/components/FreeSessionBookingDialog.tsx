@@ -139,7 +139,7 @@ export const FreeSessionBookingDialog = () => {
       <DialogTrigger asChild>
         <Button 
           size="lg" 
-          className="font-sans text-base font-bold bg-gradient-to-r from-tc-amber to-tc-gold hover:from-tc-gold hover:to-tc-amber text-white shadow-2xl hover:shadow-tc-amber/50 transition-all hover:scale-105 group relative overflow-hidden px-8 py-6"
+          className="font-sans text-base font-bold  bg-[#00B6F4] hover:from-tc-gold hover:to-tc-amber text-white shadow-2xl hover:shadow-tc-amber/50 transition-all hover:scale-105 group relative overflow-hidden px-8 py-6"
         >
           <Calendar className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform" />
           <span className="relative z-10">Book Free Session</span>
