@@ -101,7 +101,8 @@ export const Navbar = () => {
                 
                 <DropdownMenuItem asChild>
                   <a 
-                    href="#success-stories" 
+                    href="/testimonials" 
+                    // href="#success-stories" 
                     className="flex items-center gap-3 px-4 py-3 cursor-pointer transition-all rounded-lg hover:bg-accent/10 focus:bg-accent/10"
                   >
                     <Trophy className="w-5 h-5 text-accent" />
