@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, LogOut, Shield, Mail, TestTube, FileText, Users, ChevronDown, BookOpen, Trophy, Library, CheckCircle } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { LogoWithEffects } from "@/components/LogoWithEffects";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
@@ -18,7 +18,16 @@ export const Navbar = () => {
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const {currentUser, isAdmin, signOut } = useAuth();
   // const {data:fetchUser} = useFetchAuthUser()
+  const navigate = useNavigate();
 
+  const handleLogOut = async () => {
+    try {
+      await signOut();
+      navigate("/");
+    } catch (err) {
+      console.error("Failed to sign out:", err);
+    }
+  };
 
   return (
     <nav className="fixed top-0 w-full backdrop-blur-lg bg-primary/95 border-b border-white/10 z-50 shadow-[0_4px_12px_-4px_hsl(213_69%_13%/0.15)]">
@@ -187,7 +196,7 @@ export const Navbar = () => {
                       <DropdownMenuSeparator />
                     </>
                   )}
-                  <DropdownMenuItem onClick={signOut} className="cursor-pointer flex items-center px-4 py-2.5 rounded-lg hover:bg-destructive/10 focus:bg-destructive/10 transition-all">
+                  <DropdownMenuItem onClick={handleLogOut} className="cursor-pointer flex items-center px-4 py-2.5 rounded-lg hover:bg-destructive/10 focus:bg-destructive/10 transition-all">
                     <LogOut className="w-4 h-4 mr-2 text-destructive" />
                     <span className="font-sans font-medium text-destructive">Sign Out</span>
                   </DropdownMenuItem>
@@ -317,7 +326,7 @@ export const Navbar = () => {
                   <Button 
                     variant="outline"
                     className="w-full"
-                    onClick={signOut}
+                    onClick={handleLogOut}
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
