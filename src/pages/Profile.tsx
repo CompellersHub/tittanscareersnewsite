@@ -366,7 +366,7 @@ import { AccountPreferences } from "@/components/profile/AccountPreferences";
 import { MFAManagement } from "@/components/profile/MFAManagement";
 import { createSecureAcademySSOLink } from "@/lib/academy-integration";
 import { useFetchAuthUser } from "@/hooks/useCourse";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Profile() {
@@ -374,8 +374,9 @@ export default function Profile() {
   const { data: userData, isLoading, error, refetch } = useFetchAuthUser();
   const { signOut} = useAuth();
 
-  const profile = userData?.data?.profile || null;
-  const orderSummary = userData?.data?.order_summary || {
+
+  const profile = userData?.user?.username || null;
+  const orderSummary = userData?.user?.order_summary || {
     total_courses: 0,
     pending_payments: 0,
     last_lms_access: null
@@ -383,8 +384,25 @@ export default function Profile() {
 
   const [accessingLMS, setAccessingLMS] = useState(false);
 
+    const hasPaidCourse =
+    userData?.user?.courses &&
+    Array.isArray(userData?.user?.courses) &&
+    userData?.user?.courses.length > 0;
+
+  useEffect(() => {
+    if (!hasPaidCourse) {
+      navigate("/courses");
+    }
+  }, [hasPaidCourse, navigate]);
+
+  if (!hasPaidCourse) {
+    return null;
+  }
+
+  console.log(hasPaidCourse, 'hasPaidCourse')
+
   const handleAccessLMS = async () => {
-    if (!userData?.data?.id || !userData?.data?.email) {
+    if (!userData?.user?.id || !userData?.user?.email) {
       toast.error("User information not available");
       return;
     }
@@ -392,8 +410,8 @@ export default function Profile() {
     setAccessingLMS(true);
     try {
       const ssoLink = await createSecureAcademySSOLink(
-        userData.data.id,
-        userData.data.email
+        userData.user.id,
+        userData.user.email
       );
       
       toast.success("Redirecting to Learning Platform...");
@@ -415,6 +433,7 @@ export default function Profile() {
       // navigate("/");
       await signOut();
       toast.success("Signed out successfully");
+      navigate("/");
     } catch (err) {
       toast.error("Failed to sign out");
     }
@@ -446,11 +465,7 @@ export default function Profile() {
     />;
   }
 
-  // Optional: Redirect to login if no user
-  // if (!userData.data?.id) {
-  //   navigate("/auth");
-  //   return null;
-  // }
+  
 
   return (
     <ErrorBoundary>
@@ -465,13 +480,15 @@ export default function Profile() {
               {/* Header */}
               <div className="mt-12 mb-8">
                 <h1 className="text-4xl font-bold mb-2">
-                  Welcome back, {profile?.full_name || 'Student'}
+                  Welcome back, {profile || 'Student'}
                 </h1>
                 <p className="text-muted-foreground">
                   Manage your account and access your learning platform
                 </p>
               </div>
 
+              {hasPaidCourse && (
+                <>
               {/* Hero LMS Access Card */}
               <Card className="mb-8 bg-gradient-to-r from-primary to-accent text-primary-foreground border-0 shadow-lg">
                 <CardHeader>
@@ -509,7 +526,7 @@ export default function Profile() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold">{orderSummary.total_courses}</div>
+                    <div className="text-3xl font-bold">{userData?.user?.courses?.length || 0}</div>
                     <p className="text-sm text-muted-foreground mt-1">Enrolled & Active</p>
                   </CardContent>
                 </Card>
@@ -620,6 +637,9 @@ export default function Profile() {
                   </div>
                 </TabsContent>
               </Tabs>
+                </>
+              )}
+
             </div>
           </div>
         </div>

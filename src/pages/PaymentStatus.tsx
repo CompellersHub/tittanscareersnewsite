@@ -164,11 +164,12 @@ export default function PaymentStatus() {
                         </div>
                         <div className="flex justify-between py-2 border-t">
                           <span className="text-sm text-muted-foreground">Sort Code:</span>
-                          <span className="font-mono font-semibold">12-34-56</span>
+                          <span className="font-mono font-semibold">20-11-43</span>
                         </div>
                         <div className="flex justify-between py-2 border-t">
                           <span className="text-sm text-muted-foreground">Account Number:</span>
-                          <span className="font-mono font-semibold">12345678</span>
+                          <span className="font-mono font-semibold">53818284</span>
+                          {/* <span className="font-mono font-semibold">12345678</span> */}
                         </div>
                         <div className="flex justify-between py-3 border-t bg-primary/5 -mx-4 px-4 rounded-b-lg">
                           <span className="text-sm font-medium">Amount to Transfer:</span>
