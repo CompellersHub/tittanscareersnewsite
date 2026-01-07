@@ -85,7 +85,7 @@ export function UpcomingEvents() {
                 }}
               >
                 {urgency.level === 'urgent' && (
-                  <div className="absolute -top-2 -right-2 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg z-20">
+                  <div className="absolute top-2 right-1 bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-20">
                     🔥 {urgency.daysUntil} days
                   </div>
                 )}

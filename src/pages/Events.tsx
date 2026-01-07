@@ -205,7 +205,7 @@ const {data:fetchEvents} = useFetchEvents()
                 }}
               >
                 {/* ... rest of your card JSX (unchanged) */}
-                <div className="h-32 flex items-center justify-center relative" style={{ background: urgency.headerBg }}>
+                {/* <div className="h-32 flex items-center justify-center relative" style={{ background: urgency.headerBg }}>
                   {urgency.level === 'urgent' && (
                     <div className="absolute top-2 right-2">
                       <Badge className="bg-white text-amber-600 font-bold animate-bounce">
@@ -214,7 +214,7 @@ const {data:fetchEvents} = useFetchEvents()
                     </div>
                   )}
                   {CourseIcon && <CourseIcon className={`w-16 h-16 stroke-[1.5] ${urgency.level === 'urgent' ? 'text-white' : 'text-[#FFB000]'}`} />}
-                </div>
+                </div> */}
 
                 <div className="p-6 bg-white">
                   <div className="flex items-start justify-between mb-3">
