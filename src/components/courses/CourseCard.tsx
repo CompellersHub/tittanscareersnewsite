@@ -13,6 +13,7 @@ import dataAnalysisHero from "@/assets/courses/data-analysis-hero.jpg";
 import cybersecurityHero from "@/assets/courses/cybersecurity-hero.jpg";
 import businessAnalysisHero from "@/assets/courses/business-analysis-hero.jpg";
 import digitalMarketingHero from "@/assets/courses/digital-marketing-hero.jpg";
+import { useState } from "react";
 
 interface CourseProps {
   slug?: string;  
@@ -39,6 +40,8 @@ interface CourseCardProps {
 }
 
 export function CourseCard({ course }: CourseCardProps) {
+    const [expanded, setExpanded] = useState(false);
+
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
       compliance: "bg-accent/10 text-accent border-accent/20",
@@ -95,7 +98,27 @@ export function CourseCard({ course }: CourseCardProps) {
         </span>
       </div>
       
-        <p className="font-sans mb-6 line-clamp-3 text-sm leading-relaxed flex-grow text-muted-foreground">{course?.data?.description}</p>
+      <div className="mb-6 flex-grow">
+  <p
+    className={`font-sans text-sm leading-relaxed text-muted-foreground transition-all duration-300 ${
+      expanded ? "" : "line-clamp-3"
+    }`}
+  >
+    {course?.data?.description}
+  </p>
+
+  {course?.data?.description?.length > 120 && (
+    <button
+      type="button"
+      onClick={() => setExpanded((prev) => !prev)}
+      className="mt-2 text-sm font-semibold text-[#00B6F4] hover:underline"
+    >
+      {expanded ? "Read less" : "Read more"}
+    </button>
+  )}
+</div>
+
+        {/* <p className="font-sans mb-6 line-clamp-3 text-sm leading-relaxed flex-grow text-muted-foreground">{course?.data?.description}</p> */}
         
         <div className="space-y-4 mt-auto pt-6 border-t border-border">
           {/* Free Session CTA */}
