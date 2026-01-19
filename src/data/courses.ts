@@ -10,7 +10,7 @@ export interface Course {
   title: string;
   tagline: string;
   badge: string;
-  category: 'compliance' | 'data' | 'cybersecurity' | 'business' | 'marketing';
+  category: 'compliance' | 'data' | 'cybersecurity' | 'business' | 'marketing' | 'software-testing';
   price: number;
   duration: string;
   schedule: string;
@@ -1378,5 +1378,172 @@ export const courses: Record<string, Course> = {
     },
     certifications: ['Data Privacy Portfolio', 'Professional Certificate of Completion'],
     projectCount: 8
-  }
+  },
+  'software-testing': {
+    slug: 'software-testing',
+    title: 'Software Testing & QA Fundamentals',
+    tagline: 'Become a data privacy expert and protect organizations from regulatory risks',
+    badge: 'Software Skill',
+    category: 'software-testing',
+    whatsappGroupLink: 'https://chat.whatsapp.com/BQkJglZVB5T8vosGTM4QMz',
+    price: 499,
+    duration: '12 weeks',
+    schedule: 'Saturdays or Sundays',
+    description: 'Learn end-to-end QA from manual testing to automation. Write test cases, manage defects in Jira, test APIs, and understand Agile delivery. Build a tester portfolio with practical projects and real test artefacts.',
+    overview: [
+      'Master GDPR and UK Data Protection Act 2018',
+      'Learn data protection principles and lawful basis',
+      'Conduct Privacy Impact Assessments (PIAs)',
+      'Understand data breach response and reporting',
+      'Build a privacy compliance portfolio'
+    ],
+    whoItsFor: [
+      'Compliance professionals wanting to specialize in privacy',
+      'Career switchers interested in data protection',
+      'Anyone looking to enter the growing privacy field'
+    ],
+    syllabus: [
+      {
+        week: 1,
+        title: 'Data Privacy Fundamentals',
+        objectives: [
+          'Understand global privacy landscape',
+          'Learn GDPR structure and key definitions',
+          'Identify roles: Controller, Processor, DPO'
+        ],
+        deliverable: 'Privacy framework comparison chart'
+      },
+      {
+        week: 2,
+        title: 'Data Protection Principles',
+        objectives: [
+          'Master the 7 GDPR principles',
+          'Understand lawful basis for processing',
+          'Learn about special category data'
+        ],
+        deliverable: 'Lawful basis assessment matrix'
+      },
+      {
+        week: 3,
+        title: 'Individual Rights (DSAR)',
+        objectives: [
+          'Handle Data Subject Access Requests',
+          'Understand right to erasure and rectification',
+          'Learn about portability and objection rights'
+        ],
+        deliverable: 'DSAR response procedures'
+      },
+      {
+        week: 4,
+        title: 'Privacy Impact Assessments',
+        objectives: [
+          'Conduct Privacy Impact Assessments',
+          'Identify and mitigate privacy risks',
+          'Document PIA findings and recommendations'
+        ],
+        deliverable: 'Complete PIA case study'
+      },
+      {
+        week: 5,
+        title: 'Data Breach Management',
+        objectives: [
+          'Understand breach notification requirements',
+          'Learn 72-hour reporting to ICO',
+          'Develop breach response procedures'
+        ],
+        deliverable: 'Data breach response plan'
+      },
+      {
+        week: 6,
+        title: 'International Data Transfers',
+        objectives: [
+          'Navigate Schrems II and adequacy decisions',
+          'Understand Standard Contractual Clauses',
+          'Learn about Binding Corporate Rules'
+        ],
+        deliverable: 'International transfer assessment'
+      },
+      {
+        week: 7,
+        title: 'Privacy by Design & Documentation',
+        objectives: [
+          'Implement Privacy by Design principles',
+          'Maintain Records of Processing Activities',
+          'Create privacy policies and notices'
+        ],
+        deliverable: 'Privacy documentation suite'
+      },
+      {
+        week: 8,
+        title: 'ICO Enforcement & Career Prep',
+        objectives: [
+          'Review ICO enforcement actions and fines',
+          'Understand regulatory trends',
+          'Complete portfolio and mock interview'
+        ],
+        deliverable: 'Complete privacy portfolio'
+      }
+    ],
+    tools: ['OneTrust', 'Privacy Management Software', 'ICO Resources', 'GDPR Templates'],
+    support: [
+      'CV tailored for data privacy roles',
+      'LinkedIn profile optimization',
+      '2-3 mock interviews with feedback',
+      'CIPM certification guidance',
+      'Job board access and application support'
+    ],
+    faqs: [
+      {
+        question: 'Do I need legal background?',
+        answer: 'No legal background required! We explain GDPR and privacy laws in practical, accessible terms. Many privacy professionals come from non-legal backgrounds.'
+      },
+      {
+        question: 'What if I miss a class?',
+        answer: 'All classes are recorded with lifetime access. Watch anytime and ask questions in our support group.'
+      },
+      {
+        question: 'Is this only relevant for UK/EU?',
+        answer: 'While focused on GDPR and UK DPA, the principles apply globally. Many countries model their laws on GDPR, making these skills internationally valuable.'
+      },
+      {
+        question: 'How quickly can I get hired?',
+        answer: 'Average 8-12 weeks after course completion. We provide 12 months of career support to help you land your privacy role.'
+      },
+      {
+        question: 'Are payment plans available?',
+        answer: 'Yes! Installment payments available via Payl8r - spread the cost over 3-12 months with flexible terms. TITANS CAREERS LIMITED is an Introducer Appointed Representative of Social Money Limited t/a Payl8r (FCA Ref: 675283). Representative APR 65.5%. Subject to creditworthiness assessment.'
+      },
+      {
+        question: 'What\'s the demand for data privacy roles?',
+        answer: 'Extremely high! GDPR made Data Protection Officers mandatory for many organizations. Privacy professionals are in high demand across all sectors, with salaries ranging from £35k to £90k+.'
+      },
+      {
+        question: 'Does this prepare me for CIPM certification?',
+        answer: 'Yes! The course covers core CIPM content. We provide guidance on the certification exam, though the exam fee is separate and optional.'
+      },
+      {
+        question: 'Can I work as a DPO after this course?',
+        answer: 'DPO roles typically require experience, but this course prepares you for entry-level privacy positions like Privacy Analyst or Data Protection Officer Assistant, which lead to DPO roles.'
+      },
+      {
+        question: 'What industries need privacy professionals?',
+        answer: 'All industries! Tech, finance, healthcare, retail, government - any organization processing personal data needs privacy expertise. This provides excellent job security.'
+      },
+      {
+        question: 'Is this relevant with Brexit?',
+        answer: 'Absolutely! The UK adopted GDPR as UK DPA 2018 post-Brexit. UK organizations still need to comply with GDPR for EU customers. The demand for privacy professionals in the UK remains strong.'
+      }
+    ],
+    instructor: {
+      name: 'Lumi Otolorin',
+      bio: 'Dual-qualified lawyer and compliance expert specializing in data protection, GDPR compliance, and regulatory risk management.',
+      credentials: 'LLB, LLM, CIPM, Data Protection Specialist'
+    },
+    careerOutcomes: {
+      jobTitles: ['Privacy Analyst', 'Data Protection Officer', 'Privacy Consultant', 'GDPR Specialist'],
+      salaryRange: '£35,000 - £90,000'
+    },
+    certifications: ['Data Privacy Portfolio', 'Professional Certificate of Completion'],
+    projectCount: 8
+  },
 };
