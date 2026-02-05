@@ -258,7 +258,7 @@ const About = () => {
       </section>
 
       {/* Team Section with Video Testimonials */}
-      <section className="py-20 bg-background/80 backdrop-blur-sm">
+      {/* <section className="py-20 bg-background/80 backdrop-blur-sm">
         <div className="container max-w-7xl">
           <div className="text-center mb-16 space-y-4">
             <Badge className="bg-accent/10 text-primary border-accent/30">
@@ -289,7 +289,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary-glow text-primary-foreground">

@@ -17,7 +17,7 @@ export function CoursesCarousel({ courses }: CoursesCarouselProps) {
       skipSnaps: false,
       dragFree: true,
     },
-    [Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })]
+    [Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: false })]
   );
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
