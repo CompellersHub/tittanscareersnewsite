@@ -71,6 +71,7 @@ import EventManagement from "./pages/admin/EventManagement";
 import AutomationSettings from "./pages/admin/AutomationSettings";
 import RequireAdmin from "./components/guard/RequireAdmin";
 import AdminLayout from "./components/guard/AdminLayout";
+import FreeClass from "./pages/FreeClass";
 
 const queryClient = new QueryClient();
 
@@ -114,6 +115,7 @@ const AnimatedRoutes = () => {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/free-classes" element={<FreeClass />} />
         <Route path="/auth" element={<Auth />} />
         {/* <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/campaigns"  element={
