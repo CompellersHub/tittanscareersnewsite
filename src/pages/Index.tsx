@@ -206,6 +206,14 @@ const Index = () => {
               </p>
               <Button
                 size="lg"
+                className="font-bold"
+              >
+                <Link to="/free-classes" >
+                Join Our Free Masterclass
+                </Link>
+              </Button>
+              <Button
+                size="lg"
                 onClick={() => setShowLeadMagnet(true)}
                 className="font-bold"
               >
