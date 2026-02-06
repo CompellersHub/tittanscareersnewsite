@@ -204,6 +204,7 @@ const Index = () => {
                 Download our proven career guides, roadmaps, and toolkits to
                 kickstart your journey
               </p>
+              <div className="grid gap-4">
               <Button
                 size="lg"
                 className="font-bold"
@@ -220,6 +221,7 @@ const Index = () => {
                 <Download className="mr-2 h-5 w-5" />
                 Get Free Resources
               </Button>
+              </div>
             </div>
           </div>
         </section>
