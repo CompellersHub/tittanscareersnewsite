@@ -60,6 +60,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+         live: "hsl(var(--live))",
+        coral: {
+          DEFAULT: "hsl(var(--coral))",
+          light: "hsl(var(--coral-light))",
+        },
+        navy: {
+          light: "hsl(var(--navy-light))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -72,8 +80,8 @@ export default {
         },
       },
       fontFamily: {
-        kanit: ['Kanit', 'sans-serif'],
-        sans: ['Open Sans', 'sans-serif'],
+        kanit: ['Kanit', 'sans-serif', 'Inter'],
+        sans: ['Open Sans', 'Space Grotesk', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius-lg)",

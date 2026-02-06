@@ -68,11 +68,7 @@ export const Navbar = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-tc-amber/0 via-tc-gold/0 to-tc-amber/0 opacity-0 group-hover:opacity-100 group-hover:from-tc-amber/20 group-hover:via-tc-gold/30 group-hover:to-tc-amber/20 rounded-lg transition-all duration-500" />
               <div className="absolute inset-0 blur-xl bg-tc-amber/0 group-hover:bg-tc-amber/40 transition-all duration-500 -z-10 rounded-lg" />
             </Link>
-            <Link to="/free-classes" className="relative group px-4 py-2 rounded-lg transition-all duration-300">
-              <span className="relative z-10 font-sans font-semibold text-sm text-primary-foreground group-hover:text-accent transition-colors">Free Class</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-tc-amber/0 via-tc-gold/0 to-tc-amber/0 opacity-0 group-hover:opacity-100 group-hover:from-tc-amber/20 group-hover:via-tc-gold/30 group-hover:to-tc-amber/20 rounded-lg transition-all duration-500" />
-              <div className="absolute inset-0 blur-xl bg-tc-amber/0 group-hover:bg-tc-amber/40 transition-all duration-500 -z-10 rounded-lg" />
-            </Link>
+          
             
             {/* Resources Dropdown with Premium Glassmorphism */}
             <DropdownMenu>
@@ -244,6 +240,7 @@ export const Navbar = () => {
             <Link to="/about" className="block text-primary-foreground hover:text-accent transition-colors font-sans font-semibold text-base py-2">
               About Us
             </Link>
+            
             
             {/* Mobile Resources Expandable */}
             <div className="space-y-2">
