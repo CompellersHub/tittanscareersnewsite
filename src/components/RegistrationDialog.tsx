@@ -92,7 +92,6 @@ const bankDetails = {
 const RegistrationDialog = () => {
   const [step, setStep] = useState<"registration" | "payment" | "bank-transfer">("registration");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "transfer">("card");
-  // const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -104,13 +103,7 @@ const RegistrationDialog = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // const handleCourseToggle = (course: string) => {
-  //   setSelectedCourses((prev) =>
-  //     prev.includes(course)
-  //       ? prev.filter((c) => c !== course)
-  //       : [...prev, course]
-  //   );
-  // };
+ 
 
   const handleCourseSelect = (courseName: string) => {
     setSelectedCourse((prev) => (prev === courseName ? null : courseName));
@@ -217,11 +210,11 @@ const RegistrationDialog = () => {
   return (
     <Dialog onOpenChange={(open) => !open && resetForm()}>
       <DialogTrigger asChild>
-        <button className="w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-[10px] hover:bg-accent/90 transition-all duration-300 border border-accent">
+        <button className="new-design w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-[10px] hover:bg-accent/90 transition-all duration-300 border border-accent">
           Enroll Now
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-background via-background to-accent/5 border-accent/20">
+      <DialogContent className="new-design max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-background via-background to-accent/5 border-accent/20">
         <DialogHeader className="text-center pb-2">
           <div className="flex justify-center mb-3">
             <div className="p-3 rounded-full bg-accent/20 border border-accent/30">

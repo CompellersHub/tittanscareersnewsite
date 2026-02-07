@@ -99,6 +99,62 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 0 0% 100%; /* White */
     --sidebar-border: 213 69% 20%; /* Navy border */
     --sidebar-ring:  43 100% 50%; /* Titans Amber */
+
+
+    /* new fre live class design */
+
+     --new-background: 222 47% 6%;
+    --new-foreground: 210 40% 98%;
+
+    --new-card: 222 47% 10%;
+    --new-card-foreground: 210 40% 98%;
+
+    --new-popover: 222 47% 10%;
+    --new-popover-foreground: 210 40% 98%;
+
+    --new-primary: 222 47% 15%;
+    --new-primary-foreground: 210 40% 98%;
+
+    --new-secondary: 222 30% 18%;
+    --new-secondary-foreground: 210 40% 98%;
+
+    --new-muted: 222 30% 20%;
+    --new-muted-foreground: 215 20% 65%;
+
+    --new-accent: 197 71% 52%;
+    --new-accent-foreground: 210 40% 98%;
+
+    --new-destructive: 0 84.2% 60.2%;
+    --new-destructive-foreground: 210 40% 98%;
+
+    --new-border: 222 30% 20%;
+    --new-input: 222 30% 20%;
+    --new-ring: 197 71% 52%;
+
+    --new-radius: 0.75rem;
+
+    /* Custom colors */
+    --live: 0 84% 60%;
+    --live-glow: 0 100% 65%;
+    --new-card-gradient-start: 222 47% 12%;
+    --new-card-gradient-end: 222 47% 8%;
+    --new-text-gradient-start: 210 40% 98%;
+    --new-text-gradient-end: 215 20% 75%;
+    --new-hero-gradient-start: 222 47% 6%;
+    --new-hero-gradient-end: 230 50% 10%;
+    --new-coral: 197 71% 52%;
+    --new-coral-light: 197 80% 65%;
+    --new-navy-light: 222 47% 25%;
+
+    --new-sidebar-background: 0 0% 98%;
+    --new-sidebar-foreground: 240 5.3% 26.1%;
+    --new-sidebar-primary: 240 5.9% 10%;
+    --new-sidebar-primary-foreground: 0 0% 98%;
+    --new-sidebar-accent: 240 4.8% 95.9%;
+    --new-sidebar-accent-foreground: 240 5.9% 10%;
+    --new-sidebar-border: 220 13% 91%;
+    --new-sidebar-ring: 217.2 91.2% 59.8%;
+
   }
 
   .dark {
@@ -145,8 +201,142 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 0 0% 100%; /* White */
     --sidebar-border: 213 69% 20%; /* Navy border */
     --sidebar-ring:  43 100% 50%; /* Titans Amber */
+
+
+    /* new live free class design */
+
+    --new-background: 222 47% 6%;
+    --new-foreground: 210 40% 98%;
+    --new-card: 222 47% 10%;
+    --new-card-foreground: 210 40% 98%;
+    --new-popover: 222 47% 10%;
+    --new-popover-foreground: 210 40% 98%;
+    --new-primary: 222 47% 15%;
+    --new-primary-foreground: 210 40% 98%;
+    --new-secondary: 222 30% 18%;
+    --new-secondary-foreground: 210 40% 98%;
+    --new-muted: 222 30% 20%;
+    --new-muted-foreground: 215 20% 65%;
+    --new-accent: 197 71% 52%;
+    --new-accent-foreground: 210 40% 98%;
+    --new-destructive: 0 62.8% 30.6%;
+    --new-destructive-foreground: 210 40% 98%;
+    --new-border: 222 30% 20%;
+    --new-input: 222 30% 20%;
+    --new-ring: 197 71% 52%;
   }
 }
+
+@layer base {
+  .new-design {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 222 47% 15%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 222 30% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 30% 20%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 197 71% 52%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 30% 20%;
+    --input: 222 30% 20%;
+    --ring: 197 71% 52%;
+
+    --radius: 0.75rem;
+
+    /* Custom */
+    --live: 0 84% 60%;
+    --live-glow: 0 100% 65%;
+    --card-gradient-start: 222 47% 12%;
+    --card-gradient-end: 222 47% 8%;
+    --text-gradient-start: 210 40% 98%;
+    --text-gradient-end: 215 20% 75%;
+    --hero-gradient-start: 222 47% 6%;
+    --hero-gradient-end: 230 50% 10%;
+    --coral: 197 71% 52%;
+    --coral-light: 197 80% 65%;
+    --navy-light: 222 47% 25%;
+  }
+}
+
+
+@layer base {
+  .new-design {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .new-design h1,
+  .new-design h2,
+  .new-design h3,
+  .new-design h4,
+  .new-design h5,
+  .new-design h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+
+@layer components {
+  .new-design .hero-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--hero-gradient-start)) 0%,
+      hsl(var(--hero-gradient-end)) 100%
+    );
+  }
+
+  .new-design .card-gradient {
+    background: linear-gradient(
+      145deg,
+      hsl(var(--card-gradient-start)) 0%,
+      hsl(var(--card-gradient-end)) 100%
+    );
+  }
+
+  .new-design .text-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--text-gradient-start)) 0%,
+      hsl(var(--text-gradient-end)) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .new-design .glow-accent {
+    box-shadow: 0 0 40px -10px hsl(var(--accent) / 0.4);
+  }
+
+  .new-design .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .new-design .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 40px -15px hsl(var(--accent) / 0.2),
+      0 10px 20px -10px hsl(0 0% 0% / 0.3);
+  }
+}
+
+
+
 
 @layer base {
   * {
@@ -529,7 +719,11 @@ All colors MUST be HSL.
     box-shadow: 0 4px 6px -1px hsl( 43 100% 50% / 0.2), 0 2px 4px -1px hsl( 43 100% 50% / 0.1);
   }
 }
+
 @layer utilities {
+
+
+
   @keyframes pulse-live {
     0%, 100% {
       opacity: 1;
@@ -564,6 +758,23 @@ All colors MUST be HSL.
 
   .live-dot {
     @apply w-2.5 h-2.5 rounded-full bg-accent animate-blink;
+  }
+
+   .new-design .animate-pulse-live {
+    animation: pulse-live 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .new-design .animate-blink {
+    animation: blink-dot 1s ease-in-out infinite;
+  }
+
+  .new-design .live-indicator {
+    @apply flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 text-accent font-semibold text-sm;
+  }
+
+  .new-design .live-dot {
+    @apply w-2.5 h-2.5 rounded-full bg-accent;
+    animation: blink-dot 1s ease-in-out infinite;
   }
 }
 

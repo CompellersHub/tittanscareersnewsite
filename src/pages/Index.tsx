@@ -35,6 +35,11 @@ import { LazyInfographic } from "@/components/infographics/LazyInfographic";
 import { useFetchCourse } from "@/hooks/useCourse";
 import OptimizedVideo from "@/components/OptimizedVideo";
 import { CoursesCarousel } from "@/components/courses/CoursesCarousel";
+import Header from "@/components/Header";
+import CoursesSection from "@/components/CoursesSection";
+import HeroSection2 from "@/components/HeroSection";
+
+
 
 const Index = () => {
  
@@ -204,7 +209,6 @@ const Index = () => {
                 Download our proven career guides, roadmaps, and toolkits to
                 kickstart your journey
               </p>
-              <div className="grid gap-4">
               <Button
                 size="lg"
                 className="font-bold"
@@ -213,17 +217,33 @@ const Index = () => {
                 Join Our Free Masterclass
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                onClick={() => setShowLeadMagnet(true)}
-                className="font-bold"
-              >
-                <Download className="mr-2 h-5 w-5" />
-                Get Free Resources
-              </Button>
-              </div>
+              
             </div>
           </div>
+        </section>
+
+        <section className="new-design">
+            <main className="h-screen bg-background hero-gradient overflow-hidden flex flex-col">
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-coral/5 rounded-full blur-3xl" />
+      </div>
+
+      {/* Header */}
+      <Header />
+
+      <div className="relative z-10 flex flex-col flex-1 px-4 py-4 sm:py-6">
+        <div className="container mx-auto flex flex-col h-full max-w-6xl">
+          <HeroSection2 />
+          <div className="flex-1 flex items-center">
+            <div className="w-full">
+              <CoursesSection  />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
         </section>
 
         <CompanyLogosCarousel />
