@@ -209,13 +209,13 @@ const Index = () => {
                 Download our proven career guides, roadmaps, and toolkits to
                 kickstart your journey
               </p>
-              <Button
+             <Button
                 size="lg"
+                onClick={() => setShowLeadMagnet(true)}
                 className="font-bold"
               >
-                <Link to="/free-classes" >
-                Join Our Free Masterclass
-                </Link>
+                <Download className="mr-2 h-5 w-5" />
+                Get Free Resources
               </Button>
               
             </div>
