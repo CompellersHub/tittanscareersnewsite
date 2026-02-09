@@ -79,13 +79,13 @@ export function SuccessStoriesCarousel() {
       </div>
 
       {/* View All Button */}
-      <div className="text-center mt-8">
+      {/* <div className="text-center mt-8">
         <Link to="/testimonials">
           <Button size="lg" className="bg-primary text-accent-foreground hover:bg-accent/90 font-sans font-semibold">
             View All 50 Success Stories
           </Button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

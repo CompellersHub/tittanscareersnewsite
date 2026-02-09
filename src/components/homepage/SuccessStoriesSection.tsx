@@ -165,7 +165,7 @@ export function SuccessStoriesSection() {
     <section className="py-16 md:py-24 lg:py-32 bg-muted/30">
       <div className="container max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 space-y-4">
-          <Badge className="bg-accent/10 text-accent border-accent/30 font-sans font-semibold">
+          <Badge className="bg-white/10 text-primary border-accent/30 font-sans font-semibold">
             <Award className="w-3 h-3 mr-2" />
             REAL TRANSFORMATIONS
           </Badge>

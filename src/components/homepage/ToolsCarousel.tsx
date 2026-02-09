@@ -36,8 +36,8 @@ export function ToolsCarousel() {
 
       <div className="container relative z-10">
         <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-block mb-6 px-4 py-2 bg-accent/10 rounded-full border border-accent/30">
-            <span className="text-accent font-bold text-sm tracking-wide uppercase">
+          <div className="inline-block mb-6 px-4 py-2 bg-white/10 rounded-full border border-accent/30">
+            <span className="text-primary font-bold text-sm tracking-wide uppercase">
               Industry-Standard Tools
             </span>
           </div>

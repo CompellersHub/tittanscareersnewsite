@@ -113,29 +113,29 @@ export const HeroSection = () => {
           <div className="flex justify-center md:justify-end animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <div className="relative group">
               {/* Multi-layer glow effects */}
-              <div className="absolute inset-0 bg-gradient-to-br from-tc-amber/30 to-tc-gold/30 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-br from-tc-amber/20 to-tc-gold/20 rounded-3xl blur-3xl group-hover:opacity-80 transition-all duration-500" />
+              {/* <div className="absolute inset-0 bg-gradient-to-br from-tc-amber/30 to-tc-gold/30 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500" /> */}
+              {/* <div className="absolute inset-0 bg-gradient-to-br from-tc-amber/20 to-tc-gold/20 rounded-3xl blur-3xl group-hover:opacity-80 transition-all duration-500" /> */}
               
               {/* Premium glassmorphism card */}
               <div className="relative bg-white/70 backdrop-blur-2xl rounded-3xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.5)] p-10 border-2 border-white/60 max-w-sm w-full hover:scale-105 hover:shadow-[0_40px_110px_-20px_rgba(0,0,0,0.4)] transition-all duration-500 overflow-hidden">
                 {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-tc-amber/8 via-transparent to-tc-gold/8 animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+                <div className="absolute inset-0  animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
                 
                 {/* Shimmer effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+                {/* <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -translate-x-full group-hover:animate-[shimmer-slide_1.5s_ease-in-out]" />
-                </div>
+                </div> */}
                 
                 {/* Decorative premium corner accent */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-tc-amber/15 to-transparent rounded-bl-full" />
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-tc-gold/10 to-transparent rounded-tr-full" />
+                <div className="absolute top-0 right-0 w-32 h-32  rounded-bl-full" />
+                <div className="absolute bottom-0 left-0 w-24 h-24  rounded-tr-full" />
                 
                 <div className="space-y-8 text-center relative z-10">
                   {/* Main stat with gradient */}
                   <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-tc-amber/10 to-tc-gold/10 rounded-2xl blur-xl" />
+                    <div className="absolute inset-0 bg-white/20 rounded-2xl blur-xl" />
                     <div className="relative">
-                      <div className="text-7xl font-kanit font-bold bg-gradient-to-r from-tc-navy via-tc-amber to-tc-gold bg-clip-text text-transparent mb-3 animate-pulse">
+                      <div className="text-7xl font-kanit font-bold  bg-clip-text text-primary mb-3 animate-pulse">
                         300+
                       </div>
                       <p className="text-tc-navy font-sans font-bold text-lg">
@@ -145,10 +145,10 @@ export const HeroSection = () => {
                   </div>
                   
                   {/* Divider with glow */}
-                  <div className="relative">
+                  {/* <div className="relative">
                     <div className="border-t-2 border-gradient-to-r from-transparent via-tc-amber/30 to-transparent" />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-tc-amber/10 to-transparent blur-sm" />
-                  </div>
+                  </div> */}
                   
                   {/* Rating section */}
                   <div className="space-y-3">
@@ -175,7 +175,7 @@ export const HeroSection = () => {
                 </div>
                 
                 {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-tc-amber via-tc-gold to-tc-amber rounded-b-3xl" />
+                {/* <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-tc-amber via-tc-gold to-tc-amber rounded-b-3xl" /> */}
               </div>
             </div>
           </div>
