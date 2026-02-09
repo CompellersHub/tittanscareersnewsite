@@ -38,6 +38,8 @@ import { CoursesCarousel } from "@/components/courses/CoursesCarousel";
 import Header from "@/components/Header";
 import CoursesSection from "@/components/CoursesSection";
 import HeroSection2 from "@/components/HeroSection";
+import { toast } from "sonner";
+import { api } from "@/lib/axiosConfig";
 
 
 
@@ -66,6 +68,18 @@ const Index = () => {
     { number: 3, title: "Get Job-Ready", description: "Receive career support, CV reviews, and interview prep" },
     { number: 4, title: "Land Your Role", description: "Join 300+ graduates now working in their dream careers" }
   ];
+
+  // const handleFreeResourcesClick = async () => {
+  //   setShowLeadMagnet(true);
+  //   try {
+  //     const resourceLink = await api.get('resources') // Replace with actual link
+  //       console.log("Received resource link:", resourceLink.data);
+  //     window.open(resourceLink.data, "_blank");
+  //   } catch (error) {
+  //    toast.error("Failed to open resources. Please try again later.");
+  //    console.error("Error opening lead magnet modal:", error); 
+  //   }
+  // }
 
   return (
     <PageTransition variant="default">
@@ -154,8 +168,8 @@ const Index = () => {
         <section className="py-20 md:py-28 px-4 bg-secondary/50 backdrop-blur-sm relative overflow-hidden">
           <div className="container mx-auto relative z-10">
             <div className="text-center mb-16 animate-fade-in">
-              <div className="inline-block mb-6 px-4 py-2 bg-accent/10 rounded-full border border-accent/30">
-                <span className="text-accent font-bold text-sm tracking-wide uppercase">
+              <div className="inline-block mb-6 px-4 py-2 bg-white/10 rounded-full border border-accent/30">
+                <span className="text-primary font-bold text-sm tracking-wide uppercase">
                   Professional Training
                 </span>
               </div>
@@ -212,6 +226,7 @@ const Index = () => {
              <Button
                 size="lg"
                 onClick={() => setShowLeadMagnet(true)}
+                // onClick={handleFreeResourcesClick}
                 className="font-bold"
               >
                 <Download className="mr-2 h-5 w-5" />

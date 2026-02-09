@@ -40,7 +40,7 @@ function AnimatedNumber({ value, duration = 2000 }: { value: number; duration?: 
   }, [value, duration]);
 
   return (
-    <span className="font-kanit text-5xl font-bold mb-2 bg-gradient-to-r from-primary via-accent to-gold bg-clip-text text-transparent">
+    <span className="font-kanit text-5xl font-bold mb-2 bg-gradient-to-r from-primary via-accent to-gold bg-clip-text text-primary">
       {count}
     </span>
   );
@@ -82,7 +82,7 @@ export function StatsInfographic({ stats, columns = 3 }: StatsInfographicProps) 
                 </div>
               )}
               
-              <div className="font-kanit text-5xl font-bold mb-2 bg-gradient-to-r from-primary via-accent to-gold bg-clip-text text-transparent">
+              <div className="font-kanit text-5xl font-bold mb-2 bg-gradient-to-r from-primary via-accent to-gold bg-clip-text text-primary">
                 {stat.prefix}
                 <AnimatedNumber value={stat.value} />
                 {stat.suffix}

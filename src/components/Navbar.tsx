@@ -109,7 +109,7 @@ export const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 
-                <DropdownMenuItem asChild>
+                {/* <DropdownMenuItem asChild>
                   <a 
                     href="/testimonials" 
                     // href="#success-stories" 
@@ -121,7 +121,7 @@ export const Navbar = () => {
                       <span className="text-xs text-muted-foreground font-sans">Real results</span>
                     </div>
                   </a>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
             
