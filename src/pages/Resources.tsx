@@ -2,11 +2,98 @@ import { PageLayout } from "@/components/layouts/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Download, FileText, Briefcase, ClipboardList, TrendingUp, BookOpen, CheckCircle } from "lucide-react";
+import { Download, FileText, Briefcase, ClipboardList, TrendingUp, BookOpen, CheckCircle, Loader2 } from "lucide-react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { ShareButton } from "@/components/ShareButton";
+import { useEffect, useMemo, useState } from "react";
+import { api } from "@/lib/axiosConfig";
+import { Link } from "react-router-dom";
+
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  file_url: string;
+  file_path: string;
+  file_type: string;
+  file_size: number;
+  series: string;
+  created_at: string;
+  updated_at: string;
+}
 
 const Resources = () => {
+   const [resources, setResources] = useState<Resource[]>([]);
+
+     const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+     useEffect(() => {
+    const fetchResources = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const { data } = await api.get<Resource[]>('/resources');
+        // Sort newest → oldest
+        const sorted = [...data].sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        setResources(sorted);
+      } catch (err) {
+        console.error("Failed to load resources:", err);
+        setError("Failed to load resources. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchResources();
+  }, []);
+
+  const formatSize = (bytes: number) => {
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const categorizedResources = useMemo(() => {
+    const groups: Record<string, Resource[]> = {
+      "Career Guides": [],
+      "Interview Preparation": [],
+      "Industry Reports": [],
+      "Other": [],
+    };
+  resources.forEach((res) => {
+      const titleLower = res.title.toLowerCase();
+
+      if (
+        titleLower.includes("guide") ||
+        titleLower.includes("career switch") ||
+        titleLower.includes("graduate to professional")
+      ) {
+        groups["Career Guides"].push(res);
+      } else if (
+        titleLower.includes("interview") ||
+        titleLower.includes("star method") ||
+        titleLower.includes("questions")
+      ) {
+        groups["Interview Preparation"].push(res);
+      } else if (
+        titleLower.includes("salary") ||
+        titleLower.includes("job market") ||
+        titleLower.includes("compliance") ||
+        titleLower.includes("analytics") ||
+        titleLower.includes("deep dive")
+      ) {
+        groups["Industry Reports"].push(res);
+      } else {
+        groups["Other"].push(res);
+      }
+    });
+
+    return groups;
+  }, [resources]);
+
+
   const careerGuides = [
     {
       title: "Complete Career Switcher's Guide",
@@ -91,45 +178,106 @@ const Resources = () => {
     }
   ];
 
-  const ResourceCard = ({ title, description, fileSize, icon: Icon }: any) => (
-    <Card className="hover:shadow-xl transition-all group border-2 hover:border-accent/50">
-      <CardHeader>
-        <div className="flex items-start justify-between gap-4">
-          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Icon className="w-6 h-6 text-accent" />
+ const ResourceCard = ({ resource }: { resource: Resource }) => {
+    const Icon = (() => {
+      const t = resource.title.toLowerCase();
+      if (t.includes("guide") || t.includes("from graduate")) return BookOpen;
+      if (t.includes("interview") || t.includes("star") || t.includes("checklist") || t.includes("questions")) return ClipboardList;
+      if (t.includes("salary") || t.includes("market") || t.includes("compliance") || t.includes("analytics")) return TrendingUp;
+      return FileText;
+    })();
+
+    return (
+      <a
+        href={resource.file_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block group"
+        download // optional: try to force download instead of preview
+      >
+        <Card className="h-full hover:shadow-xl transition-all border-2 hover:border-accent/50 bg-card/80 backdrop-blur-sm">
+          <CardHeader>
+            <div className="flex items-start justify-between gap-4">
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Icon className="w-6 h-6 text-accent" />
+              </div>
+              <div className="flex gap-2">
+                <ShareButton
+                  title={resource.title}
+                  url={resource.file_url}
+                  description={`Free career resource from Titans Training Group: ${resource.title}`}
+                  variant="outline"
+                  size="sm"
+                />
+                <Button
+                  size="sm"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-sans"
+                  asChild
+                >
+                  <div>
+                    <Download className="w-4 h-4 mr-2" />
+                    Download
+                  </div>
+                </Button>
+              </div>
+            </div>
+            <CardTitle className="font-kanit text-xl mt-4 group-hover:text-accent transition-colors line-clamp-2">
+              {resource.title.replace(/-/g, " ")}
+            </CardTitle>
+            <CardDescription className="font-sans text-base line-clamp-2">
+              {resource.description || "Professional PDF guide – instant access"}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-2 text-sm font-sans text-muted-foreground">
+              <FileText className="w-4 h-4" />
+              <span>PDF • {formatSize(resource.file_size)}</span>
+              <span className="ml-auto text-xs">
+                {new Date(resource.created_at).toLocaleDateString("en-GB", {
+                  month: "short",
+                  year: "numeric",
+                })}
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      </a>
+    );
+  };
+
+
+  const renderSection = (title: string, icon: any, bgClass = "bg-background") => {
+    const items = categorizedResources[title] || [];
+    if (items.length === 0) return null;
+
+    return (
+      <section className={`py-20 ${bgClass}`}>
+        <div className="container max-w-7xl">
+          <div className="mb-12 space-y-3">
+            <h2 className="font-kanit text-3xl md:text-4xl font-bold text-primary flex items-center gap-3">
+              {icon}
+              {title}
+              <Badge variant="outline" className="ml-3 text-base">
+                {items.length}
+              </Badge>
+            </h2>
+            <p className="font-sans text-lg text-muted-foreground">
+              {title === "Career Guides" && "Comprehensive roadmaps for your career transition"}
+              {title === "Interview Preparation" && "Tools & frameworks to help you shine in interviews"}
+              {title === "Industry Reports" && "Latest insights, salary data & role deep-dives"}
+              {title === "Other" && "Additional helpful materials"}
+            </p>
           </div>
-          <div className="flex gap-2">
-            <ShareButton 
-              title={title}
-              url={window.location.href}
-              description={description}
-              variant="outline"
-              size="sm"
-            />
-            <Button 
-              size="sm" 
-              className="bg-primary hover:bg-primary-glow text-primary-foreground font-sans"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Download
-            </Button>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {items.map((res) => (
+              <ResourceCard key={res.id} resource={res} />
+            ))}
           </div>
         </div>
-        <CardTitle className="font-kanit text-xl mt-4 group-hover:text-accent transition-colors">
-          {title}
-        </CardTitle>
-        <CardDescription className="font-sans text-base">
-          {description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-2 text-sm font-sans text-muted-foreground">
-          <FileText className="w-4 h-4" />
-          <span>PDF • {fileSize}</span>
-        </div>
-      </CardContent>
-    </Card>
-  );
+      </section>
+    );
+  };
 
   return (
     <PageLayout intensity3D="subtle" show3D={true}>
@@ -156,91 +304,25 @@ const Resources = () => {
       </section>
 
       {/* Career Guides Section */}
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl">
-          <div className="mb-12 space-y-3">
-            <h2 className="font-kanit text-3xl md:text-4xl font-bold text-primary flex items-center gap-3">
-              <BookOpen className="w-8 h-8 text-accent" />
-              Career Guides
-            </h2>
-            <p className="font-sans text-lg text-muted-foreground">
-              Comprehensive guides to help you navigate your career journey.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {careerGuides.map((resource, index) => (
-              <ResourceCard key={index} {...resource} />
-            ))}
-          </div>
+     {loading ? (
+        <div className="py-32 flex flex-col items-center justify-center">
+          <Loader2 className="h-12 w-12 animate-spin text-primary mb-6" />
+          <p className="text-xl text-muted-foreground">Loading your free resources...</p>
         </div>
-      </section>
-
-      {/* Resume Templates Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container max-w-7xl">
-          <div className="mb-12 space-y-3">
-            <h2 className="font-kanit text-3xl md:text-4xl font-bold text-primary flex items-center gap-3">
-              <FileText className="w-8 h-8 text-accent" />
-              Resume Templates
-            </h2>
-            <p className="font-sans text-lg text-muted-foreground">
-              Professional templates that get you noticed by recruiters.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {resumeTemplates.map((resource, index) => (
-              <ResourceCard key={index} {...resource} />
-            ))}
-          </div>
+      ) : error ? (
+        <div className="py-32 text-center">
+          <p className="text-xl text-destructive mb-6">{error}</p>
+          <Button onClick={() => window.location.reload()}>Try Again</Button>
         </div>
-      </section>
+      ) : (
+        <>
+          {renderSection("Career Guides", <BookOpen className="w-8 h-8 text-accent" />)}
+          {renderSection("Interview Preparation", <ClipboardList className="w-8 h-8 text-accent" />)}
+          {renderSection("Industry Reports", <TrendingUp className="w-8 h-8 text-accent" />, "bg-muted/30")}
+          {renderSection("Other", <FileText className="w-8 h-8 text-accent" />, "bg-background")}
 
-      {/* Interview Prep Section */}
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl">
-          <div className="mb-12 space-y-3">
-            <h2 className="font-kanit text-3xl md:text-4xl font-bold text-primary flex items-center gap-3">
-              <ClipboardList className="w-8 h-8 text-accent" />
-              Interview Preparation
-            </h2>
-            <p className="font-sans text-lg text-muted-foreground">
-              Ace your interviews with our proven preparation materials.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {interviewPrep.map((resource, index) => (
-              <ResourceCard key={index} {...resource} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industry Reports Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container max-w-7xl">
-          <div className="mb-12 space-y-3">
-            <h2 className="font-kanit text-3xl md:text-4xl font-bold text-primary flex items-center gap-3">
-              <TrendingUp className="w-8 h-8 text-accent" />
-              Industry Reports
-            </h2>
-            <p className="font-sans text-lg text-muted-foreground">
-              Stay informed with our latest industry insights and salary data.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {industryReports.map((resource, index) => (
-              <ResourceCard key={index} {...resource} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="py-20 bg-background">
+          {/* Newsletter & CTA sections remain the same */}
+         <section className="py-20 bg-background">
         <div className="container max-w-4xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -281,34 +363,37 @@ const Resources = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
-        <div className="container max-w-4xl text-center space-y-8">
-          <h2 className="font-kanit text-3xl md:text-5xl font-bold">
-            Ready to Take the Next Step?
-          </h2>
-          
-          <p className="font-sans text-xl text-primary-foreground/80 leading-relaxed">
-            These resources are just the beginning. Join our courses to get personalized 
-            guidance, hands-on projects, and direct career support.
-          </p>
-          
-          <div className="flex flex-wrap gap-4 justify-center pt-4">
-            <Button 
-              size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-sans font-bold text-lg px-8"
-            >
-              <Briefcase className="w-5 h-5 mr-2" />
-              View Our Courses
-            </Button>
-            
-            <Button size="lg" variant="outline" className="border-primary-foreground bg-stone-400 text-primary-foreground hover:bg-primary-foreground hover:text-primary font-sans text-lg px-8">
-              <BookOpen className="w-5 h-5 mr-2" />
-              Book Free Consultation
-            </Button>
-          </div>
-        </div>
-      </section>
+          <section className="py-20 bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
+            <div className="container max-w-4xl text-center space-y-8">
+              <h2 className="font-kanit text-3xl md:text-5xl font-bold">
+                Ready to Go Further?
+              </h2>
+              <p className="font-sans text-xl text-primary-foreground/85 leading-relaxed">
+                These free tools are just the start. Get structured training, projects, CV help & job support.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center pt-4">
+                <Button
+                  size="lg"
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg px-10"
+                >
+                  <Link to="/courses" className="flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 mr-2" />
+                  Explore Courses
+                  </Link>
+                </Button>
+                {/* <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary-foreground bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary font-bold text-lg px-10"
+                >
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Free Consultation
+                </Button> */}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </PageLayout>
   );
 };
