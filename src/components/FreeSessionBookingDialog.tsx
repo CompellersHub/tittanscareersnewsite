@@ -86,14 +86,15 @@ export const FreeSessionBookingDialog = () => {
     try {
       const courseData = Object.values(courses).find((c) => c.slug === data.courseSlug);
 
-      const { error } = await supabase.functions.invoke("submit-course-inquiry", {
+      // const { error } = await supabase.functions.invoke("submit-course-inquiry", {
+      const { error } = await supabase.functions.invoke("book-free-session", {
         body: {
           courseSlug: data.courseSlug,
           courseTitle: courseData?.title || "",
           inquiryType: "free_session",
-          name: data.name,
+          fullName: data.name,
           email: data.email,
-          whatsapp: data.whatsapp,
+          whatsappNumber: data.whatsapp,
           joinWhatsappGroup: data.joinWhatsappGroup || false,
           whatsappGroupLink: data.joinWhatsappGroup ? selectedCourseData?.whatsappGroupLink : null,
           privacyAccepted: data.privacyAccepted,

@@ -167,7 +167,7 @@ export const paymentMethods: PaymentMethodOption[] = [
   // Uncomment and configure edge function when ready
   {
     id: 'payl8r',
-    name: 'Pay Later',
+    name: 'Payl8r',
     tagline: 'Spread the cost over 3-12 months',
     badge: 'flexible',
     icon: <DollarSign className="w-6 h-6" />,
@@ -177,7 +177,7 @@ export const paymentMethods: PaymentMethodOption[] = [
       'Quick online application'
     ],
     processingTime: 'Contact for details',
-    disclaimer: 'Finance is subject to status. Contact info@titanscareers.com for financing inquiries. Representative APR varies.',
+    disclaimer: 'TITANS CAREERS LIMITED is an Introducer Appointed Representative of Social Money Limited t/a PayL8r who is authorised by the FCA under Ref Number 675283. Credit is subject to creditworthiness and affordability assessments. Missed payments may affect your credit file, future borrowing and incur fees.',
     monthlyFrom: 'From £42/month'
   }
 ];
