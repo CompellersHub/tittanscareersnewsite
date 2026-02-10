@@ -54,9 +54,6 @@ jobs:
             if [[ -d /app/dist ]]; then rm -r /app/dist ; fi;
             unzip /app/dist.zip -d /app
             rm -r /app/dist.zip
-            chmod -R 755 dist
+            chmod -R 755 /app/dist
             sudo systemctl restart nginx
             
-            python3 manage.py makemigrations
-            python3 manage.py migrate
-            touch tmp/restart.txt
