@@ -7,14 +7,13 @@
     <link rel="canonical" href="https://titanstraininggroup.com/" />
     
     <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17674068089"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', {
-        send_page_view: false // We'll handle page views manually in React
-      });
+      gtag('config', 'AW-17674068089');
     </script>
     
     <!-- Facebook Pixel -->
@@ -39,6 +38,18 @@
     <!-- Performance Hints -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://connect.facebook.net">
+
+    <meta
+      property="og:title"
+      content="Titans Careers - Transform Your Professional Journey"
+    />
+    <meta
+      property="og:description"
+      content="Accelerate your career with expert-led training in Business Analysis, Cybersecurity, Data Analytics, and Compliance."
+    />
+    <meta property="og:image" content="/titanlogo.jpeg" />
+    <meta property="og:url" content="https://www.titanscareers.com" />
+    <meta property="og:type" content="website" />
   </head>
 
   <body>
@@ -50,5 +61,33 @@
     
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+     <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject = t;
+        var ttq = w[t] = w[t] || [];
+        ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+        ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } };
+        for (var i = 0; i < ttq.methods.length; i++) { ttq.setAndDefer(ttq, ttq.methods[i]) }
+        ttq.instance = function (t) { for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) { ttq.setAndDefer(e, ttq.methods[n]) } return e };
+        ttq.load = function (e, n) {
+          var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+          ttq._i = ttq._i || {};
+          ttq._i[e] = [];
+          ttq._i[e]._u = i;
+          ttq._t = ttq._t || {};
+          ttq._t[e] = +new Date;
+          ttq._o = ttq._o || {};
+          ttq._o[e] = n || {};
+          var o = document.createElement("script");
+          o.type = "text/javascript";
+          o.async = !0;
+          o.src = i + "?sdkid=" + e + "&lib=" + t;
+          var a = document.getElementsByTagName("script")[0];
+          a.parentNode.insertBefore(o, a)
+        };
+        ttq.load('D39E7O3C77UE7L6G8TU0', { accessToken: '5d23729df3fad84deda7672b38bee9848ad0bf74' });
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
   </body>
 </html>
