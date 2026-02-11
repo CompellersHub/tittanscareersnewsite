@@ -4,7 +4,7 @@ import CoursesSection from "@/components/CoursesSection";
 
 const FreeClass = () => {
   return (
-    <main className="h-screen new-design bg-background hero-gradient overflow-hidden flex flex-col">
+    <main className="h-screen newdesign bg-background hero-gradient overflow-hidden flex flex-col">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />

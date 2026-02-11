@@ -74,7 +74,6 @@ const CourseCard = ({
         {/* CTA Button */}
         <button className="w-full py-1.5 px-3 rounded-md bg-accent/10 text-accent font-semibold text-[10px] hover:bg-accent hover:text-accent-foreground transition-all duration-300 border border-accent/20 hover:border-accent">
           {isLive ? " Join Live" : "coming soon"}
-          {isLive && <LiveIndicator isLive={isLive} />}
           {liveLink && (
             <a
               href={liveLink}

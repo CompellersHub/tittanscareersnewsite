@@ -214,7 +214,7 @@ const RegistrationDialog = () => {
           Enroll Now
         </button>
       </DialogTrigger>
-      <DialogContent className="new-design max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-background via-background to-accent/5 border-accent/20">
+      <DialogContent className="newdesign max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-background via-background to-accent/5 border-accent/20">
         <DialogHeader className="text-center pb-2">
           <div className="flex justify-center mb-3">
             <div className="p-3 rounded-full bg-accent/20 border border-accent/30">
@@ -366,7 +366,7 @@ const RegistrationDialog = () => {
 
             <Button
               type="submit"
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+              className="w-full bg-primary hover:bg-primary/90 text-accent-foreground font-semibold"
               disabled={!selectedCourse || !formData.fullName || !formData.email}
             >
               Proceed to Payment
@@ -377,7 +377,7 @@ const RegistrationDialog = () => {
             {/* Selected Courses Summary */}
             <div className="p-3 bg-accent/10 rounded-lg border border-accent/20">
               <p className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-accent" />
+                <CheckCircle2 className="w-4 h-4 text-primary" />
                 Selected Courses 
               </p>
               <div className="grid grid-cols-2 gap-1">
@@ -425,8 +425,8 @@ const RegistrationDialog = () => {
                   onClick={() => setPaymentMethod("card")}
                   className={`p-3 rounded-lg border transition-all flex flex-col items-center gap-2 ${
                     paymentMethod === "card"
-                      ? "border-accent bg-accent/20 text-accent"
-                      : "border-border hover:border-accent/50 hover:bg-accent/5"
+                      ? "border-primary bg-primary/20 text-primary"
+                      : "border-border hover:border-primary/50 hover:bg-primary/5"
                   }`}
                 >
                   <CreditCard className="w-5 h-5" />
@@ -437,8 +437,8 @@ const RegistrationDialog = () => {
                   onClick={() => setPaymentMethod("transfer")}
                   className={`p-3 rounded-lg border transition-all flex flex-col items-center gap-2 ${
                     paymentMethod === "transfer"
-                      ? "border-accent bg-accent/20 text-accent"
-                      : "border-border hover:border-accent/50 hover:bg-accent/5"
+                      ? "border-primary bg-primary/20 text-primary"
+                      : "border-border hover:border-primary/50 hover:bg-primary/5"
                   }`}
                 >
                   <Building2 className="w-5 h-5" />
@@ -531,13 +531,13 @@ const RegistrationDialog = () => {
                 type="button"
                 variant="outline"
                 onClick={() => setStep("registration")}
-                className="flex-1 border-accent/30 hover:bg-accent/10"
+                className="flex-1 border-primary/30 hover:bg-primary/10"
               >
                 Back
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                className="flex-1 bg-primary hover:bg-primary/90 text-accent-foreground font-semibold"
               >
                 {loading ? "Processing..." : paymentMethod === "card"
                   ? "Complete Payment"
@@ -674,7 +674,7 @@ const RegistrationDialog = () => {
                 type="button"
                 variant="outline"
                 onClick={() => setStep("payment")}
-                className="flex-1 border-accent/30 hover:bg-accent/10"
+                className="flex-1 border-primary/30 hover:bg-primary/10"
               >
                 Back
               </Button>
@@ -686,7 +686,7 @@ const RegistrationDialog = () => {
                   );
                   resetForm();
                 }}
-                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                className="flex-1 bg-primary hover:bg-primary/90 text-accent-foreground font-semibold"
               >
                 I've Made the Transfer
               </Button>

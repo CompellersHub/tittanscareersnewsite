@@ -40,17 +40,17 @@ export const HeroSection = () => {
             </div>
             
             {/* Enhanced H1 with gradient text */}
-            <h1 className="font-kanit font-bold leading-[1.1] animate-fade-in" style={{ fontSize: 'clamp(32px, 6vw, 64px)' }}>
-              <span className="bg-gradient-to-r from-white via-white to-tc-amber bg-clip-text text-primary">
+            <h1 className="font-kanit font-bold leading-[1.1] animate-fade-in" style={{ fontSize: 'clamp(40px, 6vw, 68px)' }}>
+              <span className="bg-gradient-to-r from-white text-2xl via-white to-tc-amber bg-clip-text text-primary">
                 Upgrade Your Career
               </span>
               <br />
-              <span className="text-primary drop-shadow-lg">with Titans Careers</span>
+              <span className="text-primary text-2xl drop-shadow-lg">with Titans Careers</span>
             </h1>
             
             {/* Enhanced body text with better line height */}
-            <p className="font-sans text-lg leading-relaxed text-primary/90 max-w-xl animate-fade-in drop-shadow-md" style={{ animationDelay: '0.1s' }}>
-              Learn in-demand skills in <span className="font-semibold text-primary">AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity, Digital Marketing, Data Privacy</span> and <span className="font-semibold text-primary">Crypto</span>. No UK experience needed.
+            <p className="font-sans text-xl leading-relaxed text-primary/90 max-w-xl animate-fade-in drop-shadow-md" style={{ animationDelay: '0.1s' }}>
+              Learn in-demand skills in <span className="font-semibold text-xl text-primary">AML/KYC, Data Analysis, AML Business Analysis /Project management, Cybersecurity, Digital Marketing, Data Privacy</span> and <span className="font-semibold text-primary">Crypto</span>. No UK experience needed.
             </p>
             
             {/* Enhanced CTA Button with glow effect */}
@@ -60,7 +60,7 @@ export const HeroSection = () => {
               {/* Enhanced subtext with icon */}
               <div className="flex items-center gap-2 text-sm text-white/80 font-sans">
                 <CheckCircle2 className="w-4 h-4 text-green-400" />
-                <span>No credit card required • Start learning today</span>
+                <span className="text-xl">No credit card required • Start learning today</span>
               </div>
             </div>
             

@@ -2,12 +2,26 @@ import { PageLayout } from "@/components/layouts/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Download, FileText, Briefcase, ClipboardList, TrendingUp, BookOpen, CheckCircle, Loader2 } from "lucide-react";
+import { Download, FileText, Briefcase, ClipboardList, TrendingUp, BookOpen, CheckCircle, Loader2, Lock, Share2 } from "lucide-react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { ShareButton } from "@/components/ShareButton";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/axiosConfig";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import z from "zod";
+import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 interface Resource {
   id: string;
@@ -22,11 +36,42 @@ interface Resource {
   updated_at: string;
 }
 
+// Zod schema for form validation
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email"),
+  phoneNumber: z.string().min(9, "Please enter a valid phone number"),
+  subscribeToNewsletter: z.boolean().optional(),
+});
+
 const Resources = () => {
    const [resources, setResources] = useState<Resource[]>([]);
 
      const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showUnlockDialog, setShowUnlockDialog] = useState(false);
+const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+
+// Check if already unlocked in this session/browser
+const [isUnlocked, setIsUnlocked] = useState(() => {
+  return localStorage.getItem("resources_unlocked") === "true";
+});
+
+  // Form states
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    subscribeToNewsletter: false,
+  });
+  const [formLoading, setFormLoading] = useState(false);
+
+  useEffect(() => {
+    const unlocked = localStorage.getItem("resources_unlocked");
+    if (unlocked === "true") {
+      setIsUnlocked(true);
+    }
+  }, []);
 
      useEffect(() => {
     const fetchResources = async () => {
@@ -49,6 +94,74 @@ const Resources = () => {
 
     fetchResources();
   }, []);
+
+
+  // Function to handle click on Download / Share
+const handleProtectedAction = (action: () => void) => {
+  if (isUnlocked) {
+    action();
+    return;
+  }
+
+  // Show dialog and remember what we want to do after success
+  setPendingAction(() => action);
+  setShowUnlockDialog(true);
+};
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+ 
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setFormLoading(true);
+
+  try {
+    const validated = formSchema.parse(formData);
+
+    const { error } = await supabase.functions.invoke("register-for-resources", {
+      body: {
+        name: validated.name.trim(),
+        email: validated.email.trim(),
+        phoneNumber: validated.phoneNumber.trim(),
+        subscribeToNewsletter: formData.subscribeToNewsletter,
+      },
+    });
+
+    if (error) throw error;
+
+    toast.success("Unlocked! Enjoy your resources.");
+    setIsUnlocked(true);
+    localStorage.setItem("resources_unlocked", "true");
+
+    // Close dialog
+    setShowUnlockDialog(false);
+
+    // Execute the action user was trying to do
+    if (pendingAction) {
+      pendingAction();
+      setPendingAction(null);
+    }
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      phoneNumber: "",
+      subscribeToNewsletter: false,
+    });
+  } catch (err: any) {
+    toast.error(err.message || "Failed to unlock. Please try again.");
+  } finally {
+    setFormLoading(false);
+  }
+};
 
   const formatSize = (bytes: number) => {
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
@@ -94,132 +207,68 @@ const Resources = () => {
   }, [resources]);
 
 
-  const careerGuides = [
-    {
-      title: "Complete Career Switcher's Guide",
-      description: "Everything you need to know about switching careers into tech, analytics, or compliance.",
-      fileSize: "2.5 MB",
-      icon: BookOpen
-    },
-    {
-      title: "From Graduate to Professional",
-      description: "Step-by-step roadmap for recent grads entering the professional world.",
-      fileSize: "1.8 MB",
-      icon: TrendingUp
-    },
-    {
-      title: "UK Job Market 2024 Report",
-      description: "Current salary trends, in-demand roles, and hiring patterns across industries.",
-      fileSize: "3.2 MB",
-      icon: FileText
-    }
-  ];
-
-  const resumeTemplates = [
-    {
-      title: "ATS-Optimized Resume Template",
-      description: "Modern template that passes Applicant Tracking Systems with ease.",
-      fileSize: "450 KB",
-      icon: FileText
-    },
-    {
-      title: "Career Switcher Resume Template",
-      description: "Highlight transferable skills when changing careers.",
-      fileSize: "520 KB",
-      icon: Briefcase
-    },
-    {
-      title: "LinkedIn Profile Optimization Guide",
-      description: "Make recruiters notice you with a standout LinkedIn profile.",
-      fileSize: "1.1 MB",
-      icon: TrendingUp
-    }
-  ];
-
-  const interviewPrep = [
-    {
-      title: "200+ Interview Questions Bank",
-      description: "Common interview questions with sample answers for tech, analytics & compliance.",
-      fileSize: "2.8 MB",
-      icon: ClipboardList
-    },
-    {
-      title: "STAR Method Worksheet",
-      description: "Master behavioral interviews with our proven framework.",
-      fileSize: "650 KB",
-      icon: CheckCircle
-    },
-    {
-      title: "Interview Preparation Checklist",
-      description: "Never miss a step with our comprehensive pre-interview checklist.",
-      fileSize: "380 KB",
-      icon: ClipboardList
-    }
-  ];
-
-  const industryReports = [
-    {
-      title: "2024 Tech Salary Report UK",
-      description: "Detailed breakdown of tech salaries across roles and experience levels.",
-      fileSize: "4.2 MB",
-      icon: TrendingUp
-    },
-    {
-      title: "Compliance Careers Deep Dive",
-      description: "Complete guide to compliance roles, certifications, and career progression.",
-      fileSize: "2.9 MB",
-      icon: Briefcase
-    },
-    {
-      title: "Analytics & Data Roles Guide",
-      description: "Navigate the world of data careers: from analyst to scientist.",
-      fileSize: "3.5 MB",
-      icon: BookOpen
-    }
-  ];
+   
+ 
 
  const ResourceCard = ({ resource }: { resource: Resource }) => {
-    const Icon = (() => {
-      const t = resource.title.toLowerCase();
-      if (t.includes("guide") || t.includes("from graduate")) return BookOpen;
-      if (t.includes("interview") || t.includes("star") || t.includes("checklist") || t.includes("questions")) return ClipboardList;
-      if (t.includes("salary") || t.includes("market") || t.includes("compliance") || t.includes("analytics")) return TrendingUp;
-      return FileText;
-    })();
+  const Icon = (() => {
+    const t = resource.title.toLowerCase();
+    if (t.includes("guide") || t.includes("from graduate")) return BookOpen;
+    if (t.includes("interview") || t.includes("star") || t.includes("checklist") || t.includes("questions")) return ClipboardList;
+    if (t.includes("salary") || t.includes("market") || t.includes("compliance") || t.includes("analytics")) return TrendingUp;
+    return FileText;
+  })();
+
+  const handleDownload = () => {
+    window.open(resource.file_url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(resource.file_url);
+    toast.success("Link copied to clipboard!");
+  };
+
+    // if (!isUnlocked) {
+    //   return (
+    //     <Card className="h-full opacity-75 bg-muted/40 border-dashed">
+    //       <CardHeader>
+    //         <div className="flex items-center justify-center h-20">
+    //           <Lock className="h-10 w-10 text-muted-foreground" />
+    //         </div>
+    //         <CardTitle className="text-center text-muted-foreground mt-4">
+    //           Unlock to Access
+    //         </CardTitle>
+    //       </CardHeader>
+    //     </Card>
+    //   );
+    // }
 
     return (
-      <a
-        href={resource.file_url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block group"
-        download // optional: try to force download instead of preview
-      >
+      
         <Card className="h-full hover:shadow-xl transition-all border-2 hover:border-accent/50 bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <div className="flex items-start justify-between gap-4">
               <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Icon className="w-6 h-6 text-accent" />
               </div>
-              <div className="flex gap-2">
-                <ShareButton
-                  title={resource.title}
-                  url={resource.file_url}
-                  description={`Free career resource from Titans Training Group: ${resource.title}`}
-                  variant="outline"
-                  size="sm"
-                />
-                <Button
-                  size="sm"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-sans"
-                  asChild
-                >
-                  <div>
-                    <Download className="w-4 h-4 mr-2" />
-                    Download
-                  </div>
-                </Button>
-              </div>
+             <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleProtectedAction(handleCopyLink)}
+            >
+              <Share2 className="w-4 h-4 mr-2" />
+              Share
+            </Button>
+            <Button
+              size="sm"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              onClick={() => handleProtectedAction(handleDownload)}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </Button>
+          </div>
             </div>
             <CardTitle className="font-kanit text-xl mt-4 group-hover:text-accent transition-colors line-clamp-2">
               {resource.title.replace(/-/g, " ")}
@@ -241,7 +290,6 @@ const Resources = () => {
             </div>
           </CardContent>
         </Card>
-      </a>
     );
   };
 
@@ -303,6 +351,97 @@ const Resources = () => {
         </div>
       </section>
 
+<Dialog open={showUnlockDialog} onOpenChange={setShowUnlockDialog}>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle className="text-2xl">Unlock Resources</DialogTitle>
+      <DialogDescription>
+        Please enter your details to download or share this career resource (one-time per browser).
+      </DialogDescription>
+    </DialogHeader>
+
+    <form onSubmit={handleSubmit} className="space-y-5 mt-4">
+      <div className="space-y-2">
+        <Label htmlFor="name">Full Name</Label>
+        <Input
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          placeholder="John Doe"
+          required
+          disabled={formLoading}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="email">Email Address</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          placeholder="you@example.com"
+          required
+          disabled={formLoading}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="phoneNumber">WhatsApp / Phone</Label>
+        <Input
+          id="phoneNumber"
+          name="phoneNumber"
+          value={formData.phoneNumber}
+          onChange={handleInputChange}
+          placeholder="+234 800 000 0000"
+          required
+          disabled={formLoading}
+        />
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="newsletter"
+          checked={formData.subscribeToNewsletter}
+          onCheckedChange={(checked) =>
+            setFormData((prev) => ({ ...prev, subscribeToNewsletter: !!checked }))
+          }
+          disabled={formLoading}
+        />
+        <Label htmlFor="newsletter" className="text-sm cursor-pointer">
+          Subscribe to newsletter & WhatsApp job alerts (optional)
+        </Label>
+      </div>
+
+      <DialogFooter className="sm:justify-between gap-3 pt-4">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setShowUnlockDialog(false)}
+          disabled={formLoading}
+        >
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          className="bg-accent hover:bg-accent/90"
+          disabled={formLoading}
+        >
+          {formLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Unlocking...
+            </>
+          ) : (
+            "Unlock & Continue"
+          )}
+        </Button>
+      </DialogFooter>
+    </form>
+  </DialogContent>
+</Dialog>
       {/* Career Guides Section */}
      {loading ? (
         <div className="py-32 flex flex-col items-center justify-center">

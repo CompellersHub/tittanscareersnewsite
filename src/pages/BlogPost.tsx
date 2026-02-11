@@ -89,7 +89,10 @@ const BlogPost = () => {
       "career-tips": "bg-primary/10 text-primary border-primary/20",
       "business-analysis": "bg-accent/10 text-accent border-accent/20",
       "cybersecurity": "bg-primary/10 text-primary border-primary/20",
-      "industry-news": "bg-muted text-muted-foreground border-border"
+      "industry-news": "bg-muted text-muted-foreground border-border",
+      "software-testing": "bg-primary/10 text-primary border-primary/20",
+      "digital-marketing": "bg-gold/10 text-gold border-gold/20",
+      "data-privacy": "bg-accent/10 text-accent border-accent/20",
     };
     return colors[category] || "bg-muted text-muted-foreground border-border";
   };
@@ -266,7 +269,7 @@ const BlogPost = () => {
         </section>
 
         {/* Related Posts */}
-        {relatedPosts.length > 0 && (
+        {relatedPosts?.length > 0 && (
           <section className="py-20 bg-muted/30">
             <div className="container max-w-7xl">
               <div className="text-center mb-12">

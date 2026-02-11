@@ -237,7 +237,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="new-design">
+        <section className="newdesign">
             <main className="h-screen bg-background hero-gradient overflow-hidden flex flex-col">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
