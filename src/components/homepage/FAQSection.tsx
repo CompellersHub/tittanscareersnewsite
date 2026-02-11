@@ -11,11 +11,11 @@ const faqs = [
     answer:
       "No, you don't need any UK work experience. Our courses are designed to help you build practical skills and a portfolio that UK employers are looking for, regardless of your background.",
   },
-  {
-    question: "Are the courses CPD accredited?",
-    answer:
-      "Yes, all our courses are CPD (Continuing Professional Development) accredited, which means they meet high standards of quality and are recognized by employers across the UK.",
-  },
+  // {
+  //   question: "Are the courses CPD accredited?",
+  //   answer:
+  //     "Yes, all our courses are CPD (Continuing Professional Development) accredited, which means they meet high standards of quality and are recognized by employers across the UK.",
+  // },
   {
     question: "What kind of support do I get?",
     answer:

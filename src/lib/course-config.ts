@@ -99,6 +99,17 @@ export const COURSE_CONFIG: Record<string, CourseConfig> = {
     baseStartDate: '2026-01-10',
     icon: TrendingUp,
   },
+  'software-testing': {
+    slug: 'software-testing',
+    displayName: 'Software Testing',
+    shortName: 'Software Testing',
+    category: 'business',
+    color: '#0B1F3B', // Titans Navy
+    duration: 10,
+    dayOfWeek: 'Sunday',
+    baseStartDate: '2026-01-11',
+    icon: Bug,
+  },
 };
 
 /**

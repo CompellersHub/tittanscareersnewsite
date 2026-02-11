@@ -44,7 +44,7 @@ const {data:fetchEvents} = useFetchEvents()
   });
 
 
-  const courses = ["aml-kyc", "crypto-compliance", "data-privacy", "data-analysis", "cybersecurity", "business-analysis", "digital-marketing"];
+  const courses = ["aml-kyc", "crypto-compliance", "data-privacy", "data-analysis", "cybersecurity", "business-analysis", "digital-marketing", "software-testing"];
 
   const getNextCohort = (course_slug: string) => {
     const cohorts = events?.filter(e => e.course_slug === course_slug && e.event_type === "cohort").slice(0, 2) || [];

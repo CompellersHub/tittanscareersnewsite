@@ -13,7 +13,7 @@ const newsletterSchema = z.object({
   name: z.string().trim().min(2, "Name is required").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Please enter a valid email address").max(255, "Email must be less than 255 characters"),
   whatsapp: z.string().trim().regex(/^\+\d{1,4}\s?\d{6,14}$/, "Please enter a valid WhatsApp number with country code (e.g., +44 7XXX XXXXXX)"),
-  interest: z.enum(["AML/KYC", "Data Analysis", "Business Analysis", "Cybersecurity", "Data Privacy", "Digital Marketing", "Crypto & Digital Assets"], {
+  interest: z.enum(["aml-kyc", "data-analysis", "business-analysis", "cyber-security", "data-privacy", "digital-marketing", "crypto-assets", "interview-preparation", "cv-drafting", "software-testing"], {
     errorMap: () => ({ message: "Please select an area of interest" })
   }),
   consent: z.boolean().refine(val => val === true, "You must agree to receive updates")
@@ -72,12 +72,12 @@ export const NewsletterSignup = ({
         return;
       }
 
-      const { error } = await supabase.functions.invoke("newsletter-signup", {
+      const { error } = await supabase.functions.invoke("career-insights", {
         body: { 
           email: email.trim(),
-          name: name.trim(),
-          whatsapp: whatsapp.trim(),
-          interest,
+          firstName: name.trim(),
+          whatsappNo: whatsapp.trim(),
+          interestedCourse:interest,
           consent,
           source 
         },
@@ -132,11 +132,11 @@ export const NewsletterSignup = ({
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="name" className="text-tc-navy font-semibold mb-2">First Name</Label>
+            <Label htmlFor="name" className="text-tc-navy font-semibold mb-2">Full Name</Label>
             <Input
               id="name"
               type="text"
-              placeholder="Your first name"
+              placeholder="Your full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -191,13 +191,16 @@ export const NewsletterSignup = ({
                 <SelectValue placeholder="Select a course area" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="AML/KYC">AML/KYC</SelectItem>
-                <SelectItem value="Data Analysis">Data Analysis</SelectItem>
-                <SelectItem value="Business Analysis">Business Analysis</SelectItem>
-                <SelectItem value="Cybersecurity">Cybersecurity</SelectItem>
-                <SelectItem value="Data Privacy">Data Privacy</SelectItem>
-                <SelectItem value="Digital Marketing">Digital Marketing</SelectItem>
-                <SelectItem value="Crypto & Digital Assets">Crypto & Digital Assets</SelectItem>
+                <SelectItem value="aml-kyc">AML/KYC</SelectItem>
+                <SelectItem value="data-analysis">Data Analysis</SelectItem>
+                <SelectItem value="business-analysis">Business Analysis</SelectItem>
+                <SelectItem value="cyber-security">Cyber Security</SelectItem>
+                <SelectItem value="data-privacy">Data Privacy</SelectItem>
+                <SelectItem value="digital-marketing">Digital Marketing</SelectItem>
+                <SelectItem value="crypto-assets">Crypto & Digital Assets</SelectItem>
+                <SelectItem value="interview-preparation">Interview Preparation</SelectItem>
+                <SelectItem value="cv-drafting">CV Drafting</SelectItem>
+                <SelectItem value="software-testing">Software Testing</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Share2, Twitter, Facebook, Linkedin, Link2, Check } from "lucide-react";
+import { Share2, Twitter, Facebook, Linkedin, Link2, Check, Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   DropdownMenu,
@@ -9,6 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { FaTiktok } from "react-icons/fa6";
+
 
 interface ShareButtonProps {
   title: string;
@@ -34,6 +36,8 @@ export const ShareButton = ({
     twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+    tiktok: `https://www.tiktok.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+    instagram: `https://www.instagram.com/?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
   };
 
   const handleCopyLink = async () => {
@@ -89,6 +93,20 @@ export const ShareButton = ({
         >
           <Linkedin className="w-4 h-4 mr-2 text-[#0A66C2]" />
           Share on LinkedIn
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => window.open(shareUrls.linkedin, '_blank', 'noopener,noreferrer')}
+          className="cursor-pointer"
+        >
+          <FaTiktok className="w-4 h-4 mr-2 text-[#000000]" />
+          Share on Tiktok
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => window.open(shareUrls.instagram, '_blank', 'noopener,noreferrer')}
+          className="cursor-pointer"
+        >
+          <Instagram className="w-4 h-4 mr-2 text-[#E1306C]" />
+          Share on Instagram
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
