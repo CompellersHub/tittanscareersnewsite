@@ -6,13 +6,12 @@ const PaymentCard = () => {
   return (
     <div className="group card-gradient rounded-lg overflow-hidden border border-accent/30 card-hover bg-gradient-to-br from-accent/10 to-accent/5 flex flex-col">
       {/* Image Section */}
-      <div className="relative h-16 sm:h-20 overflow-hidden">
+      <div className="relative h-16 sm:h-20 md:h-40 overflow-hidden">
         <img
           src={fullCourseIllustration}
           alt="Full Course Package"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
         
         {/* Badge */}
         <div className="absolute top-1.5 left-1.5">
@@ -25,14 +24,21 @@ const PaymentCard = () => {
 
       {/* Content Section */}
       <div className="p-2 flex flex-col flex-1">
-        <h3 className="font-display text-xs font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 leading-tight">
+        <h3 className="font-display text-sm font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 leading-tight">
           Full Course Package
         </h3>
 
         {/* Description */}
-        <p className="text-[9px] text-muted-foreground mb-2 leading-tight flex-1">
+        <p className="text-[12px] font-medium text-muted-foreground mb-2 leading-tight flex-1">
           Register for our full course with twelve months support
         </p>
+
+          <div className="flex items-center gap-1 mb-4">
+<p className="text-base text-muted-foreground leading-tight flex-1">
+  A complete career bundle covering Cybersecurity, Data Analysis, Digital Marketing, AML/KYC Compliance, and Software Testing — with live sessions and 12 months of support.
+</p>
+            
+            </div>
 
         {/* CTA Button */}
         <RegistrationDialog />

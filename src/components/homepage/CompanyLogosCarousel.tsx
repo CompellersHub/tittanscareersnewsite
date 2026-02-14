@@ -62,8 +62,8 @@ export function CompanyLogosCarousel() {
       
       <div className="container relative z-10">
         <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-block mb-6 px-4 py-2 bg-gold/10 rounded-full border border-gold/30">
-            <span className="text-gold font-bold text-sm tracking-wide uppercase">
+          <div className="inline-block  mb-6 px-4 py-2 bg-primary/10 rounded-full border border-primary/30">
+            <span className="text-[#00B6F4] font-bold text-sm tracking-wide uppercase">
               Our Alumni Work At
             </span>
           </div>
