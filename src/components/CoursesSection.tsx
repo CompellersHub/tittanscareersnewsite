@@ -290,7 +290,7 @@ type CarouselItem = CourseItem | PaymentItem;
 const courses: CourseItem[] = [
   {
     title: "AML/KYC Compliance",
-    description: "Master anti-money laundering and know-your-customer regulations.",
+    description: "Build a career in financial compliance and risk management. This course teaches Anti-Money Laundering (AML), Know Your Customer (KYC) procedures, fraud detection, and regulatory frameworks used in banks and fintech companies.",
     date: "Every Friday",
     time: "7:00 PM UK",
     image: amlKycImage,
@@ -300,7 +300,7 @@ const courses: CourseItem[] = [
   },
   {
     title: "Cybersecurity",
-    description: "Protect digital assets and infrastructure with security best practices.",
+    description: "Protect systems, networks, and data from cyber threats. This course introduces ethical hacking, network security, risk management, and the tools needed to start a career in cybersecurity.",
     date: "Feb 12, 2026",
     time: "7:00 PM UK",
     image: cybersecurityImage,
@@ -309,7 +309,7 @@ const courses: CourseItem[] = [
   },
   {
     title: "Data Analysis",
-    description: "Transform raw data into actionable insights with Excel, SQL, Python.",
+    description: "Master the skills to turn data into insights. In this live training, you’ll learn Excel, SQL, data visualization, and how to analysis business data to support smart decision-making.",
     date: "Every Thursday",
     time: "7:00 PM UK",
     image: dataAnalysisImage,
@@ -319,7 +319,7 @@ const courses: CourseItem[] = [
   },
   {
     title: "Digital Marketing",
-    description: "Master SEO, social media marketing, and growth hacking strategies.",
+    description: "Learn how to grow businesses online using social media, content marketing, SEO, and paid ads. This practical live class shows you how to attract customers, increase visibility, and generate sales digitally.",
     date: "Every Saturday",
     time: "7:00 PM UK",
     image: digitalMarketingImage,
@@ -329,7 +329,7 @@ const courses: CourseItem[] = [
   },
   {
     title: "Software Testing",
-    description: "Ensure software quality with manual and automated testing.",
+    description: "Learn how to identify bugs, test applications, and ensure software quality like a professional QA tester. This live class covers manual testing, test cases, automation basics, and real-world tools used in today’s tech industry.",
     date: "Feb 20, 2026",
     time: "7:00 PM UK",
     image: softwareTestingImage,
@@ -424,8 +424,8 @@ export default function CoursesSection() {
                 flex-[0_0_100%]      pl-2 sm:pl-3 lg:pl-4
                 sm:flex-[0_0_50%] 
                 lg:flex-[0_0_33.333%] 
-                xl:flex-[0_0_25%]     /* 4 cards visible on xl screens */
-              "
+                "
+                // xl:flex-[0_0_25%]     /* 4 cards visible on xl screens */
             >
               {isPaymentItem(item) ? (
                 <PaymentCard />

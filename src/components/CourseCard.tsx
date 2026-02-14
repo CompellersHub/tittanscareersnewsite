@@ -1,5 +1,6 @@
 import { Video, GraduationCap } from "lucide-react";
 import LiveIndicator from "./LiveIndicator";
+import { useState } from "react";
 
 interface CourseCardProps {
   title: string;
@@ -19,18 +20,22 @@ const CourseCard = ({
   image,
   isLive,
   slogan,
-  liveLink
+  liveLink,
+  description
 }: CourseCardProps) => {
+
+  const [expanded, setExpanded] = useState(false);
+
+
   return (
     <div className="group card-gradient rounded-lg overflow-hidden border border-border/50 card-hover flex flex-col">
       {/* Image Section */}
-      <div className="relative h-16 sm:h-20 overflow-hidden">
+      <div className="relative h-16 sm:h-20 md:h-40 overflow-hidden">
         <img
           src={image}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
 
         {/* Live Indicator */}
         <div className="absolute top-1.5 left-1.5">
@@ -70,6 +75,29 @@ const CourseCard = ({
             <span className="font-medium text-foreground">UK</span>
           </div>
         </div>
+
+          <div className="mb-6 flex-grow">
+  <p
+    className={`font-sans text-base py-4 leading-relaxed text-muted-foreground transition-all duration-300 ${
+      expanded ? "" : "line-clamp-3"
+    }`}
+  >
+    {description}
+  </p>
+
+  {description?.length > 120 && (
+    <button
+      type="button"
+      onClick={() => setExpanded((prev) => !prev)}
+      className="mt-2 text-sm font-semibold text-[#00B6F4] hover:underline"
+    >
+      {expanded ? "Read less" : "Read more"}
+    </button>
+  )}
+</div>
+
+
+           
 
         {/* CTA Button */}
         <button className="w-full py-1.5 px-3 rounded-md bg-accent/10 text-accent font-semibold text-[10px] hover:bg-accent hover:text-accent-foreground transition-all duration-300 border border-accent/20 hover:border-accent">

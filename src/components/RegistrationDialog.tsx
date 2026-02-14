@@ -29,7 +29,8 @@ import {
   Megaphone,
   Building2,
   Copy,
-  Check
+  Check,
+  ExternalLink
 } from "lucide-react";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
@@ -100,6 +101,9 @@ const RegistrationDialog = () => {
     phone: "",
     voucherCode: "",
   });
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+    const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
+    const [agreedToRefund, setAgreedToRefund] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -364,10 +368,72 @@ const RegistrationDialog = () => {
               </div>
             </div>
 
+             {/* Legal Agreements */}
+                        <div className="space-y-4 p-6 bg-gradient-to-br from-muted/30 to-secondary/20 rounded-xl border-2 border-accent/20">
+                          <h3 className="font-bold text-lg text-foreground mb-4">Before You Continue</h3>
+                          
+                          <div className="flex items-start gap-3">
+                            <Checkbox
+                              id="terms"
+                              checked={agreedToTerms}
+                              onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                            />
+                            <label htmlFor="terms" className="text-sm font-medium leading-relaxed cursor-pointer">
+                              I agree to the{' '}
+                              <a 
+                                href="/terms-conditions" 
+                                target="_blank" 
+                                className="text-accent hover:text-gold underline font-semibold inline-flex items-center gap-1"
+                              >
+                                Terms & Conditions
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </label>
+                          </div>
+            
+                          <div className="flex items-start gap-3">
+                            <Checkbox
+                              id="privacy"
+                              checked={agreedToPrivacy}
+                              onCheckedChange={(checked) => setAgreedToPrivacy(checked as boolean)}
+                            />
+                            <label htmlFor="privacy" className="text-sm font-medium leading-relaxed cursor-pointer">
+                              I have read and agree to the{' '}
+                              <a 
+                                href="/privacy-policy" 
+                                target="_blank" 
+                                className="text-accent hover:text-gold underline font-semibold inline-flex items-center gap-1"
+                              >
+                                Privacy Policy
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </label>
+                          </div>
+            
+                          <div className="flex items-start gap-3">
+                            <Checkbox
+                              id="refund"
+                              checked={agreedToRefund}
+                              onCheckedChange={(checked) => setAgreedToRefund(checked as boolean)}
+                            />
+                            <label htmlFor="refund" className="text-sm font-medium leading-relaxed cursor-pointer">
+                              I understand the{' '}
+                              <a 
+                                href="/refund-policy" 
+                                target="_blank" 
+                                className="text-accent hover:text-gold underline font-semibold inline-flex items-center gap-1"
+                              >
+                                Refund Policy
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </label>
+                          </div>
+                        </div>
+
             <Button
               type="submit"
               className="w-full bg-primary hover:bg-primary/90 text-accent-foreground font-semibold"
-              disabled={!selectedCourse || !formData.fullName || !formData.email}
+              disabled={!selectedCourse || !formData.fullName || !formData.email || !agreedToTerms || !agreedToPrivacy || !agreedToRefund || loading}
             >
               Proceed to Payment
             </Button>
