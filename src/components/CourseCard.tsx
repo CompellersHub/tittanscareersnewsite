@@ -78,7 +78,7 @@ const CourseCard = ({
 
           <div className="mb-6 flex-grow">
   <p
-    className={`font-sans text-base py-4 leading-relaxed text-muted-foreground transition-all duration-300 ${
+    className={`font-sans text-base py-4 leading-relaxed !text-primary transition-all duration-300 ${
       expanded ? "" : "line-clamp-3"
     }`}
   >
