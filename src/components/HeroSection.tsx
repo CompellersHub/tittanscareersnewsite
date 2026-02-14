@@ -9,8 +9,8 @@ const HeroSection = () => {
     <div className="text-center mb-4">
       {/* Badge */}
       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-3">
-        <GraduationCap className="w-3.5 h-3.5 text-accent" />
-        <span className="text-xs font-medium text-accent">Live Interactive Classes</span>
+        <GraduationCap className="w-3.5 h-3.5 text-primary" />
+        <span className="text-xs font-medium text-primary">Live Interactive Classes</span>
       </div>
 
       {/* Main Heading */}
@@ -21,7 +21,7 @@ const HeroSection = () => {
       </h1>
 
       {/* Subtitle */}
-      <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto mb-4">
+      <p className="text-sm sm:text-base text-primary max-w-xl mx-auto mb-4">
         Join expert-led live classes and gain practical skills in cybersecurity, 
         data analysis, compliance, and more.
       </p>

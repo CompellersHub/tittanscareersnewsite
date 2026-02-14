@@ -34,7 +34,7 @@ const PaymentCard = () => {
         </p>
 
           <div className="flex items-center gap-1 mb-4">
-<p className="text-base text-muted-foreground leading-tight flex-1">
+<p className="text-base text-primary leading-tight flex-1">
   A complete career bundle covering Cybersecurity, Data Analysis, Digital Marketing, AML/KYC Compliance, and Software Testing — with live sessions and 12 months of support.
 </p>
             
