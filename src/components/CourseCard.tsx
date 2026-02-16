@@ -101,10 +101,10 @@ const CourseCard = ({
 
         {/* CTA Button */}
         <button onClick={ ()=> window.open(liveLink, "_blank",
-          "noopener,noreferrer" )} className="w-full py-1.5 px-3 rounded-md bg-accent/10 text-accent font-semibold text-[10px] hover:bg-accent hover:text-accent-foreground transition-all duration-300 border border-accent/20 hover:border-accent">
-          {isLive ? " Join Live" : "coming soon"}
-        
+          "noopener,noreferrer" )} className="new-design w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-[10px] hover:bg-accent/90 transition-all duration-300 border border-accent">
+           {isLive ? " Join Live" : "coming soon"}
         </button>
+       
 
         {/* Mini Footer with Slogan */}
         <div className="flex items-center justify-center gap-1 mt-2 pt-2 border-t border-accent/20">
