@@ -108,6 +108,17 @@ export const Navbar = () => {
                     </div>
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link 
+                    to="/free-classes" 
+                    className="flex items-center gap-3 px-4 py-3 cursor-pointer transition-all rounded-lg hover:bg-accent/10 focus:bg-accent/10"
+                  >
+                    <BookOpen className="w-5 h-5 text-accent" />
+                    <div className="flex flex-col">
+                      <span className="font-sans font-semibold text-card-foreground">Free Classes</span>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
                 
                 {/* <DropdownMenuItem asChild>
                   <a 
@@ -239,6 +250,9 @@ export const Navbar = () => {
             </Link>
             <Link to="/about" className="block text-primary-foreground hover:text-accent transition-colors font-sans font-semibold text-base py-2">
               About Us
+            </Link>
+            <Link to="/free-classes" className="block text-primary-foreground hover:text-accent transition-colors font-sans font-semibold text-base py-2">
+              Free Classes
             </Link>
             
             
