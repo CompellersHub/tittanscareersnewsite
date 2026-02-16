@@ -50,7 +50,7 @@ const CountdownTimer = ({ targetDate, label = "Next Live Class Starts In" }: Cou
           <div key={unit.label} className="flex items-center gap-2">
             <div className="flex flex-col items-center">
               <div className="bg-accent/10 border border-accent/20 rounded-lg px-3 py-2 min-w-[48px]">
-                <span className="text-xl sm:text-2xl font-bold text-accent font-display">
+                <span className="text-xl sm:text-2xl font-bold text-primary font-display">
                   {String(unit.value).padStart(2, "0")}
                 </span>
               </div>
