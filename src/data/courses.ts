@@ -1214,7 +1214,7 @@ export const courses: Record<string, Course> = {
   },
   'data-privacy': {
     slug: 'data-privacy',
-    title: 'Data Privacy & GDPR Compliance',
+    title: 'Data Privacy',
     tagline: 'Become a data privacy expert and protect organizations from regulatory risks',
     badge: 'Privacy Compliance',
     category: 'compliance',

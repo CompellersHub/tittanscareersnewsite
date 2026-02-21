@@ -164,7 +164,6 @@ const RegistrationDialog = () => {
           },
         )
 
-        console.log("Payment response:", response);
         if (response.data && response.data.url) {
           window.location.href = response.data.url;
           alert(
@@ -176,7 +175,6 @@ const RegistrationDialog = () => {
         }
        
     } catch (error) {
-      console.error("Payment error:", error);
       alert("An error occurred during payment. Please try again.");
     }finally {
       setLoading(false);
