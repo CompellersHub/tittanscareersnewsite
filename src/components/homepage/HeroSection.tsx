@@ -2,12 +2,14 @@ import { Star, Sparkles, Award, Target, Users, TrendingUp, CheckCircle2 } from "
 import { FreeSessionBookingDialog } from "@/components/FreeSessionBookingDialog";
 import { VideoBackground } from "@/components/video/VideoBackground";
 
+
+
 export const HeroSection = () => {
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex items-center">
       {/* Video Background */}
       <VideoBackground 
-        videoUrl="/videos/video3.mp4"
+        videoUrl={`https://res.cloudinary.com/djol7dcjq/video/upload/v1771797494/video3_dsayns.mp4`}
         overlay={true}
         overlayOpacity={0.6}
       />

@@ -154,10 +154,11 @@ const Index = () => {
 
         </section> */}
 
+
         <section className="py-20">
             <div className="aspect-video rounded-none overflow-hidden shadow-2xl">
               <OptimizedVideo
-                src="/videos/video1"
+                src={`https://res.cloudinary.com/djol7dcjq/video/upload/v1771797483/video1_epncih.mp4`}
                 poster="/images/video-poster.jpg"
                 className="w-full h-full object-cover"
               />
