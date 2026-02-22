@@ -6,13 +6,6 @@ import { FreeSessionBookingDialog } from "@/components/FreeSessionBookingDialog"
 import { Link } from "react-router-dom";
 import { Clock, Calendar } from "lucide-react";
 import { CourseHeroImage } from "./CourseHeroImage";
-import amlKycHero from "@/assets/courses/aml-kyc-hero.jpg";
-import cryptoComplianceHero from "@/assets/courses/crypto-compliance-hero.jpg";
-import dataPrivacyHero from "@/assets/courses/data-privacy-hero.jpg";
-import dataAnalysisHero from "@/assets/courses/data-analysis-hero.jpg";
-import cybersecurityHero from "@/assets/courses/cybersecurity-hero.jpg";
-import businessAnalysisHero from "@/assets/courses/business-analysis-hero.jpg";
-import digitalMarketingHero from "@/assets/courses/digital-marketing-hero.jpg";
 import { useState } from "react";
 
 interface CourseProps {
@@ -55,15 +48,15 @@ export function CourseCard({ course }: CourseCardProps) {
 
   const getCourseImage = (slug: string) => {
     const images: Record<string, string> = {
-      'aml-kyc': amlKycHero,
-      'crypto-compliance': cryptoComplianceHero,
-      'data-privacy': dataPrivacyHero,
-      'data-analysis': dataAnalysisHero,
-      'cybersecurity': cybersecurityHero,
-      'business-analysis': businessAnalysisHero,
-      'digital-marketing': digitalMarketingHero,
+      'aml-kyc': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798510/aml-kyc-hero_xaphnj.jpg`,
+      'crypto-compliance': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798515/crypto-compliance-hero_guf7xi.jpg`,
+      'data-privacy': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798522/data-privacy-hero_maha35.jpg`,
+      'data-analysis': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798520/data-analysis-hero_uv2ur1.jpg`,
+      'cybersecurity': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798518/cybersecurity-hero_kzgkqr.jpg`,
+      'business-analysis': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798514/business-analysis-hero_o2ycob.jpg`,
+      'digital-marketing': `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798508/digital-marketing-hero_slvd2h.jpg`,
     };
-    return images[slug] || dataAnalysisHero;
+    return images[slug] || `https://res.cloudinary.com/djol7dcjq/image/upload/v1771798520/data-analysis-hero_uv2ur1.jpg`;
   };
 
   

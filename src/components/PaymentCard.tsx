@@ -1,6 +1,6 @@
 import { GraduationCap, BookOpen, Award } from "lucide-react";
 import RegistrationDialog from "./RegistrationDialog";
-import fullCourseIllustration from "@/assets/full-course-illustration.png";
+
 
 const PaymentCard = () => {
   return (
@@ -8,7 +8,7 @@ const PaymentCard = () => {
       {/* Image Section */}
       <div className="relative h-16 sm:h-20 md:h-40 overflow-hidden">
         <img
-          src={fullCourseIllustration}
+          src={`https://res.cloudinary.com/djol7dcjq/image/upload/v1771796233/292d4801-8cd7-4909-a57e-e8198c1b5240.png`}
           alt="Full Course Package"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />

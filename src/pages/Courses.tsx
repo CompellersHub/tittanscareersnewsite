@@ -122,7 +122,7 @@ export default function Courses() {
       <PageLayout intensity3D="subtle" show3D={true}>
           <div className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
             <VideoBackground
-              videoUrl="/videos/video2.mp4"
+              videoUrl={`https://res.cloudinary.com/djol7dcjq/video/upload/v1771797484/video2_ts5arl.mp4`}
               overlay={true}
               overlayOpacity={0.6}
             />
