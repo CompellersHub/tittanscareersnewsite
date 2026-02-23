@@ -18,7 +18,7 @@ const FreeClass = () => {
       <Header />
 
       <div className="relative z-10 flex flex-col flex-1 px-4 py-4 sm:py-6">
-        <div className="container mx-auto flex flex-col h-full max-w-6xl">
+        <div className="container mx-auto flex flex-col h-full">
           <HeroSection />
           <div className="flex-1 flex items-center">
             <div className="w-full">

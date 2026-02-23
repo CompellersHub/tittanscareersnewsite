@@ -992,7 +992,7 @@ export const ContactChatbot = () => {
                       ))}
                     </div>
                   )}
-                  <p className="text-sm whitespace-pre-wrap">
+                  <p className={`text-sm whitespace-pre-wrap ${message.role === 'user' ? 'text-white' : 'text-primary'}`}>
                     {searchQuery.trim() ? highlightText(message.content, searchQuery) : message.content}
                   </p>
                 </div>

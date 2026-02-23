@@ -130,7 +130,7 @@ export default function Courses() {
               <h1 className="font-kanit text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary leading-tight drop-shadow-lg">
                 Professional Courses
               </h1>
-              <p className="font-sans text-lg md:text-xl text-primary leading-relaxed drop-shadow-md">
+              <p className="font-sans font-bold text-lg md:text-xl text-primary leading-relaxed drop-shadow-md">
                 Transform your career with industry-leading training programs
                 designed by experts
               </p>
