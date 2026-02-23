@@ -1381,7 +1381,7 @@ export const courses: Record<string, Course> = {
   },
   'software-testing': {
     slug: 'software-testing',
-    title: 'Software Testing & QA Fundamentals',
+    title: 'Software Testing',
     tagline: 'Become a data privacy expert and protect organizations from regulatory risks',
     badge: 'Software Skill',
     category: 'software-testing',

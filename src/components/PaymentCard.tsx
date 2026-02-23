@@ -1,10 +1,13 @@
 import { GraduationCap, BookOpen, Award } from "lucide-react";
 import RegistrationDialog from "./RegistrationDialog";
+import { Card } from "./ui/card";
 
 
 const PaymentCard = () => {
   return (
-    <div className="group card-gradient rounded-lg overflow-hidden border border-accent/30 card-hover bg-gradient-to-br from-accent/10 to-accent/5 flex flex-col">
+        <Card className="group hover-lift rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-border/50 shadow-[0_4px_16px_-4px_hsl(213_69%_13%/0.08)] hover:shadow-[0_12px_32px_-8px_hsl(213_69%_13%/0.15)] hover:border-accent/30 bg-card flex flex-col h-full relative overflow-hidden transition-all duration-400 ease-out">
+
+    <div className="group card-gradient rounded-lg overflow-hidden  card-hover  flex flex-col">
       {/* Image Section */}
       <div className="relative h-16 sm:h-20 md:h-40 overflow-hidden">
         <img
@@ -56,6 +59,7 @@ const PaymentCard = () => {
         </div>
       </div>
     </div>
+    </Card>
   );
 };
 

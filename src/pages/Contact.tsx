@@ -18,6 +18,7 @@ import { usePullToRefresh } from "@/hooks/usePullToRefresh";
 import { useState, useEffect } from "react";
 import { SEO } from "@/components/SEO";
 import { ErrorBoundary } from "@/components/error/ErrorBoundary";
+import ChatbotWidget from "@/components/ChatbotWidget";
 
 
 const Contact = () => {
@@ -455,7 +456,9 @@ const Contact = () => {
         </div>
       </section>
 
-      <ContactChatbot />
+        <ChatbotWidget />        
+
+      {/* <ContactChatbot /> */}
       <MobileContactBar />
       <FeedbackWidget />
       <SocialProofNotifications />

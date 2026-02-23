@@ -115,7 +115,9 @@ export function UpcomingEvents() {
                     
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Clock className="h-4 w-4 text-[#00B6F4]" />
-                      <span>{(event.metadata as any)?.duration_weeks || 8} weeks • {(event.metadata as any)?.session_time || "Evening session"}</span>
+                      <span>{(event.metadata as any)?.duration_weeks || 8} weeks 
+                        {/* • {(event.metadata as any)?.session_time || "Evening session"} */}
+                        </span>
                     </div>
                   </div>
 
