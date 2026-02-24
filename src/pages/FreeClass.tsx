@@ -5,9 +5,9 @@ import { PageLayout } from "@/components/layouts/PageLayout";
 
 const FreeClass = () => {
   return (
-        <PageLayout intensity3D="medium" show3D={true}>
+        <PageLayout intensity3D="medium" show3D={true} >
     
-    <main className="h-screen pt-20 newdesign bg-background hero-gradient overflow-hidden flex flex-col">
+    <main className="hscreen pt-20  newdesign bg-background hero-gradient overflow-hidden flex flex-col">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
@@ -18,7 +18,7 @@ const FreeClass = () => {
       <Header />
 
       <div className="relative z-10 flex flex-col flex-1 px-4 py-4 sm:py-6">
-        <div className="container mx-auto flex flex-col h-full">
+        <div className="container my-12 mx-auto flex flex-col h-full">
           <HeroSection />
           <div className="flex-1 flex items-center">
             <div className="w-full">
