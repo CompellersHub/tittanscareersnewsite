@@ -212,9 +212,9 @@ const RegistrationDialog = () => {
   return (
     <Dialog onOpenChange={(open) => !open && resetForm()}>
       <DialogTrigger asChild>
-        <button className="new-design w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-[10px] hover:bg-accent/90 transition-all duration-300 border border-accent">
+        <Button className="new-design w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-lg hover:bg-accent/90 transition-all duration-300 border border-accent">
           Enroll Now
-        </button>
+        </Button>
       </DialogTrigger>
       <DialogContent className="newdesign max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-background via-background to-accent/5 border-accent/20">
         <DialogHeader className="text-center pb-2">

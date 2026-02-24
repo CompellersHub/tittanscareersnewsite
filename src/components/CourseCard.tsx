@@ -2,6 +2,7 @@ import { Video, GraduationCap } from "lucide-react";
 import LiveIndicator from "./LiveIndicator";
 import { useState } from "react";
 import { Card } from "./ui/card";
+import { Button } from "./ui/button";
 
 interface CourseCardProps {
   title: string;
@@ -59,7 +60,7 @@ const CourseCard = ({
 
       {/* Content Section */}
       <div className="p-2 flex flex-col flex-1">
-        <h3 className="font-display text-xs font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 truncate">
+        <h3 className="font-display text-2xl font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 truncate">
           {title}
         </h3>
 
@@ -71,11 +72,11 @@ const CourseCard = ({
               {date.split(" ").slice(1).join(" ")}
             </span>
           </div>
-          <div className="flex flex-col text-[10px] text-muted-foreground leading-tight text-right">
+          <div className="flex flex-col font-semibold text-[10px] text-muted-foreground leading-tight text-right">
             <span>
               {time.split(" ")[0]} {time.split(" ")[1]}
             </span>
-            <span className="font-medium text-foreground">UK</span>
+            <span className="font-semibold text-foreground">UK</span>
           </div>
         </div>
 
@@ -103,16 +104,16 @@ const CourseCard = ({
            
 
         {/* CTA Button */}
-        <button onClick={ ()=> window.open(liveLink, "_blank",
-          "noopener,noreferrer" )} className="new-design w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-[10px] hover:bg-accent/90 transition-all duration-300 border border-accent">
+        <Button onClick={ ()=> window.open(liveLink, "_blank",
+          "noopener,noreferrer" )} className="new-design w-full py-1.5 px-3 rounded-md bg-accent text-accent-foreground font-semibold text-lg hover:bg-accent/90 transition-all duration-300 border border-accent">
            {isLive ? " Join Live" : "coming soon"}
-        </button>
+        </Button>
        
 
         {/* Mini Footer with Slogan */}
         <div className="flex items-center justify-center gap-1 mt-2 pt-2 border-t border-accent/20">
-          <GraduationCap className="w-2.5 h-2.5 text-accent" />
-          <span className="text-[7px] text-muted-foreground italic text-center leading-tight">
+          <GraduationCap className="w-4 h-4 text-accent" />
+          <span className="text-base text-muted-foreground italic text-center leading-tight">
             {slogan}
           </span>
         </div>

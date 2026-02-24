@@ -27,16 +27,16 @@ const PaymentCard = () => {
 
       {/* Content Section */}
       <div className="p-2 flex flex-col flex-1">
-        <h3 className="font-display text-sm font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 leading-tight">
+        <h3 className="font-display text-2xl font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 leading-tight">
           Full Course Package
         </h3>
 
         {/* Description */}
-        <p className="text-[12px] font-medium text-muted-foreground mb-2 leading-tight flex-1">
+        <p className="text-base font-semibold text-muted-foreground mb-2 leading-tight flex-1">
           Register for our full course with twelve months support
         </p>
 
-          <div className="flex items-center gap-1 mb-4">
+          <div className="flex  mt-4 items-center gap-1 mb-4">
 <p className="text-base text-primary leading-tight flex-1">
   A complete career bundle covering Cybersecurity, Data Analysis, Digital Marketing, AML/KYC Compliance, and Software Testing — with live sessions and 12 months of support.
 </p>
@@ -49,12 +49,12 @@ const PaymentCard = () => {
         {/* Bottom Icons */}
         <div className="flex items-center justify-center gap-2 mt-2 pt-2 border-t border-accent/20">
           <div className="flex items-center gap-1">
-            <GraduationCap className="w-3 h-3 text-accent" />
-            <span className="text-[8px] text-muted-foreground">7 Courses</span>
+            <GraduationCap className="w-4 h-4 text-accent" />
+            <span className="text-base text-muted-foreground">7 Courses</span>
           </div>
           <div className="flex items-center gap-1">
-            <BookOpen className="w-3 h-3 text-accent" />
-            <span className="text-[8px] text-muted-foreground">12 Months</span>
+            <BookOpen className="w-4 h-4 text-accent" />
+            <span className="text-base text-muted-foreground">12 Months</span>
           </div>
         </div>
       </div>
