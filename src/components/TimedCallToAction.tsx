@@ -17,14 +17,14 @@ export const TimedCallToAction = () => {
       return;
     }
 
-    // Show first dialog (Book Free Session) after 10 seconds
+    // Show first dialog (Book Free Session) after 30 seconds
     const bookingTimer = setTimeout(() => {
       if (!hasShown) {
         setShowBookingDialog(true);
         setHasShown(true);
         sessionStorage.setItem("cta_dialogs_shown", "true");
       }
-    }, 10000);
+    }, 30000);
 
     return () => clearTimeout(bookingTimer);
   }, [hasShown]);
@@ -35,7 +35,7 @@ export const TimedCallToAction = () => {
     // Show second dialog (Join Free Session) 3 seconds after closing the first
     setTimeout(() => {
       setShowJoinDialog(true);
-    }, 3000);
+    }, 5000);
   };
 
   return (
