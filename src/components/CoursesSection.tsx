@@ -277,6 +277,7 @@ interface CourseItem {
   isLive: boolean;
   slogan: string;
   liveLink?: string;
+  category: string;
 }
 
 // Special marker for the payment card slot
@@ -292,8 +293,10 @@ const courses: CourseItem[] = [
     title: "AML/KYC Compliance",
     description: "Build a career in financial compliance and risk management. This course teaches Anti-Money Laundering (AML), Know Your Customer (KYC) procedures, fraud detection, and regulatory frameworks used in banks and fintech companies.",
     date: "Every Friday",
+    category: 'compliance',
     time: "7:00 PM UK",
-    image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1771959051/72673296-b496-4505-aa8c-6e57fd56be3f.png`,
+    // image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1771959051/72673296-b496-4505-aa8c-6e57fd56be3f.png`,
+    image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1774367598/12cebe81-8a25-4e07-872e-ed7792da7b12.png`,
     isLive: true,
     slogan: "Stay Compliant, Stay Secure",
     liveLink: "https://res.cloudinary.com/djol7dcjq/image/upload/v1771796074/941fffa9-cc1c-496a-8522-50d85d90b866.png",
@@ -302,6 +305,7 @@ const courses: CourseItem[] = [
     title: "Cybersecurity",
     description: "Protect systems, networks, and data from cyber threats. This course introduces ethical hacking, network security, risk management, and the tools needed to start a career in cybersecurity.",
     date: "Feb 12, 2026",
+    category: 'cybersecurity',
     time: "7:00 PM UK",
     image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1771796156/89fd6d59-9869-4335-b269-fc216c49339a.png`,
     isLive: false,
@@ -311,6 +315,7 @@ const courses: CourseItem[] = [
     title: "Data Analysis",
     description: "Master the skills to turn data into insights. In this live training, you’ll learn Excel, SQL, data visualization, and how to analysis business data to support smart decision-making.",
     date: "Every Thursday",
+    category: 'data',
     time: "7:00 PM UK",
     image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1771959025/adacf7f2-f1f3-42e5-b395-13b2bb234b0f.png`,
     isLive: true,
@@ -319,6 +324,7 @@ const courses: CourseItem[] = [
   },
   {
     title: "Digital Marketing",
+    category: 'marketing',
     description: "Learn how to grow businesses online using social media, content marketing, SEO, and paid ads. This practical live class shows you how to attract customers, increase visibility, and generate sales digitally.",
     date: "Every Saturday",
     time: "7:00 PM UK",
@@ -329,6 +335,7 @@ const courses: CourseItem[] = [
   },
   {
     title: "Software Testing",
+    category: 'software-testing',
     description: "Learn how to identify bugs, test applications, and ensure software quality like a professional QA tester. This live class covers manual testing, test cases, automation basics, and real-world tools used in today’s tech industry.",
     date: "Feb 20, 2026",
     time: "7:00 PM UK",

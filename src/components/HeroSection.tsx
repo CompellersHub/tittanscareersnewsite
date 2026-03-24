@@ -27,7 +27,7 @@ const HeroSection = () => {
       </p>
 
       {/* Countdown Timer */}
-      <CountdownTimer targetDate={nextLiveClassDate} />
+      {/* <CountdownTimer targetDate={nextLiveClassDate} /> */}
     </div>
   );
 };

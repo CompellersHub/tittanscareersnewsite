@@ -3,6 +3,7 @@ import LiveIndicator from "./LiveIndicator";
 import { useState } from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 
 interface CourseCardProps {
   title: string;
@@ -13,6 +14,7 @@ interface CourseCardProps {
   isLive: boolean;
   slogan: string;
   liveLink?: string;
+  category: string;
 }
 
 const CourseCard = ({
@@ -23,7 +25,8 @@ const CourseCard = ({
   isLive,
   slogan,
   liveLink,
-  description
+  description,
+  category
 }: CourseCardProps) => {
 
   const [expanded, setExpanded] = useState(false);
@@ -60,6 +63,9 @@ const CourseCard = ({
 
       {/* Content Section */}
       <div className="p-2 flex flex-col flex-1">
+          <Badge className={`mb-4 w-fit font-sans bg-[#00B6F4] font-semibold text-xs tracking-wider uppercase transition-all duration-300 group-hover:shadow-[0_0_16px_hsl(43_100%_50%/0.3)] `}>
+                  {category}
+                </Badge>
         <h3 className="font-display text-2xl font-bold text-foreground mb-1.5 group-hover:text-accent transition-colors duration-300 truncate">
           {title}
         </h3>
