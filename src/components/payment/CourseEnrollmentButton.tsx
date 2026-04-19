@@ -145,23 +145,34 @@ export function CourseEnrollmentButton({
     window.location.href = `/payment-status?ref=${data.reference}`;
   };
 
-  const handlePayl8r = async (email: string, name: string) => {
-    const { data, error } = await supabase.functions.invoke('create-payl8r-application', {
-      body: {
-        courseSlug,
-        courseTitle,
-        price: finalPrice,
-        voucherCode,
-        email,
-        name
-      }
+  // const handlePayl8r = async (email: string, name: string) => {
+  //   const { data, error } = await supabase.functions.invoke('create-payl8r-application', {
+  //     body: {
+  //       courseSlug,
+  //       courseTitle,
+  //       price: finalPrice,
+  //       voucherCode,
+  //       email,
+  //       name
+  //     }
+  //   });
+
+  //   if (error) throw error;
+  //   if (!data?.applicationUrl) throw new Error('No Payl8r application URL received');
+
+  //   // Direct navigation to Payl8r
+  //   openExternal(data.applicationUrl);
+  // };
+
+  const handlePayl8r = async (_email: string, _name: string) => {
+    // Payl8r is informational only - show contact message
+    setDialogOpen(false);
+    setIsProcessing(false);
+
+    toast({
+      title: 'Pay Later - Finance Option',
+      description: 'To apply for our flexible payment plan, please contact us at info@titanscareers.com and we\'ll guide you through the process.',
     });
-
-    if (error) throw error;
-    if (!data?.applicationUrl) throw new Error('No Payl8r application URL received');
-
-    // Direct navigation to Payl8r
-    openExternal(data.applicationUrl);
   };
 
   return (

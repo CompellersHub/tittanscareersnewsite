@@ -176,8 +176,8 @@ export const paymentMethods: PaymentMethodOption[] = [
       'Flexible 3-12 month terms',
       'Quick online application'
     ],
-    processingTime: 'Contact for details',
-    disclaimer: 'TITANS CAREERS LIMITED is an Introducer Appointed Representative of Social Money Limited t/a PayL8r who is authorised by the FCA under Ref Number 675283. Credit is subject to creditworthiness and affordability assessments. Missed payments may affect your credit file, future borrowing and incur fees.',
+   processingTime: 'Contact for details',
+    disclaimer: 'Finance is subject to status. Contact info@titanscareers.com for financing inquiries. Representative APR varies.',
     monthlyFrom: 'From £42/month'
   }
 ];
