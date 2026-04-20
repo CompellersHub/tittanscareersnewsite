@@ -29,7 +29,7 @@ jobs:
         run: npm run build
   
       - name: Zip Build
-        run: zip -r dist.zip dist
+        run: cd dist && zip -r ../dist.zip *
 
       - name: Copying Build to server
         uses: appleboy/scp-action@v1
@@ -51,9 +51,8 @@ jobs:
           script: |
             set -e
             # The Frontend Updates
-            if [[ -d /app/dist ]]; then rm -r /app/dist ; fi;
-            unzip /app/dist.zip -d /app
-            rm -r /app/dist.zip
-            chmod -R 755 /app/dist
+            if [[ -d /app/web/titanscareers.com ]]; then rm -r /app/web/titanscareers.com ; fi;
+            unzip /app/dist.zip -d /app/web/titanscareers.com
+            rm /app/dist.zip
+            chmod -R 755 /app/web/titanscareers.com
             sudo systemctl restart nginx
-            
