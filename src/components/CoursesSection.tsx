@@ -304,7 +304,7 @@ const courses: CourseItem[] = [
   {
     title: "Cybersecurity",
     description: "Protect systems, networks, and data from cyber threats. This course introduces ethical hacking, network security, risk management, and the tools needed to start a career in cybersecurity.",
-    date: "Feb 12, 2026",
+    date: "Every Friday",
     category: 'cybersecurity',
     time: "7:00 PM UK",
     image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1771796156/89fd6d59-9869-4335-b269-fc216c49339a.png`,
@@ -337,7 +337,7 @@ const courses: CourseItem[] = [
     title: "Software Testing",
     category: 'software-testing',
     description: "Learn how to identify bugs, test applications, and ensure software quality like a professional QA tester. This live class covers manual testing, test cases, automation basics, and real-world tools used in today’s tech industry.",
-    date: "Feb 20, 2026",
+    date: "Every Friday",
     time: "7:00 PM UK",
     // image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1771959013/5f7149a4-90b2-47cf-a56b-ed6b5bfba9a9.png`,
     image: `https://res.cloudinary.com/djol7dcjq/image/upload/v1774454882/9aeb658d-4280-4023-9c7c-1e274f4dbd09.png`,

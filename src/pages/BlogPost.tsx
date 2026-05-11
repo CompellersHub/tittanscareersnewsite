@@ -164,8 +164,8 @@ const BlogPost = () => {
               <div className="flex flex-wrap items-center gap-6 text-sm font-sans pt-4">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-accent" />
-                  <time dateTime={singleBlogPost?.data?.publishedAt} className="text-primary-foreground/80">
-                    {formatDate(singleBlogPost?.data?.publishedAt)}
+                  <time dateTime={singleBlogPost?.data?.publishedAt || new Date().toISOString()} className="text-primary-foreground/80">
+                    {formatDate(singleBlogPost?.data?.publishedAt || new Date().toISOString())}
                   </time>
                 </div>
                 
