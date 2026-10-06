@@ -30,7 +30,7 @@ const faqs = [
     question: "Can I pay in installments?",
     answer: `Yes. We can introduce you to our finance partner, PayL8r, who offer flexible instalment plans (subject to status and affordability). Titans Careers does not provide credit – any finance agreement is directly between you and PayL8r.
 
-“TITANS CAREERS LIMITED is an Introducer Appointed Representative of Social Money Limited t/a Payl8r who is authorised by the FCA under Ref. Number 675283. Credit is subject to creditworthiness and affordability assessments. Missed payments may affect your credit file, future borrowing and incur fees. Representative Example: £440.00 over 12 months at 2.50% fixed per month. Rep APR 65.5%. Monthly: £47.67. Total repayable: £572.04.”`,
+“TITANS CAREERS LIMITED is an Introducer Appointed Representative of Social Money Limited t/a Payl8r who is authorised by the FCA under Ref. Number 675283. Credit is subject to creditworthiness and affordability assessments. Missed payments may affect your credit file, future borrowing and incur fees. Representative APR 65.5%.”`,
   },
   {
     question: "What if I can't attend a live session?",
